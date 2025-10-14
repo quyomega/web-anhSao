@@ -2,18 +2,22 @@
 
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f5f5f5;
+    background-color: white;
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 20px;
+    margin: 0;
 }
 
 /* Container chính */
 .login-container {
     width: 100%;
-    max-width: 400px;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 /* Card đăng nhập */
@@ -21,9 +25,10 @@ body {
     background: white;
     border-radius: 12px;
     padding: 40px 30px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 29%);
     width: 100%;
     animation: slideIn 0.5s ease-out;
+    margin-bottom: 80px;
 }
 
 /* Header với logo */
@@ -31,18 +36,47 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 40px;
+    margin-bottom: 16px;
 }
 
 .logo {
     margin-right: 15px;
 }
 
-.logo-image {
-    width: 250px;
-    height: 100px;
-    object-fit: contain;
-    display: block;
+.logo-circle {
+    width: 60px;
+    height: 60px;
+    background-color: #1e3a8a;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.logo-text {
+    color: #fbbf24;
+    font-weight: bold;
+    font-size: 18px;
+    z-index: 2;
+}
+
+.logo-orbit {
+    position: absolute;
+    width: 70px;
+    height: 35px;
+    border: 2px solid #dc2626;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.company-name {
+    font-size: 28px;
+    font-weight: bold;
+    color: #1e3a8a;
 }
 
 /* Form đăng nhập */
@@ -50,8 +84,28 @@ body {
     width: 100%;
 }
 
+.login-title {
+    color: var(--on-surface, #2E3747);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    align-self: stretch;    
+    font-size: 16px;
+    margin-bottom: 16px;
+}
+
 .input-group {
-    margin-bottom: 20px;
+    margin-bottom: 12px;
+}
+
+.input-label {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    align-self: stretch;
+    font-size: 14px;
 }
 
 .input-container {
@@ -59,21 +113,21 @@ body {
     display: flex;
     align-items: center;
     background: white;
-    border: 2px solid #e5e7eb;
+    border: 1px solid #d1d5db;
     border-radius: 8px;
-    padding: 0 15px;
+    padding: 0 16px;
     transition: border-color 0.3s ease;
 }
 
 .input-container:focus-within {
-    border-color: #0d9488;
+    border-color: #3b82f6;
 }
 
 .input-icon {
-    color: #6b7280;
+    color: #9ca3af;
     margin-right: 12px;
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
     flex-shrink: 0;
 }
 
@@ -91,36 +145,46 @@ body {
 }
 
 .toggle-password {
-    color: #6b7280;
+    color: #9ca3af;
     cursor: pointer;
-    width: 16px;
-    height: 16px;
-    padding: 5px;
+    width: 20px;
+    height: 20px;
     transition: color 0.3s ease;
     flex-shrink: 0;
+    pointer-events: auto;
+    user-select: none;
+    margin-left: 12px;
 }
 
 .toggle-password:hover {
+    color: #6b7280;
+}
+
+.toggle-password:active {
     color: #374151;
 }
 
+.forgot-password {
+    text-align: right;
+    margin-bottom: 16px;
+    color: #304FFD;
+    font-size: 14px;
+}
 /* Nút đăng nhập */
 .login-btn {
     width: 100%;
-    background: #0d9488;
+    background: #3b82f6;
     color: white;
     border: none;
     border-radius: 8px;
     padding: 15px;
     font-size: 16px;
-    font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin-top: 10px;
 }
 
 .login-btn:hover {
-    background: #0f766e;
+    background: #2563eb;
 }
 
 .login-btn:active {
@@ -130,6 +194,37 @@ body {
 .login-btn:disabled {
     opacity: 0.7;
     cursor: not-allowed;
+}
+
+/* Thông tin công ty */
+.company-info {
+    width: 100%;
+    text-align: left;
+}
+
+.company-name-info {
+    font-size: 16px;
+    color: black;
+    text-transform: uppercase;
+}
+
+.company-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: black;
+}
+
+.info-icon {
+    color: black;
+    flex-shrink: 0;
 }
 
 /* Error states */
@@ -207,12 +302,25 @@ body {
 /* Responsive */
 @media (max-width: 480px) {
     .login-card {
-        padding: 30px 20px;
+        padding: 16px 16px;
     }
     
-    .logo-image {
-        width: 200px;
-        height: 80px;
+    .logo-circle {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .logo-text {
+        font-size: 16px;
+    }
+    
+    .logo-orbit {
+        width: 60px;
+        height: 30px;
+    }
+    
+    .company-name {
+        font-size: 28px;
     }
     
     .input-container input {
@@ -223,5 +331,13 @@ body {
     .login-btn {
         padding: 12px;
         font-size: 14px;
+    }
+    
+    .company-name-info {
+        font-size: 14px;
+    }
+    
+    .info-item {
+        font-size: 12px;
     }
 }
