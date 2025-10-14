@@ -2,7 +2,7 @@
 
 body {
   font-family: "Arial", sans-serif;
-  background: #f5f5f5;
+  background: white;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
@@ -12,8 +12,8 @@ body {
 .sidebar {
   position: fixed;
   top: 0;
-  left: -280px;
-  width: 280px;
+  left: 0px;
+  width: 230px;
   height: 100vh;
   background: #1e3a8a;
   z-index: 1000;
@@ -30,7 +30,6 @@ body {
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
-  gap: 15px;
 }
 
 .sidebar-logo {
@@ -77,6 +76,11 @@ body {
   text-align: left;
 }
 
+.company-name {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}
 .sidebar .menu-item:hover {
   background: rgba(255, 255, 255, 0.1);
 }
@@ -126,24 +130,24 @@ body {
 /* Main Content */
 .main-content {
   min-height: 100vh;
-  background: #f5f5f5;
+  background: white;
   transition: margin-left 0.3s ease;
 }
 
 .header {
-  background: #dc2626;
-  color: white;
+  background: white;
+  color: #374151;
   padding: 20px;
   display: flex;
   align-items: center;
   gap: 15px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #e5e7eb;
 }
 
 .menu-toggle {
-  background: rgba(255, 255, 255, 0.2);
+  background: transparent;
   border: none;
-  color: white;
+  color: #374151;
   padding: 10px;
   border-radius: 8px;
   cursor: pointer;
@@ -154,7 +158,7 @@ body {
 }
 
 .menu-toggle:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: #f3f4f6;
 }
 
 .menu-toggle svg {
@@ -166,6 +170,7 @@ body {
   font-size: 24px;
   font-weight: 600;
   margin: 0;
+  color: #374151;
 }
 
 /* Content */
@@ -270,7 +275,7 @@ body {
 /* Responsive */
 @media (max-width: 768px) {
   .sidebar {
-    width: 100%;
+    width: 65%;
     left: -100%;
   }
 
