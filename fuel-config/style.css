@@ -103,6 +103,8 @@ body {
 .fuel-config-value.fuel-type {
   color: #0066cc;
   font-weight: normal;
+  font-size: 14px;
+  font-weight: 400;
 }
 
 .fuel-config-actions {
@@ -138,8 +140,8 @@ body {
 
 .edit-btn svg,
 .menu-btn svg {
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
 }
 
 /* Add Configuration Button - Hidden for now to match the design */
@@ -344,6 +346,71 @@ body {
   margin-top: 4px;
 }
 
+/* Toast Notification Styles */
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: white;
+  border-radius: 8px;
+  padding: 16px 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-left: 4px solid #10b981;
+  z-index: 9999;
+  min-width: 300px;
+  max-width: 400px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  animation: slideInRight 0.3s ease-out;
+  transform: translateX(0);
+}
+
+.toast.success {
+  border-left-color: #10b981;
+  background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
+}
+
+.toast.error {
+  border-left-color: #ef4444;
+  background: linear-gradient(135deg, #fef2f2 0%, #ffffff 100%);
+}
+
+.toast.warning {
+  border-left-color: #f59e0b;
+  background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%);
+}
+
+.toast-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.toast-message {
+  flex: 1;
+  line-height: 1.4;
+}
+
+.toast-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6b7280;
+  font-size: 16px;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.toast-close:hover {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
 /* Animations */
 @keyframes fadeIn {
   from {
@@ -362,6 +429,28 @@ body {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100%);
   }
 }
 
@@ -407,16 +496,26 @@ body {
   .btn {
     width: 100%;
   }
+
+  /* Toast responsive */
+  .toast {
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    min-width: auto;
+    max-width: none;
+    font-size: 13px;
+    padding: 12px 16px;
+  }
 }
 
 @media (max-width: 480px) {
   .fuel-config-content {
-    flex-direction: column;
     align-items: flex-start;
     gap: 12px;
   }
 
   .fuel-config-actions {
-    align-self: flex-end;
+    align-self: center;
   }
 }
