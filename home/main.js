@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
           // Đã ở trang này rồi
           break;
         case "Khai báo vòi bơm":
-          showToast("Chức năng đang phát triển", "warning");
+          Navigation.goTo("../pump-config/index.html");
           break;
         case "Cấu hình nhiên liệu":
           showToast("Chức năng đang phát triển", "warning");

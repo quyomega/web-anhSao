@@ -3,8 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Địa chỉ MAC - ATC.Petro</title>
+    <title>Khai báo vòi bơm - ATC.Petro</title>
     <link rel="stylesheet" href="../common/assets/css/reset.css" />
+    <link rel="stylesheet" href="../home/style.css" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -22,7 +23,7 @@
       </div>
 
       <div class="sidebar-menu">
-        <div class="menu-item active">
+        <div class="menu-item">
           <div class="menu-icon">
             <svg
               viewBox="0 0 24 24"
@@ -38,7 +39,7 @@
           <div class="menu-text">Địa chỉ MAC</div>
         </div>
 
-        <div class="menu-item">
+        <div class="menu-item active">
           <div class="menu-icon">
             <svg
               viewBox="0 0 24 24"
@@ -195,7 +196,7 @@
     <div class="main-content">
       <!-- Header -->
       <div class="header">
-        <h1 class="page-title">Thông tin địa chỉ MAC</h1>
+        <h1 class="page-title">Khai báo vòi bơm</h1>
         <button class="menu-toggle" id="menuToggle">
           <svg
             viewBox="0 0 24 24"
@@ -212,23 +213,55 @@
 
       <!-- Content -->
       <div class="content">
-        <div class="mac-info-card">
-          <div class="mac-label">Địa chỉ MAC của thiết bị:</div>
-          <div class="mac-address" id="macAddress">00:1A:2B:3C:4D:5E</div>
-          <button class="copy-button" id="copyButton">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-              <path
-                d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
-              ></path>
-            </svg>
-            Copy
-          </button>
+        <div class="container">
+          <div class="status-section">
+            <label>Status:</label>
+            <span id="status" class="status-tag stopped">Stop</span>
+          </div>
+
+          <div class="form-container">
+            <div class="form-group">
+              <label for="id">ID:</label>
+              <input type="text" id="id" value="1" />
+            </div>
+
+            <div class="form-group">
+              <label for="lineServer"
+                >Line server name (Tên máy chủ tuyến):</label
+              >
+              <input type="text" id="lineServer" value="1234" />
+            </div>
+
+            <div class="form-group">
+              <label for="pumpList">Pump ID list (Danh sách ID vòi bơm):</label>
+              <input type="text" id="pumpList" value="A, B, C, D" />
+            </div>
+
+            <div class="form-group">
+              <label for="serialPort">Cổng serial (Serial port):</label>
+              <select id="serialPort">
+                <option value="COM1">COM1 - Intel® Active Man</option>
+                <option value="COM2">COM2 - Intel® Active Man</option>
+                <option value="COM3">COM3 - Intel® Active Man</option>
+                <option value="COM4" selected>COM4 - Intel® Active Man</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="baudRate">Baud rate (Tốc độ truyền):</label>
+              <select id="baudRate">
+                <option value="9600">9600</option>
+                <option value="19200" selected>19200</option>
+                <option value="38400">38400</option>
+                <option value="57600">57600</option>
+                <option value="115200">115200</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="button-container">
+            <button id="controlButton" class="start-button">Start</button>
+          </div>
         </div>
       </div>
     </div>
