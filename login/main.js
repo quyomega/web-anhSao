@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
       // Redirect đến trang Địa chỉ MAC ngay lập tức
-      Navigation.goTo("../home/index.html");
+      Navigation.goTo("../address-mac/index.html");
     } else {
       hideLoading(loginBtn);
       showToast("Tên đăng nhập hoặc mật khẩu không đúng", "error");

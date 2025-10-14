@@ -1,0 +1,422 @@
+/* Fuel Configuration Page Styles */
+
+body {
+  font-family: "Arial", sans-serif !important;
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: 0;
+  transition: margin-left 0.3s ease;
+}
+
+.main-content.sidebar-open {
+  margin-left: 280px;
+}
+
+/* Page Header */
+.page-header {
+  background: white;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e0e0e0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.page-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+/* Content Area */
+.content-area {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  background-color: #f5f5f5;
+}
+
+/* Fuel Configuration List */
+.fuel-config-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.fuel-config-item {
+  background: white;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.fuel-config-item:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.fuel-config-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fuel-config-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fuel-config-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.fuel-config-label {
+  font-size: 14px;
+  color: #666;
+  font-weight: normal;
+  margin: 0;
+}
+
+.fuel-config-value {
+  font-size: 16px;
+  color: #333;
+  font-weight: bold;
+  margin: 0;
+}
+
+.fuel-config-value.fuel-type {
+  color: #0066cc;
+  font-weight: normal;
+}
+
+.fuel-config-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+}
+
+.edit-btn,
+.menu-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 4px;
+  color: #666;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-btn:hover {
+  background-color: #f0f8ff;
+  color: #0066cc;
+}
+
+.menu-btn:hover {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.edit-btn svg,
+.menu-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Add Configuration Button - Hidden for now to match the design */
+.add-config-btn {
+  display: none;
+}
+
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal.show {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideInUp 0.3s ease;
+}
+
+.modal-header {
+  padding: 24px 24px 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 24px;
+}
+
+.modal-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  color: #6b7280;
+  transition: all 0.2s ease;
+}
+
+.modal-close:hover {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.modal-close svg {
+  width: 20px;
+  height: 20px;
+}
+
+.modal-form {
+  padding: 0 24px 24px 24px;
+}
+
+.modal-form .input-group {
+  margin-bottom: 20px;
+}
+
+.modal-form .input-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+.modal-form .input-container {
+  position: relative;
+}
+
+.modal-form .input-container input,
+.modal-form .input-container select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 16px;
+  background: white;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.modal-form .input-container input:focus,
+.modal-form .input-container select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.modal-form .input-container select {
+  cursor: pointer;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+.btn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.btn-secondary {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.btn-secondary:hover {
+  background: #e5e7eb;
+}
+
+.btn-primary {
+  background: #3b82f6;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #2563eb;
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #6b7280;
+}
+
+.empty-state-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 16px;
+  color: #d1d5db;
+}
+
+.empty-state-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #374151;
+}
+
+.empty-state-description {
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+/* Loading States */
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.btn-loading {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Error States */
+.input-container.error input,
+.input-container.error select {
+  border-color: #dc2626;
+}
+
+.error-message {
+  color: #dc2626;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .main-content.sidebar-open {
+    margin-left: 0;
+  }
+
+  .page-header {
+    padding: 12px 16px;
+  }
+
+  .page-title {
+    font-size: 18px;
+  }
+
+  .content-area {
+    padding: 16px;
+  }
+
+  .fuel-config-item {
+    padding: 16px;
+  }
+
+  .modal-content {
+    width: 95%;
+    margin: 20px;
+  }
+
+  .modal-header {
+    padding: 20px 20px 0 20px;
+  }
+
+  .modal-form {
+    padding: 0 20px 20px 20px;
+  }
+
+  .modal-actions {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .fuel-config-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .fuel-config-actions {
+    align-self: flex-end;
+  }
+}

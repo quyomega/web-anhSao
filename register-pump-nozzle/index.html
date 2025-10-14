@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Khai báo vòi bơm - ATC.Petro</title>
+    <link rel="stylesheet" href="../common/assets/css/reset.css" />
+    <link rel="stylesheet" href="../common/components/sidebar/sidebar.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Sidebar sẽ được load động bởi sidebar.js -->
+
+    <!-- Main content -->
+    <div class="main-content">
+      <!-- Header -->
+      <div class="header">
+        <h1 class="page-title">Khai báo vòi bơm</h1>
+        <button class="menu-toggle" id="menuToggle">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Content -->
+      <div class="content">
+        <div class="container">
+          <div class="status-section">
+            <label>Status:</label>
+            <span id="status" class="status-tag stopped">Stop</span>
+          </div>
+
+          <div class="form-container">
+            <div class="form-group">
+              <label for="id">ID:</label>
+              <input type="text" id="id" value="1" />
+            </div>
+
+            <div class="form-group">
+              <label for="lineServer"
+                >Line server name (Tên máy chủ tuyến):</label
+              >
+              <input type="text" id="lineServer" value="1234" />
+            </div>
+
+            <div class="form-group">
+              <label for="pumpList">Pump ID list (Danh sách ID vòi bơm):</label>
+              <input type="text" id="pumpList" value="A, B, C, D" />
+            </div>
+
+            <div class="form-group">
+              <label for="serialPort">Cổng serial (Serial port):</label>
+              <select id="serialPort">
+                <option value="COM1">COM1 - Intel® Active Man</option>
+                <option value="COM2">COM2 - Intel® Active Man</option>
+                <option value="COM3">COM3 - Intel® Active Man</option>
+                <option value="COM4" selected>COM4 - Intel® Active Man</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="baudRate">Baud rate (Tốc độ truyền):</label>
+              <select id="baudRate">
+                <option value="9600">9600</option>
+                <option value="19200" selected>19200</option>
+                <option value="38400">38400</option>
+                <option value="57600">57600</option>
+                <option value="115200">115200</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="button-container">
+            <button id="controlButton" class="start-button">Start</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="../common/js/utils.js"></script>
+    <script src="../common/components/sidebar/sidebar-simple.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>

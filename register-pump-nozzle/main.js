@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       switch (menuText) {
         case "Địa chỉ MAC":
-          Navigation.goTo("../home/index.html");
+          Navigation.goTo("../address-mac/index.html");
           break;
         case "Khai báo vòi bơm":
           // Đã ở trang này rồi

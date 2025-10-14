@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Địa chỉ MAC - ATC.Petro</title>
+    <link rel="stylesheet" href="../common/assets/css/reset.css" />
+    <link rel="stylesheet" href="../common/components/sidebar/sidebar.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Sidebar sẽ được load động bởi sidebar.js -->
+
+    <!-- Main content -->
+    <div class="main-content">
+      <!-- Header -->
+      <div class="header">
+        <h1 class="page-title">Thông tin địa chỉ MAC</h1>
+        <button class="menu-toggle" id="menuToggle">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Content -->
+      <div class="content">
+        <div class="mac-info-card">
+          <div class="mac-label">Địa chỉ MAC của thiết bị:</div>
+          <div class="mac-address" id="macAddress">00:1A:2B:3C:4D:5E</div>
+          <button class="copy-button" id="copyButton">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path
+                d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+              ></path>
+            </svg>
+            Copy
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="../common/js/utils.js"></script>
+    <script src="../common/components/sidebar/sidebar-simple.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>

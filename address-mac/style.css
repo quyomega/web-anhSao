@@ -1,0 +1,136 @@
+/* MAC Address page styles */
+
+body {
+  font-family: "Arial", sans-serif;
+  background: white;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Content */
+.content {
+  padding: 40px 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.mac-info-card {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.mac-label {
+  font-size: 16px;
+  color: #6b7280;
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+.mac-address {
+  background: #f3f4f6;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 15px 20px;
+  font-family: "Courier New", monospace;
+  font-size: 18px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 25px;
+  letter-spacing: 1px;
+}
+
+.copy-button {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 auto;
+}
+
+.copy-button:hover {
+  background: #2563eb;
+}
+
+.copy-button svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Toast notifications */
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1001;
+  animation: slideInRight 0.3s ease-out;
+}
+
+.toast.success {
+  background: #10b981;
+  color: white;
+}
+
+.toast.error {
+  background: #dc2626;
+  color: white;
+}
+
+.toast.warning {
+  background: #f59e0b;
+  color: white;
+}
+
+/* Animations */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .content {
+    padding: 20px 15px;
+  }
+
+  .mac-info-card {
+    padding: 20px;
+  }
+
+  .mac-address {
+    font-size: 16px;
+    padding: 12px 15px;
+  }
+
+  .copy-button {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mac-address {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+}
