@@ -85,12 +85,14 @@ document.addEventListener("DOMContentLoaded", function () {
     editingConfigId = config ? config.id : null;
 
     if (config) {
-      modalTitle.textContent = "Chỉnh sửa cấu hình nhiên liệu";
+      modalTitle.textContent = "Sửa cấu hình nhiên liệu";
       pumpIdInput.value = config.pumpId;
       fuelTypeSelect.value = config.fuelType;
+      saveBtn.textContent = "Cập nhật";
     } else {
       modalTitle.textContent = "Thêm cấu hình nhiên liệu";
       configForm.reset();
+      saveBtn.textContent = "Thêm cấu hình";
     }
 
     configModal.classList.add("show");
@@ -110,7 +112,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const newId = Math.max(...fuelConfigs.map((c) => c.id), 0) + 1;
     const newConfig = {
       id: newId,
-      pumpId: configData.pumpId.toUpperCase(),
+      pumpId: configData.pumpId,
       fuelType: configData.fuelType,
     };
 
@@ -126,7 +128,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (index !== -1) {
       fuelConfigs[index] = {
         ...fuelConfigs[index],
-        pumpId: configData.pumpId.toUpperCase(),
+        pumpId: configData.pumpId,
         fuelType: configData.fuelType,
       };
       Storage.set("fuelConfigs", fuelConfigs);
@@ -179,9 +181,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Kiểm tra trùng lặp Pump ID
     const existingConfig = fuelConfigs.find(
-      (c) =>
-        c.pumpId.toUpperCase() === pumpId.toUpperCase() &&
-        c.id !== editingConfigId
+      (c) => c.pumpId === pumpId && c.id !== editingConfigId
     );
 
     if (existingConfig) {
@@ -216,8 +216,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     const formData = {
-      pumpId: pumpIdInput.value.trim(),
-      fuelType: fuelTypeSelect.value.trim(),
+      pumpId: pumpIdInput.value,
+      fuelType: fuelTypeSelect.value,
     };
 
     showLoading(saveBtn);
@@ -236,14 +236,16 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Xử lý Enter key
-  pumpIdInput.addEventListener("keypress", (e) => {
+  pumpIdInput.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
+      e.preventDefault();
       fuelTypeSelect.focus();
     }
   });
 
-  fuelTypeSelect.addEventListener("keypress", (e) => {
+  fuelTypeSelect.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
+      e.preventDefault();
       configForm.dispatchEvent(new Event("submit"));
     }
   });

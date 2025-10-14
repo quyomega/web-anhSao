@@ -9,8 +9,6 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!-- Sidebar sẽ được load động bởi sidebar.js -->
-
     <!-- Main Content -->
     <div class="main-content">
       <!-- Header -->
@@ -36,25 +34,12 @@
         <div class="fuel-config-list" id="fuelConfigList">
           <!-- Configuration items will be dynamically generated -->
         </div>
-
-        <!-- Add Configuration Button -->
-        <button class="add-config-btn" id="addConfigBtn">
-          <svg
-            class="add-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <line x1="12" y1="5" x2="12" y2="19"></line>
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-          </svg>
-          <span>Thêm cấu hình</span>
-        </button>
       </div>
+
+      <!-- Floating Add Button -->
+      <button class="floating-add-btn" id="addConfigBtn">
+        <span>+ THÊM CẤU HÌNH</span>
+      </button>
     </div>
 
     <!-- Add/Edit Configuration Modal -->
@@ -82,12 +67,14 @@
           <div class="input-group">
             <label for="pumpId" class="input-label">Pump ID (Mã vòi bơm)</label>
             <div class="input-container">
-              <input
-                type="text"
-                id="pumpId"
-                placeholder="Nhập mã vòi bơm"
-                required
-              />
+              <select id="pumpId" required>
+                <option value="">Chọn Pump ID</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+                <option value="E">E</option>
+              </select>
             </div>
           </div>
 
@@ -95,7 +82,7 @@
             <label for="fuelType" class="input-label">Nhiên liệu</label>
             <div class="input-container">
               <select id="fuelType" required>
-                <option value="">Chọn loại nhiên liệu</option>
+                <option value="">Chọn nhiên liệu</option>
                 <option value="Xăng RON 95">Xăng RON 95</option>
                 <option value="Xăng RON 92">Xăng RON 92</option>
                 <option value="Dầu Diesel">Dầu Diesel</option>
@@ -111,7 +98,7 @@
               Hủy
             </button>
             <button type="submit" class="btn btn-primary" id="saveBtn">
-              Lưu
+              Thêm cấu hình
             </button>
           </div>
         </form>

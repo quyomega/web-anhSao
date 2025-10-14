@@ -7,27 +7,32 @@ body {
   padding: 0;
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
 }
+
+/* Mobile Status Bar - Removed */
 
 /* Main Content */
 .main-content {
   flex: 1;
   display: flex;
   flex-direction: column;
-  margin-left: 0;
-  transition: margin-left 0.3s ease;
+  background-color: white;
+  border-radius: 0;
+  margin: 0;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
 }
 
-.main-content.sidebar-open {
-  margin-left: 280px;
-}
-
-/* Page Header */
-.page-header {
-  background: white;
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 20px 24px;
   border-bottom: 1px solid #e0e0e0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: white;
 }
 
 .page-title {
@@ -37,12 +42,33 @@ body {
   margin: 0;
 }
 
+.menu-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  color: #666;
+  transition: all 0.2s ease;
+}
+
+.menu-toggle:hover {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.menu-toggle svg {
+  width: 24px;
+  height: 24px;
+}
+
 /* Content Area */
 .content-area {
   flex: 1;
   padding: 20px;
   overflow-y: auto;
-  background-color: #f5f5f5;
+  background-color: white;
+  padding-bottom: 100px; /* Space for floating button */
 }
 
 /* Fuel Configuration List */
@@ -144,10 +170,7 @@ body {
   height: 20px;
 }
 
-/* Add Configuration Button - Hidden for now to match the design */
-.add-config-btn {
-  display: none;
-}
+/* Floating Add Button - Moved to Mobile Design section */
 
 /* Modal Styles */
 .modal {
@@ -172,10 +195,11 @@ body {
   background: white;
   border-radius: 12px;
   width: 90%;
-  max-width: 500px;
+  max-width: 400px;
   max-height: 90vh;
   overflow-y: auto;
   animation: slideInUp 0.3s ease;
+  margin: 20px;
 }
 
 .modal-header {
@@ -262,6 +286,10 @@ body {
   gap: 12px;
   justify-content: flex-end;
   margin-top: 24px;
+}
+
+.modal-actions .btn {
+  min-width: 100px;
 }
 
 .btn {
@@ -454,14 +482,63 @@ body {
   }
 }
 
+/* Mobile Design - Default */
+.main-content {
+  max-width: 100%;
+  margin: 0;
+  box-shadow: none;
+}
+
+.floating-add-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  width: 375px;
+  padding: 8px 16px 40px 16px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+  z-index: 2;
+  background-color: #304FFD;
+  color: white;
+}
+
+.floating-add-btn:hover {
+  background-color: #304FFD;
+  transform: translateY(-1px);
+}
+
+.floating-add-btn:active {
+  transform: translateY(0);
+}
+
+.floating-add-btn .add-icon {
+  width: 20px;
+  height: 20px;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
-  .main-content.sidebar-open {
-    margin-left: 0;
+  body {
+    background-color: #f5f5f5;
   }
 
-  .page-header {
-    padding: 12px 16px;
+  .main-content {
+    margin: 0;
+    max-width: none;
+    width: 100%;
+  }
+
+  .header {
+    padding: 16px 20px;
   }
 
   .page-title {
@@ -477,8 +554,9 @@ body {
   }
 
   .modal-content {
-    width: 95%;
+    width: calc(100% - 40px);
     margin: 20px;
+    max-width: 350px;
   }
 
   .modal-header {
@@ -490,11 +568,22 @@ body {
   }
 
   .modal-actions {
-    flex-direction: column;
+    flex-direction: row;
+    gap: 12px;
   }
 
   .btn {
-    width: 100%;
+    flex: 1;
+  }
+
+  .floating-add-btn {
+    position: fixed;
+    right: 10px;
+    left: 10px;
+    width: auto;
+    max-width: none;
+    padding: 12px 16px;
+    font-size: 14px;
   }
 
   /* Toast responsive */

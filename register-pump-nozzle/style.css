@@ -2,6 +2,9 @@
 body {
   font-family: "Arial", sans-serif !important;
 }
+.content{
+  margin-bottom: 100px;
+}
 .content .container {
   max-width: 400px;
   margin: 20px auto;
@@ -10,6 +13,8 @@ body {
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Status section */
@@ -86,14 +91,20 @@ body {
 
 /* Button styles */
 .button-container {
-  padding: 20px;
-  background: #f8f9fa;
-  border-top: 1px solid #eee;
+  display: none; /* Ẩn container vì nút đã fixed position */
 }
 
 #controlButton {
-  width: 100%;
-  padding: 15px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  width: 375px;
+  padding: 8px 16px 40px 16px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   border: none;
   border-radius: 6px;
   font-size: 16px;
@@ -102,15 +113,16 @@ body {
   transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  z-index: 2;
 }
 
 .start-button {
-  background-color: #28a745;
+  background-color: #3ACE5A;
   color: white;
 }
 
 .start-button:hover {
-  background-color: #218838;
+  background-color: #3ACE5A;
   transform: translateY(-1px);
 }
 
@@ -141,7 +153,12 @@ body {
   }
 
   #controlButton {
-    padding: 12px;
+    position: fixed;
+    right: 10px;
+    left: 10px;
+    width: auto;
+    max-width: none;
+    padding: 12px 16px;
     font-size: 14px;
   }
 }
