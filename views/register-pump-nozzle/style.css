@@ -5,22 +5,7 @@ body {
 .main-content {
   background-color: #FAFAFB;
 }
-/* Header */
-.header {
-  background: #FAFAFB;
-  padding: 16px;
-  display: flex;
-  align-items: center;
-  position: relative;
-}
-.page-title {
-  color: #2E3747;
-  font-family: 'Roboto', sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 28px;
-  font-style: normal;
-}
+
 /* Content */
 .content {
   padding-bottom: 100px; /* Space for fixed button */

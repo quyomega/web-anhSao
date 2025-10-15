@@ -103,32 +103,7 @@
   opacity: 1;
   visibility: visible;
 }
-.menu-toggle {
-  background: transparent;
-  border: none;
-  color: #2E3747;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 10;
-  padding: 0px;
-}
 
-.menu-toggle:hover {
-  background: #f3f4f6;
-}
-
-.menu-toggle svg {
-  width: 20px;
-  height: 20px;
-}
 
 /* Responsive */
 @media (max-width: 768px) {

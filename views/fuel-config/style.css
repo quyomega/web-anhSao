@@ -19,23 +19,6 @@ body {
   background-color: #FAFAFB;
 }
 
-/* Header */
-.header {
-  padding: 16px;
-  display: flex;
-  align-items: center;
-  position: relative;
-}
-
-.page-title {
-    color: #2E3747;
-    font-family: 'Roboto', sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 28px;
-    font-style: normal;
-}
-
 /* Content */
 .content {
   flex: 1;
@@ -508,11 +491,6 @@ body {
     max-width: none;
     width: 100%;
   }
-
-  .header {
-    padding: 16px 20px;
-  }
-
   .page-title {
     font-size: 18px;
   }
