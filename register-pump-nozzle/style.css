@@ -127,12 +127,12 @@ body {
 }
 
 .stop-button {
-  background-color: #dc3545;
+  background-color: #DE2433;
   color: white;
 }
 
 .stop-button:hover {
-  background-color: #c82333;
+  background-color: #DE2433;
   transform: translateY(-1px);
 }
 

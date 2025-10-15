@@ -5,10 +5,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // Lấy các elements
   const fuelConfigList = document.getElementById("fuelConfigList");
   const addConfigBtn = document.getElementById("addConfigBtn");
-  const configModal = document.getElementById("configModal");
-  const modalTitle = document.getElementById("modalTitle");
+  const addConfigSection = document.getElementById("addConfigSection");
   const configForm = document.getElementById("configForm");
-  const modalClose = document.getElementById("modalClose");
   const cancelBtn = document.getElementById("cancelBtn");
   const saveBtn = document.getElementById("saveBtn");
   const pumpIdInput = document.getElementById("pumpId");
@@ -17,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // State management
   let fuelConfigs = [];
   let editingConfigId = null;
+  let overlay = null;
 
   // Khởi tạo dữ liệu mẫu
   const sampleData = [
@@ -80,31 +79,53 @@ document.addEventListener("DOMContentLoaded", function () {
       .join("");
   }
 
-  // Mở modal thêm/sửa cấu hình
-  function openModal(config = null) {
-    editingConfigId = config ? config.id : null;
-
-    if (config) {
-      modalTitle.textContent = "Sửa cấu hình nhiên liệu";
-      pumpIdInput.value = config.pumpId;
-      fuelTypeSelect.value = config.fuelType;
-      saveBtn.textContent = "Cập nhật";
-    } else {
-      modalTitle.textContent = "Thêm cấu hình nhiên liệu";
-      configForm.reset();
-      saveBtn.textContent = "Thêm cấu hình";
+  // Hiện form thêm cấu hình
+  function showAddForm() {
+    // Tạo overlay nếu chưa có
+    if (!overlay) {
+      overlay = document.createElement("div");
+      overlay.className = "add-config-overlay";
+      document.body.appendChild(overlay);
     }
 
-    configModal.classList.add("show");
+    // Hiện overlay và form
+    overlay.classList.add("show");
+    addConfigSection.style.display = "block";
+    setTimeout(() => {
+      addConfigSection.classList.add("show");
+    }, 10);
+
     pumpIdInput.focus();
   }
 
-  // Đóng modal
-  function closeModal() {
-    configModal.classList.remove("show");
+  // Ẩn form thêm cấu hình
+  function hideAddForm() {
+    addConfigSection.classList.remove("show");
+    if (overlay) {
+      overlay.classList.remove("show");
+    }
+
+    setTimeout(() => {
+      addConfigSection.style.display = "none";
+    }, 300);
+  }
+
+  // Bắt đầu chỉnh sửa cấu hình
+  function startEdit(config) {
+    editingConfigId = config.id;
+    pumpIdInput.value = config.pumpId;
+    fuelTypeSelect.value = config.fuelType;
+    saveBtn.textContent = "Cập nhật";
+    showAddForm();
+  }
+
+  // Hủy chỉnh sửa
+  function cancelEdit() {
     editingConfigId = null;
     configForm.reset();
+    saveBtn.textContent = "Thêm cấu hình";
     FormValidator.clearAllErrors(configForm);
+    hideAddForm();
   }
 
   // Thêm cấu hình mới
@@ -151,7 +172,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function editConfig(id) {
     const config = fuelConfigs.find((c) => c.id === id);
     if (config) {
-      openModal(config);
+      startEdit(config);
     }
   }
 
@@ -193,17 +214,13 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Event Listeners
-  addConfigBtn.addEventListener("click", () => {
-    openModal();
-  });
+  addConfigBtn.addEventListener("click", showAddForm);
+  cancelBtn.addEventListener("click", cancelEdit);
 
-  modalClose.addEventListener("click", closeModal);
-  cancelBtn.addEventListener("click", closeModal);
-
-  // Đóng modal khi click outside
-  configModal.addEventListener("click", (e) => {
-    if (e.target === configModal) {
-      closeModal();
+  // Đóng form khi click overlay
+  document.addEventListener("click", (e) => {
+    if (e.target === overlay) {
+      cancelEdit();
     }
   });
 
@@ -231,7 +248,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       hideLoading(saveBtn);
-      closeModal();
+      cancelEdit(); // Reset form and hide form
     }, 500);
   });
 
@@ -250,10 +267,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Xử lý Escape key để đóng modal
+  // Xử lý Escape key để đóng form
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && configModal.classList.contains("show")) {
-      closeModal();
+    if (e.key === "Escape" && addConfigSection.classList.contains("show")) {
+      cancelEdit();
     }
   });
 
