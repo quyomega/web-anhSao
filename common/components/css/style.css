@@ -1,3 +1,26 @@
+/* body */
+body {
+  font-family: "Arial", sans-serif;
+  background: #FAFAFB;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0;
+  margin: 0;
+  min-height: 100vh;
+  position: relative;
+  overflow: visible;
+  background-color: #FAFAFB;
+}
+
+/* Header */
 .header {
   background: #FAFAFB;
   padding: 16px;
@@ -40,4 +63,17 @@
 .menu-toggle svg {
   width: 20px;
   height: 20px;
+}
+
+/* Footer */
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  border-top: 1px solid var(--outline-subtle, #dedfe2);
+  background: white;
+  z-index: 10;
+  padding: 8px 16px 40px 16px;
 }

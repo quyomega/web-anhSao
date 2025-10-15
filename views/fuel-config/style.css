@@ -9,7 +9,7 @@
 .add-config-section {
   background: white;
   border-radius: 8px 8px 0 0;
-  padding: 20px;
+  padding: 16px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   border: 1px solid #e0e0e0;
   transform: translateY(100%);
@@ -22,7 +22,7 @@
   z-index: 1000;
   max-height: 80vh;
   overflow-y: auto;
-  padding-bottom: 80px; /* Space for bottom buttons */
+  padding-bottom: 180px; /* Space for bottom buttons */
 }
 
 .add-config-section.show {
@@ -77,15 +77,14 @@
 
 .form-group.form-actions {
   position: absolute;
-  bottom: 10px;
-  left: 20px;
-  right: 20px;
+  bottom: 0;
+  left: 0px;
+  right: 0px;
   display: flex;
-  gap: 12px;
   align-items: center;
   justify-content: space-between;
   background: white;
-  padding: 15px 0;
+  padding: 8px 0 40px;
   border-top: 1px solid #e0e0e0;
 }
 
@@ -231,16 +230,6 @@
   height: 20px;
 }
 
-/* Footer */
-.footer {
-  background: white;
-  border-top: 1px solid #e0e0e0;
-  padding: 20px;
-  position: sticky;
-  bottom: 0;
-  z-index: 100;
-}
-
 /* Floating Add Button */
 .floating-add-btn {
   width: 100%;
@@ -258,9 +247,6 @@
   background-color: #304ffd;
   color: white;
   box-shadow: 0 4px 12px rgba(48, 79, 253, 0.3);
-  height: 56px;
-  line-height: 24px;
-  min-height: 56px;
 }
 
 .floating-add-btn:hover {
@@ -285,9 +271,7 @@
   cursor: pointer;
   transition: all 0.2s ease;
   border: none;
-  height: 48px;
-  line-height: 24px;
-  min-height: 48px;
+  margin: 0 16px;
 }
 
 .btn-secondary {
@@ -481,9 +465,6 @@
 @media (max-width: 480px) {
   .content {
     padding-bottom: 20px;
-  }
-  .footer {
-    padding: 8px 16px 40px;
   }
   .fuel-config-content {
     align-items: flex-start;
