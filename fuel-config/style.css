@@ -33,6 +33,11 @@ body {
   padding: 20px 24px;
   border-bottom: 1px solid #e0e0e0;
   background: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
 }
 
 .page-title {
@@ -66,8 +71,10 @@ body {
 .content-area {
   flex: 1;
   padding: 20px;
+  padding-top: 100px; /* Add space for fixed header */
   overflow-y: auto;
   background-color: white;
+  padding-bottom: 100px;
 }
 
 /* Add Configuration Section */
@@ -576,6 +583,7 @@ body {
 
   .content-area {
     padding: 16px;
+    padding-top: 70px; /* Adjust for mobile header */
   }
 
   .add-config-section {
@@ -597,6 +605,7 @@ body {
     bottom: 10px;
     flex-direction: row;
     justify-content: space-between;
+    white-space: nowrap;
   }
 
   .fuel-config-item {
@@ -616,11 +625,13 @@ body {
 }
 
 @media (max-width: 480px) {
+  .content-area {
+    padding-bottom: 100px;
+  }
   .fuel-config-content {
     align-items: flex-start;
     gap: 12px;
   }
-
   .fuel-config-actions {
     align-self: center;
   }

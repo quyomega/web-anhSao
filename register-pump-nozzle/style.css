@@ -2,12 +2,21 @@
 body {
   font-family: "Arial", sans-serif !important;
 }
-.content{
-  margin-bottom: 100px;
+
+/* Header sticky */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: white;
+  border-bottom: 1px solid #e0e0e0;
+}
+.content {
+  padding-bottom: 100px; /* Space for fixed button */
 }
 .content .container {
   max-width: 400px;
-  margin: 20px auto;
+  margin: 16px auto;
   background: white;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -35,7 +44,6 @@ body {
   border-radius: 4px;
   font-size: 12px;
   font-weight: 500;
-  text-transform: uppercase;
 }
 
 .status-tag.running {
@@ -52,11 +60,11 @@ body {
 
 /* Form styles */
 .form-container {
-  padding: 20px;
+  padding: 16px;
 }
 
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 }
 
 .form-group label {
@@ -91,16 +99,21 @@ body {
 
 /* Button styles */
 .button-container {
-  display: none; /* Ẩn container vì nút đã fixed position */
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  border-top: 1px solid var(--outline-subtle, #dedfe2);
+  background: white;
+  padding: 20px;
+  z-index: 10;
 }
 
 #controlButton {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
   display: flex;
-  width: 375px;
-  padding: 8px 16px 40px 16px;
+  width: 100%;
+  padding: 16px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -111,28 +124,26 @@ body {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  text-transform: uppercase;
   letter-spacing: 0.5px;
-  z-index: 2;
 }
 
 .start-button {
-  background-color: #3ACE5A;
+  background-color: #3ace5a;
   color: white;
 }
 
 .start-button:hover {
-  background-color: #3ACE5A;
+  background-color: #3ace5a;
   transform: translateY(-1px);
 }
 
 .stop-button {
-  background-color: #DE2433;
+  background-color: #de2433;
   color: white;
 }
 
 .stop-button:hover {
-  background-color: #DE2433;
+  background-color: #de2433;
   transform: translateY(-1px);
 }
 
@@ -142,8 +153,12 @@ body {
 
 /* Mobile responsive */
 @media (max-width: 480px) {
+  .content {
+    padding-bottom: 100px; /* Reduced padding for mobile */
+  }
+
   .content .container {
-    margin: 10px;
+    margin: 16px;
     max-width: none;
   }
 
@@ -152,13 +167,12 @@ body {
     padding: 10px;
   }
 
+  .button-container {
+    padding: 8px 16px 40px 16px;
+  }
+
   #controlButton {
-    position: fixed;
-    right: 10px;
-    left: 10px;
-    width: auto;
-    max-width: none;
-    padding: 12px 16px;
+    padding: 12px;
     font-size: 14px;
   }
 }
