@@ -1,18 +1,10 @@
-/* Override styles for pump config page */
-body {
-  font-family: "Arial", sans-serif !important;
-}
-.main-content {
-  background-color: #FAFAFB;
-}
-
 /* Content */
 .content {
+  margin: 0 16px;
   padding-bottom: 100px; /* Space for fixed button */
 }
 .content .container {
   max-width: 400px;
-  margin: 0 16px;
   background: white;
   border: 1px solid #ddd;
   border-radius: 8px;
