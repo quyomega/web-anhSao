@@ -2,11 +2,41 @@
 
 body {
   font-family: "Arial", sans-serif;
-  background: white;
+  background: #FAFAFB;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
 }
+.main-content {
+  background-color: #FAFAFB;
+}
+/* Header */
+.header {
+  background: #FAFAFB;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.page-title {
+  color: #2E3747;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 28px;
+  font-style: normal;
+
+}
+.mac-address-container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.mac-address{
+  margin-bottom: 12px;
+}
+
 
 /* Content */
 .content {
@@ -17,30 +47,30 @@ body {
 
 .mac-info-card {
   background: white;
-  border-radius: 12px;
+  border-radius: 16px;
   padding: 30px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--outline-subtle, #DEDFE2);
   text-align: center;
 }
 
 .mac-label {
-  font-size: 16px;
+  font-size: 14px;
   color: #6b7280;
-  margin-bottom: 15px;
+  margin-bottom: 12px;
   font-weight: 500;
 }
 
 .mac-address {
-  background: #f3f4f6;
-  border: 2px solid #e5e7eb;
+  display: flex;
+  width: 244px;
+  padding: 12px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  background-color: #FAFAFB;
   border-radius: 8px;
-  padding: 15px 20px;
-  font-family: "Courier New", monospace;
-  font-size: 18px;
-  font-weight: 600;
-  color: #374151;
-  margin-bottom: 25px;
-  letter-spacing: 1px;
+  border: 1px solid var(--outline-subtle, #DEDFE2);
+  background: var(--surface-subtle, #FAFAFB);
 }
 
 .copy-button {
@@ -108,13 +138,13 @@ body {
 }
 
 /* Responsive */
-@media (max-width: 768px) {
+@media (max-width: 480px) {
   .content {
-    padding: 20px 15px;
+    padding: 0 15px;
   }
 
   .mac-info-card {
-    padding: 20px;
+    padding: 16px;
   }
 
   .mac-address {
@@ -131,6 +161,9 @@ body {
 @media (max-width: 480px) {
   .mac-address {
     font-size: 14px;
-    padding: 10px 12px;
+    padding: 12px;
+  }
+  .page-title {
+    font-size: 16px;
   }
 }
