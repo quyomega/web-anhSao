@@ -41,6 +41,51 @@
 
       <!-- Content Area -->
       <div class="content">
+        <!-- Add Configuration Form - Hidden by default -->
+        <div
+          class="add-config-section"
+          id="addConfigSection"
+          style="display: none"
+        >
+          <div class="section-header">
+            <h2 class="section-title">Thêm cấu hình giá nhiên liệu</h2>
+          </div>
+          <form class="config-form" id="configForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fuelName" class="form-label">Tên nhiên liệu</label>
+                <input
+                  type="text"
+                  id="fuelName"
+                  class="form-input"
+                  placeholder="Nhập tên nhiên liệu"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="fuelPrice" class="form-label">Đơn giá (VNĐ)</label>
+                <input
+                  type="number"
+                  id="fuelPrice"
+                  class="form-input"
+                  placeholder="Nhập đơn giá"
+                  min="0"
+                  step="1000"
+                  required
+                />
+              </div>
+              <div class="form-group form-actions">
+                <button type="button" class="btn btn-secondary" id="cancelBtn">
+                  Hủy
+                </button>
+                <button type="submit" class="btn btn-primary" id="saveBtn">
+                  Thêm cấu hình
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+
         <!-- Fuel Price Configuration List -->
         <div class="fuel-price-list" id="fuelPriceList">
           <!-- Price configuration items will be dynamically generated -->
@@ -49,69 +94,9 @@
 
       <!-- Footer -->
       <div class="footer">
-        <button class="floating-add-btn" id="addPriceBtn"> + Thêm cấu hình </button>
-      </div>
-    </div>
-
-    <!-- Add/Edit Price Configuration Modal -->
-    <div class="modal" id="priceModal">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h2 class="modal-title" id="modalTitle">
-            Thêm cấu hình giá nhiên liệu
-          </h2>
-          <button class="modal-close" id="modalClose">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <line x1="18" y1="6" x2="6" y2="18"></line>
-              <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
-          </button>
-        </div>
-
-        <form class="modal-form" id="priceForm">
-          <div class="input-group">
-            <label for="fuelName" class="input-label">Tên nhiên liệu</label>
-            <div class="input-container">
-              <input
-                type="text"
-                id="fuelName"
-                placeholder="Nhập tên nhiên liệu"
-                required
-              />
-            </div>
-          </div>
-
-          <div class="input-group">
-            <label for="fuelPrice" class="input-label">Đơn giá (VNĐ)</label>
-            <div class="input-container">
-              <input
-                type="number"
-                id="fuelPrice"
-                placeholder="Nhập đơn giá"
-                min="0"
-                step="1000"
-                required
-              />
-            </div>
-          </div>
-
-          <div class="modal-actions">
-            <button type="button" class="btn btn-secondary" id="cancelBtn">
-              Hủy
-            </button>
-            <button type="submit" class="btn btn-primary" id="saveBtn">
-              Thêm cấu hình
-            </button>
-          </div>
-        </form>
+        <button class="floating-add-btn" id="addPriceBtn">
+          + Thêm cấu hình
+        </button>
       </div>
     </div>
 

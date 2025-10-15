@@ -5,10 +5,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // Lấy các elements
   const fuelPriceList = document.getElementById("fuelPriceList");
   const addPriceBtn = document.getElementById("addPriceBtn");
-  const priceModal = document.getElementById("priceModal");
-  const modalTitle = document.getElementById("modalTitle");
-  const priceForm = document.getElementById("priceForm");
-  const modalClose = document.getElementById("modalClose");
+  const addConfigSection = document.getElementById("addConfigSection");
+  const configForm = document.getElementById("configForm");
   const cancelBtn = document.getElementById("cancelBtn");
   const saveBtn = document.getElementById("saveBtn");
   const fuelNameInput = document.getElementById("fuelName");
@@ -17,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // State management
   let fuelPrices = [];
   let editingPriceId = null;
+  let overlay = null;
 
   // Khởi tạo dữ liệu mẫu
   const sampleData = [
@@ -84,31 +83,53 @@ document.addEventListener("DOMContentLoaded", function () {
       .join("");
   }
 
-  // Mở modal thêm/sửa cấu hình giá
-  function openModal(price = null) {
-    editingPriceId = price ? price.id : null;
-
-    if (price) {
-      modalTitle.textContent = "Sửa cấu hình giá nhiên liệu";
-      fuelNameInput.value = price.fuelName;
-      fuelPriceInput.value = price.fuelPrice;
-      saveBtn.textContent = "Cập nhật";
-    } else {
-      modalTitle.textContent = "Thêm cấu hình giá nhiên liệu";
-      priceForm.reset();
-      saveBtn.textContent = "Thêm cấu hình";
+  // Hiện form thêm cấu hình
+  function showAddForm() {
+    // Tạo overlay nếu chưa có
+    if (!overlay) {
+      overlay = document.createElement("div");
+      overlay.className = "add-config-overlay";
+      document.body.appendChild(overlay);
     }
 
-    priceModal.classList.add("show");
+    // Hiện overlay và form
+    overlay.classList.add("show");
+    addConfigSection.style.display = "block";
+    setTimeout(() => {
+      addConfigSection.classList.add("show");
+    }, 10);
+
     fuelNameInput.focus();
   }
 
-  // Đóng modal
-  function closeModal() {
-    priceModal.classList.remove("show");
+  // Ẩn form thêm cấu hình
+  function hideAddForm() {
+    addConfigSection.classList.remove("show");
+    if (overlay) {
+      overlay.classList.remove("show");
+    }
+
+    setTimeout(() => {
+      addConfigSection.style.display = "none";
+    }, 300);
+  }
+
+  // Bắt đầu chỉnh sửa cấu hình
+  function startEdit(price) {
+    editingPriceId = price.id;
+    fuelNameInput.value = price.fuelName;
+    fuelPriceInput.value = price.fuelPrice;
+    saveBtn.textContent = "Cập nhật";
+    showAddForm();
+  }
+
+  // Hủy chỉnh sửa
+  function cancelEdit() {
     editingPriceId = null;
-    priceForm.reset();
-    FormValidator.clearAllErrors(priceForm);
+    configForm.reset();
+    saveBtn.textContent = "Thêm cấu hình";
+    FormValidator.clearAllErrors(configForm);
+    hideAddForm();
   }
 
   // Thêm cấu hình giá mới
@@ -155,13 +176,13 @@ document.addEventListener("DOMContentLoaded", function () {
   function editPrice(id) {
     const price = fuelPrices.find((p) => p.id === id);
     if (price) {
-      openModal(price);
+      startEdit(price);
     }
   }
 
   // Validate form
   function validateForm() {
-    FormValidator.clearAllErrors(priceForm);
+    FormValidator.clearAllErrors(configForm);
 
     let isValid = true;
     const fuelName = fuelNameInput.value.trim();
@@ -202,22 +223,18 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Event Listeners
-  addPriceBtn.addEventListener("click", () => {
-    openModal();
-  });
+  addPriceBtn.addEventListener("click", showAddForm);
+  cancelBtn.addEventListener("click", cancelEdit);
 
-  modalClose.addEventListener("click", closeModal);
-  cancelBtn.addEventListener("click", closeModal);
-
-  // Đóng modal khi click outside
-  priceModal.addEventListener("click", (e) => {
-    if (e.target === priceModal) {
-      closeModal();
+  // Đóng form khi click overlay
+  document.addEventListener("click", (e) => {
+    if (e.target === overlay) {
+      cancelEdit();
     }
   });
 
   // Xử lý submit form
-  priceForm.addEventListener("submit", (e) => {
+  configForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
     if (!validateForm()) {
@@ -240,7 +257,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       hideLoading(saveBtn);
-      closeModal();
+      cancelEdit(); // Reset form and hide form
     }, 500);
   });
 
@@ -255,14 +272,14 @@ document.addEventListener("DOMContentLoaded", function () {
   fuelPriceInput.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      priceForm.dispatchEvent(new Event("submit"));
+      configForm.dispatchEvent(new Event("submit"));
     }
   });
 
-  // Xử lý Escape key để đóng modal
+  // Xử lý Escape key để đóng form
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && priceModal.classList.contains("show")) {
-      closeModal();
+    if (e.key === "Escape" && addConfigSection.classList.contains("show")) {
+      cancelEdit();
     }
   });
 
