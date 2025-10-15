@@ -2,21 +2,32 @@
 body {
   font-family: "Arial", sans-serif !important;
 }
-
-/* Header sticky */
-.header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: white;
-  border-bottom: 1px solid #e0e0e0;
+.main-content {
+  background-color: #FAFAFB;
 }
+/* Header */
+.header {
+  background: #FAFAFB;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.page-title {
+  color: #2E3747;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 28px;
+  font-style: normal;
+}
+/* Content */
 .content {
   padding-bottom: 100px; /* Space for fixed button */
 }
 .content .container {
   max-width: 400px;
-  margin: 16px auto;
+  margin: 0 16px;
   background: white;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -28,14 +39,16 @@ body {
 
 /* Status section */
 .status-section {
-  padding: 15px 20px;
-  background: #f8f9fa;
-  border-bottom: 1px solid #eee;
+  padding:  16px 16px 0 16px;
+  background: white;
+  display: flex;
+  align-items: center;
 }
 
 .status-section label {
   font-weight: 500;
   margin-right: 10px;
+  color: #858A93;
 }
 
 .status-tag {
@@ -60,7 +73,7 @@ body {
 
 /* Form styles */
 .form-container {
-  padding: 16px;
+  padding: 0px 16px 16px 16px; 
 }
 
 .form-group {
@@ -158,7 +171,6 @@ body {
   }
 
   .content .container {
-    margin: 16px;
     max-width: none;
   }
 

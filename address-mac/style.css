@@ -26,7 +26,6 @@ body {
   font-weight: 600;
   line-height: 28px;
   font-style: normal;
-
 }
 .mac-address-container{
   width: 100%;
@@ -162,8 +161,5 @@ body {
   .mac-address {
     font-size: 14px;
     padding: 12px;
-  }
-  .page-title {
-    font-size: 16px;
   }
 }
