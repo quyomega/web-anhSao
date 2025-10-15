@@ -230,6 +230,16 @@
   height: 20px;
 }
 
+/* Footer */
+.footer {
+  background: white;
+  border-top: 1px solid #e0e0e0;
+  padding: 20px;
+  position: sticky;
+  bottom: 0;
+  z-index: 100;
+}
+
 /* Floating Add Button */
 .floating-add-btn {
   width: 100%;
@@ -465,6 +475,9 @@
 @media (max-width: 480px) {
   .content {
     padding-bottom: 20px;
+  }
+  .footer {
+    padding: 8px 16px 40px;
   }
   .fuel-config-content {
     align-items: flex-start;
