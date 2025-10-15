@@ -1,4 +1,4 @@
-/* Fuel Configuration Page Styles */
+/* Fuel Price Configuration Page Styles */
 
 body {
   font-family: "Arial", sans-serif !important;
@@ -9,8 +9,6 @@ body {
   display: flex;
   flex-direction: column;
 }
-
-/* Mobile Status Bar - Removed */
 
 /* Main Content */
 .main-content {
@@ -28,7 +26,6 @@ body {
 /* Header */
 .header {
   display: flex;
-  /* justify-content: space-between; */
   align-items: center;
   padding: 20px 24px;
   border-bottom: 1px solid #e0e0e0;
@@ -71,16 +68,16 @@ body {
   padding-bottom: 100px; /* Space for floating button */
 }
 
-/* Fuel Configuration List */
-.fuel-config-list {
+/* Fuel Price Configuration List */
+.fuel-price-list {
   display: flex;
   flex-direction: column;
   gap: 12px;
   margin-bottom: 24px;
 }
 
-.fuel-config-item {
-  background: white;
+.fuel-price-item {
+  background: #f8f9fa;
   border-radius: 8px;
   padding: 16px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -89,51 +86,56 @@ body {
   position: relative;
 }
 
-.fuel-config-item:hover {
+.fuel-price-item:hover {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-.fuel-config-content {
+.fuel-price-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.fuel-config-info {
+.fuel-price-info {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.fuel-config-row {
+.fuel-price-row {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.fuel-config-label {
+.fuel-price-label {
   font-size: 14px;
   color: #666;
   font-weight: normal;
   margin: 0;
 }
 
-.fuel-config-value {
+.fuel-price-value {
   font-size: 16px;
   color: #333;
   font-weight: bold;
   margin: 0;
 }
 
-.fuel-config-value.fuel-type {
-  color: #0066cc;
-  font-weight: normal;
-  font-size: 14px;
-  font-weight: 400;
+.fuel-price-value.fuel-name {
+  color: #333;
+  font-weight: 500;
+  font-size: 16px;
 }
 
-.fuel-config-actions {
+.fuel-price-value.fuel-price {
+  color: #0066cc;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.fuel-price-actions {
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -170,7 +172,42 @@ body {
   height: 20px;
 }
 
-/* Floating Add Button - Moved to Mobile Design section */
+/* Floating Add Button */
+.floating-add-btn {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 2;
+  background-color: #304ffd;
+  color: white;
+  box-shadow: 0 4px 12px rgba(48, 79, 253, 0.3);
+}
+
+.floating-add-btn:hover {
+  background-color: #304ffd;
+  transform: translateY(-1px);
+}
+
+.floating-add-btn:active {
+  transform: translateY(0);
+}
+
+.floating-add-btn .add-icon {
+  width: 20px;
+  height: 20px;
+}
 
 /* Modal Styles */
 .modal {
@@ -489,42 +526,6 @@ body {
   box-shadow: none;
 }
 
-.floating-add-btn {
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  right: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 16px;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  z-index: 2;
-  background-color: #304ffd;
-  color: white;
-  box-shadow: 0 4px 12px rgba(48, 79, 253, 0.3);
-}
-
-.floating-add-btn:hover {
-  background-color: #304ffd;
-  transform: translateY(-1px);
-}
-
-.floating-add-btn:active {
-  transform: translateY(0);
-}
-
-.floating-add-btn .add-icon {
-  width: 20px;
-  height: 20px;
-}
-
 /* Responsive Design */
 @media (max-width: 768px) {
   body {
@@ -549,7 +550,7 @@ body {
     padding: 16px;
   }
 
-  .fuel-config-item {
+  .fuel-price-item {
     padding: 16px;
   }
 
@@ -599,12 +600,12 @@ body {
 }
 
 @media (max-width: 480px) {
-  .fuel-config-content {
+  .fuel-price-content {
     align-items: flex-start;
     gap: 12px;
   }
 
-  .fuel-config-actions {
+  .fuel-price-actions {
     align-self: center;
   }
 }

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cấu hình giá nhiên liệu - ATC Petro</title>
+    <link rel="stylesheet" href="../common/assets/css/reset.css" />
+    <link rel="stylesheet" href="../common/components/sidebar/sidebar.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Header -->
+      <div class="header">
+        <h1 class="page-title">Cấu hình giá nhiên liệu</h1>
+        <button class="menu-toggle" id="menuToggle">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Content Area -->
+      <div class="content-area">
+        <!-- Fuel Price Configuration List -->
+        <div class="fuel-price-list" id="fuelPriceList">
+          <!-- Price configuration items will be dynamically generated -->
+        </div>
+      </div>
+
+      <!-- Floating Add Button -->
+      <button class="floating-add-btn" id="addPriceBtn">
+        <svg
+          class="add-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+        <span>Thêm cấu hình</span>
+      </button>
+    </div>
+
+    <!-- Add/Edit Price Configuration Modal -->
+    <div class="modal" id="priceModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title" id="modalTitle">
+            Thêm cấu hình giá nhiên liệu
+          </h2>
+          <button class="modal-close" id="modalClose">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+
+        <form class="modal-form" id="priceForm">
+          <div class="input-group">
+            <label for="fuelName" class="input-label">Tên nhiên liệu</label>
+            <div class="input-container">
+              <input
+                type="text"
+                id="fuelName"
+                placeholder="Nhập tên nhiên liệu"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label for="fuelPrice" class="input-label">Đơn giá (VNĐ)</label>
+            <div class="input-container">
+              <input
+                type="number"
+                id="fuelPrice"
+                placeholder="Nhập đơn giá"
+                min="0"
+                step="1000"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="modal-actions">
+            <button type="button" class="btn btn-secondary" id="cancelBtn">
+              Hủy
+            </button>
+            <button type="submit" class="btn btn-primary" id="saveBtn">
+              Thêm cấu hình
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../common/js/utils.js"></script>
+    <script src="../common/components/sidebar/sidebar-simple.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
