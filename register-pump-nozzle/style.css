@@ -98,7 +98,7 @@ body {
 }
 
 /* Button styles */
-.button-container {
+.footer {
   position: fixed;
   bottom: 0;
   left: 0;
@@ -167,7 +167,7 @@ body {
     padding: 10px;
   }
 
-  .button-container {
+  .footer {
     padding: 8px 16px 40px 16px;
   }
 
