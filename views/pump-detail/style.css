@@ -1,0 +1,410 @@
+/* Content */
+.content {
+  padding: 0 16px;
+}
+
+/* Info-pump */
+.info-pump {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+}
+/* Pump Selection Section */
+.pump-selection-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.pump-selector {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pump-label {
+  font-weight: 500;
+  color: #374151;
+}
+
+.pump-dropdown {
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: white;
+  font-size: 16px;
+  color: #374151;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.pump-dropdown:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.pump-status {
+  display: flex;
+  align-items: center;
+}
+
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.status-badge.running {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.status-badge.stopped {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.status-badge.maintenance {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+/* Pump Type Section */
+.pump-type-section {
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+.pump-type {
+  font-size: 18px;
+  font-weight: 600;
+  color: #304FFD;
+}
+
+/* Transaction Metrics */
+.transaction-metrics {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.metric-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.metric-row:last-child {
+  border-bottom: none;
+}
+
+.metric-label {
+  font-size: 14px;
+  color: #0D172A;
+  font-weight: 600;
+}
+
+.metric-value {
+  font-size: 14px;
+  font-weight: 500;
+  color: #2E3747;
+}
+
+/* Volume Data */
+.volume-data {
+  background: white;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.volume-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.volume-item:last-child {
+  border-bottom: none;
+}
+
+.volume-label {
+  font-weight: 500;
+  color: #374151;
+}
+
+.volume-value {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.volume-item.datalog .volume-value {
+  color: #f97316;
+  font-weight: 700;
+}
+
+.volume-item.newest .volume-value {
+  color: #22c55e;
+  font-weight: 700;
+}
+
+.volume-item.counter .volume-value {
+  color: #3b82f6;
+  font-weight: 700;
+}
+
+/* Data Record Section */
+.data-record-section {
+  border-radius: 12px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  color: #FAFAFB;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.record-count {
+  font-size: 16px;
+  font-weight: 550;
+  color: #2E3747;
+}
+
+.timestamp-value {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* Navigation Controls */
+.navigation-controls {
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+}
+
+.prev-btn {
+  background-color: #e0f2fe;
+  color: #0369a1;
+  border: 1px solid #bae6fd;
+  border-radius: 8px;
+}
+
+.prev-btn:hover {
+  background-color: #bae6fd;
+}
+
+.next-btn {
+  background-color: #3b82f6;
+  color: white;
+  border-radius: 8px;
+}
+
+.next-btn:hover {
+  background-color: #2563eb;
+}
+
+.step-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 0 24px;
+}
+
+.step-input {
+  width: 80px;
+  padding: 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.step-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.step-label {
+  font-size: 14px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+/* Mobile Design - Match với hình gửi */
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 20px;
+  }
+
+  .pump-selector {
+    gap: 8px;
+  }
+
+  .pump-label {
+    font-size: 14px;
+  }
+
+  .pump-dropdown {
+    padding: 6px 8px;
+    font-size: 14px;
+  }
+
+  .status-badge {
+    padding: 3px 10px;
+    font-size: 12px;
+  }
+
+  .pump-type {
+    font-size: 16px;
+  }
+
+  /* Transaction Metrics cho mobile */
+  .transaction-metrics {
+    margin-bottom: 16px;
+  }
+
+  .metric-row {
+    padding: 12px;
+  }
+
+  .volume-label {
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .volume-value {
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .record-count {
+    font-size: 16px;
+  }
+
+  .timestamp-value {
+    font-size: 12px;
+  }
+
+  .nav-btn {
+    flex: 1;
+    padding: 10px 16px;
+    font-size: 13px;
+    justify-content: center;
+  }
+
+  .step-label {
+    font-size: 13px;
+  }
+}
+
+/* Toast Notifications */
+.toast {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 1000;
+  animation: slideIn 0.3s ease-out;
+}
+
+.toast.success {
+  border-left: 4px solid #22c55e;
+}
+
+.toast.error {
+  border-left: 4px solid #ef4444;
+}
+
+.toast.warning {
+  border-left: 4px solid #f59e0b;
+}
+
+.toast.info {
+  border-left: 4px solid #3b82f6;
+}
+
+.toast-icon {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.toast-message {
+  flex: 1;
+  font-size: 14px;
+  color: #374151;
+}
+
+.toast-close {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #9ca3af;
+  cursor: pointer;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toast-close:hover {
+  color: #6b7280;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

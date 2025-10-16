@@ -669,9 +669,18 @@ function formatDate(date) {
 function viewCurrentLogDetails(stt) {
   const log = currentLogData.find((item) => item.stt === stt);
   if (log) {
-    showToast(`Xem chi tiết log bơm ${stt} - ${log.pumpId}`, "info");
-    // Here you can add modal or navigation to detail view
+    // Navigate to pump detail page with pump ID
+    navigateToPumpDetail(log.pumpId);
   }
+}
+
+// Navigate to pump detail page
+function navigateToPumpDetail(pumpId) {
+  // Store the selected pump ID in sessionStorage for the detail page
+  sessionStorage.setItem("selectedPumpId", pumpId);
+
+  // Navigate to pump detail page
+  window.location.href = "../pump-detail/index.html";
 }
 
 // Export functions for potential use in other modules
