@@ -1,7 +1,7 @@
 /* body */
 body {
   font-family: "Arial", sans-serif;
-  background: #FAFAFB;
+  background: #fafafb;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
@@ -17,21 +17,23 @@ body {
   min-height: 100vh;
   position: relative;
   overflow: visible;
-  background-color: #FAFAFB;
 }
 
 /* Header */
 .header {
-  background: #FAFAFB;
+  background: #fafafb;
   padding: 16px;
   display: flex;
   align-items: center;
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  margin-bottom: 1px;
 }
 
 .page-title {
-  color: #2E3747;
-  font-family: 'Roboto', sans-serif;
+  color: #2e3747;
+  font-family: "Roboto", sans-serif;
   font-size: 16px;
   font-weight: 600;
   line-height: 28px;
@@ -41,7 +43,7 @@ body {
 .menu-toggle {
   background: transparent;
   border: none;
-  color: #2E3747;
+  color: #2e3747;
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease;
