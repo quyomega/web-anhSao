@@ -97,26 +97,24 @@
 
           <!-- Current Log Tab -->
           <div class="tab-panel" id="current-log">
-            <div class="current-log-content">
-              <div class="empty-state">
-                <div class="empty-state-icon">
-                  <svg
-                    width="64"
-                    height="64"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="1"
-                  >
-                    <circle cx="12" cy="12" r="10" />
-                    <path d="M12 6v6l4 2" />
-                  </svg>
-                </div>
-                <h3 class="empty-state-title">Không có log bơm hiện tại</h3>
-                <p class="empty-state-description">
-                  Hiện tại không có giao dịch bơm nào đang diễn ra
-                </p>
-              </div>
+            <div class="table-container">
+              <table class="pump-log-table" id="currentLogTable">
+                <thead>
+                  <tr>
+                    <th class="sticky-col">STT</th>
+                    <th class="sticky-col">Pump ID</th>
+                    <th class="sticky-col">Fuel</th>
+                    <th>Liter</th>
+                    <th>Price</th>
+                    <th>Money</th>
+                    <th>Count</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="currentLogTableBody">
+                  <!-- Data will be populated by JavaScript -->
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

@@ -130,9 +130,39 @@
 .pump-log-table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 1300px; /* Ensure table has minimum width for horizontal scroll */
-  font-size: 14px;
+  min-width: 900px; /* Ensure table has minimum width for horizontal scroll */
+  font-size: 13px; /* Reduced from 14px to match current log table */
   table-layout: fixed; /* Fixed table layout for consistent column widths */
+}
+
+/* Current Log Table - use same styling as main table */
+#currentLogTable {
+  min-width: 900px; /* Same as main table */
+}
+
+/* Ensure both tables have consistent row heights */
+#currentLogTable th,
+#currentLogTable td {
+  padding: 8px 12px; /* Same as main table */
+  font-size: 12px; /* Same as main table */
+}
+
+/* Set consistent row heights for both tables */
+.pump-log-table tbody tr {
+  height: 50px; /* Fixed row height */
+}
+
+#currentLogTable tbody tr {
+  height: 50px; /* Same fixed row height */
+}
+
+/* Ensure consistent line height for table cells */
+.pump-log-table th,
+.pump-log-table td,
+#currentLogTable th,
+#currentLogTable td {
+  line-height: 1.4;
+  vertical-align: middle;
 }
 
 .pump-log-table thead {
@@ -143,7 +173,7 @@
 }
 
 .pump-log-table th {
-  padding: 16px 12px;
+  padding: 8px 12px; /* Reduced from 16px to match current log table */
   text-align: left;
   font-weight: 600;
   color: #374151;
@@ -245,7 +275,7 @@
 }
 
 .pump-log-table td {
-  padding: 16px 12px;
+  padding: 8px 12px; /* Reduced from 16px to match current log table */
   border-bottom: 1px solid #f3f4f6;
   color: #374151;
   white-space: nowrap;
@@ -311,6 +341,30 @@
 .fuel-type {
   color: #3b82f6;
   font-weight: 500;
+}
+
+/* Action Button */
+.action-btn {
+  background: none;
+  border: none;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #6b7280;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-btn:hover {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.action-btn svg {
+  width: 16px;
+  height: 16px;
 }
 
 /* Current Log Content */
@@ -773,7 +827,7 @@
 
   .pump-log-table th,
   .pump-log-table td {
-    padding: 10px 6px;
+    padding: 8px 12px;
     font-size: 12px;
   }
 

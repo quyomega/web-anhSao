@@ -72,11 +72,61 @@ const pumpLogData = [
   },
 ];
 
+// Sample data for current pump logs
+const currentLogData = [
+  {
+    stt: "01",
+    pumpId: "A",
+    fuel: "DO 0.0001S-V",
+    liter: "5 Lít",
+    price: "15.000₫",
+    money: "75.000₫",
+    count: "1",
+  },
+  {
+    stt: "02",
+    pumpId: "B",
+    fuel: "RON 95-III",
+    liter: "10 Lít",
+    price: "21.000₫",
+    money: "210.000₫",
+    count: "3",
+  },
+  {
+    stt: "03",
+    pumpId: "C",
+    fuel: "RON 95-IV",
+    liter: "15 Lít",
+    price: "21.500₫",
+    money: "322.500₫",
+    count: "5",
+  },
+  {
+    stt: "04",
+    pumpId: "D",
+    fuel: "RON 92",
+    liter: "20 Lít",
+    price: "20.000₫",
+    money: "400.000₫",
+    count: "7",
+  },
+  {
+    stt: "05",
+    pumpId: "E",
+    fuel: "Dầu hỏa",
+    liter: "35 Lít",
+    price: "15.000₫",
+    money: "525.000₫",
+    count: "9",
+  },
+];
+
 // DOM elements
 let tabButtons;
 let tabPanels;
 let filterBtn;
 let pumpLogTableBody;
+let currentLogTableBody;
 
 // Filter section elements
 let filterSection;
@@ -102,6 +152,7 @@ document.addEventListener("DOMContentLoaded", function () {
   initializeElements();
   setupEventListeners();
   renderPumpLogTable();
+  renderCurrentLogTable();
 });
 
 // Initialize DOM elements
@@ -110,6 +161,7 @@ function initializeElements() {
   tabPanels = document.querySelectorAll(".tab-panel");
   filterBtn = document.getElementById("filterBtn");
   pumpLogTableBody = document.getElementById("pumpLogTableBody");
+  currentLogTableBody = document.getElementById("currentLogTableBody");
 
   // Filter section elements
   filterSection = document.getElementById("filterSection");
@@ -234,6 +286,37 @@ function renderPumpLogTable() {
     `;
 
     pumpLogTableBody.appendChild(row);
+  });
+}
+
+// Render current log table
+function renderCurrentLogTable() {
+  if (!currentLogTableBody) return;
+
+  currentLogTableBody.innerHTML = "";
+
+  currentLogData.forEach((log, index) => {
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
+      <td class="sticky-col">${log.stt}</td>
+      <td class="sticky-col">${log.pumpId}</td>
+      <td class="sticky-col fuel-type">${log.fuel}</td>
+      <td>${log.liter}</td>
+      <td class="currency">${log.price}</td>
+      <td class="currency">${log.money}</td>
+      <td>${log.count}</td>
+      <td>
+        <button class="action-btn" onclick="viewCurrentLogDetails('${log.stt}')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </button>
+      </td>
+    `;
+
+    currentLogTableBody.appendChild(row);
   });
 }
 
@@ -582,6 +665,15 @@ function formatDate(date) {
   }).format(date);
 }
 
+// View current log details
+function viewCurrentLogDetails(stt) {
+  const log = currentLogData.find((item) => item.stt === stt);
+  if (log) {
+    showToast(`Xem chi tiết log bơm ${stt} - ${log.pumpId}`, "info");
+    // Here you can add modal or navigation to detail view
+  }
+}
+
 // Export functions for potential use in other modules
 window.PumpLogApp = {
   switchTab,
@@ -593,4 +685,5 @@ window.PumpLogApp = {
   hideFilterSection,
   applyFilters,
   resetFilters,
+  viewCurrentLogDetails,
 };
