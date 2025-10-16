@@ -83,6 +83,10 @@
 .sidebar .menu-text {
   font-size: 14px;
   color: white;
+  font-weight: 400;
+}
+.sidebar .menu-text :hover{
+  font-size: 500;
 }
 
 /* Sidebar Overlay */

@@ -7,7 +7,11 @@
 
 /* Search Container */
 .search-container {
-  margin-bottom: 16px;
+  position: sticky;
+  top: 60px;
+  z-index: 100;
+  background: #f8fafc;
+  padding: 1px 16px 16px;
 }
 
 .search-input-container {
@@ -39,9 +43,10 @@
   border: none;
   outline: none;
   padding: 12px 0;
-  font-size: 16px;
+  font-size: 14px;
   background: transparent;
   color: #374151;
+  margin-left: 8px;
 }
 
 .search-input::placeholder {
@@ -90,10 +95,10 @@
   min-width: 120px;
 }
 .pump-label-eng {
-  color: #2E3747;
+  color: #2e3747;
 }
-.pump-label-vn{
-  color: #858A93;
+.pump-label-vn {
+  color: #858a93;
 }
 .pump-info-value {
   font-size: 14px;
@@ -106,27 +111,27 @@
 
 /* Specific styling for different value types */
 .pump-info-value.pump-id {
-  font-weight: 600;
-  color: #2E3747;
+  font-weight: 500;
+  color: #2e3747;
 }
 
 .pump-info-value.fuel-type {
-  color: #2E3747;
+  color: #2e3747;
   font-weight: 500;
 }
 
 .pump-info-value.pump-type {
-  color: #2E3747;
+  color: #2e3747;
   font-weight: 500;
 }
 
 .pump-info-value.serial {
-  color: #2E3747;
+  color: #2e3747;
   font-weight: 500;
 }
 
 .pump-info-value.sell-code {
-  color: #2E3747;
+  color: #2e3747;
   font-weight: 500;
 }
 
@@ -189,11 +194,6 @@
 @media (max-width: 480px) {
   .content {
     padding: 0 16px;
-  }
-
-  .search-input {
-    padding: 10px 0;
-    font-size: 14px;
   }
 
   .pump-info-label {
