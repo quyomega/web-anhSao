@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Danh sách log bơm - ATC Petro</title>
+    <link rel="stylesheet" href="../../common/assets/css/reset.css" />
+    <link rel="stylesheet" href="../../common/components/sidebar/sidebar.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../../../common/components/css/style.css" />
+  </head>
+  <body>
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Header -->
+      <div class="header">
+        <h1 class="page-title">Danh sách log bơm</h1>
+        <button class="menu-toggle" id="menuToggle">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="12"
+            viewBox="0 0 20 12"
+            fill="none"
+          >
+            <path
+              d="M19.3271 10.2539C19.7051 10.2925 20 10.6118 20 11C20 11.3882 19.7051 11.7075 19.3271 11.7461L19.25 11.75H0.75C0.335786 11.75 0 11.4142 0 11C0 10.5858 0.335786 10.25 0.75 10.25H19.25L19.3271 10.2539Z"
+              fill="#2E3747"
+            />
+            <path
+              d="M19.3271 5.25391C19.7051 5.29253 20 5.61183 20 6C20 6.38817 19.7051 6.70747 19.3271 6.74609L19.25 6.75H0.75C0.335786 6.75 0 6.41421 0 6C0 5.58579 0.335786 5.25 0.75 5.25H19.25L19.3271 5.25391Z"
+              fill="#2E3747"
+            />
+            <path
+              d="M19.3271 0.253906C19.7051 0.292528 20 0.611834 20 1C20 1.38817 19.7051 1.70747 19.3271 1.74609L19.25 1.75H0.75C0.335786 1.75 0 1.41421 0 1C0 0.585786 0.335786 0.25 0.75 0.25H19.25L19.3271 0.253906Z"
+              fill="#2E3747"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Content Area -->
+      <div class="content">
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+          <button class="tab-btn active" data-tab="log-list">
+            Danh sách log bơm
+          </button>
+          <button class="tab-btn" data-tab="current-log">
+            Log bơm hiện tại
+          </button>
+          <div class="filter-section">
+            <button class="filter-btn" id="filterBtn">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path
+                  d="M2 4h12M4 8h8M6 12h4"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                />
+              </svg>
+              Lọc
+            </button>
+          </div>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="tab-content">
+          <!-- Log List Tab -->
+          <div class="tab-panel active" id="log-list">
+            <div class="table-container">
+              <table class="pump-log-table" id="pumpLogTable">
+                <thead>
+                  <tr>
+                    <th class="sticky-col">STT</th>
+                    <th class="sticky-col">Pump ID</th>
+                    <th class="sticky-col">Fuel</th>
+                    <th>Liter</th>
+                    <th>Price</th>
+                    <th>Money</th>
+                    <th>Time</th>
+                    <th>Count</th>
+                    <th>Status</th>
+                    <th>Total liter</th>
+                    <th>Total amount</th>
+                    <th>Pump serial</th>
+                  </tr>
+                </thead>
+                <tbody id="pumpLogTableBody">
+                  <!-- Data will be populated by JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Current Log Tab -->
+          <div class="tab-panel" id="current-log">
+            <div class="current-log-content">
+              <div class="empty-state">
+                <div class="empty-state-icon">
+                  <svg
+                    width="64"
+                    height="64"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 6v6l4 2" />
+                  </svg>
+                </div>
+                <h3 class="empty-state-title">Không có log bơm hiện tại</h3>
+                <p class="empty-state-description">
+                  Hiện tại không có giao dịch bơm nào đang diễn ra
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../common/js/utils.js"></script>
+    <script src="../../common/components/sidebar/sidebar.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
