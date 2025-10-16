@@ -124,6 +124,16 @@ function switchTab(targetTab) {
   if (activeButton) activeButton.classList.add("active");
   if (activePanel) activePanel.classList.add("active");
 
+  // Update toggle switch position
+  const tabGroup = document.querySelector(".tab-group");
+  if (tabGroup) {
+    if (targetTab === "current-log") {
+      tabGroup.classList.add("switch-right");
+    } else {
+      tabGroup.classList.remove("switch-right");
+    }
+  }
+
   // Show toast notification
   showToast(`Đã chuyển sang tab ${getTabDisplayName(targetTab)}`, "success");
 }
