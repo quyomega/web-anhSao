@@ -11,13 +11,18 @@
 .content {
   padding: 40px 20px;
 }
-
+.container{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
 .mac-info-card {
   background: white;
   border-radius: 12px;
   padding: 30px;
   border: 1px solid var(--outline-subtle, #DEDFE2);
   text-align: center;
+  width: 100%;
 }
 
 .mac-label {
