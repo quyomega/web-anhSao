@@ -63,8 +63,7 @@
 }
 
 .sidebar .menu-item.active {
-  background: rgba(255, 255, 255, 0.2);
-  border-right: 3px solid #dc2626;
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .sidebar .menu-item.logout {

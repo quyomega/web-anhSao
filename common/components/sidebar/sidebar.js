@@ -152,10 +152,39 @@ class SimpleSidebarManager {
   setActivePage() {
     // Lấy tên trang hiện tại từ URL
     const currentPath = window.location.pathname;
-    const currentPage =
-      currentPath.split("/").pop().replace(".html", "") || "address-mac";
+    const pathParts = currentPath.split("/").filter((part) => part !== "");
 
-    console.log("Current page:", currentPage);
+    let currentPage = "";
+
+    // Nếu URL kết thúc bằng index.html, lấy tên thư mục trước đó
+    if (
+      currentPath.endsWith("/index.html") ||
+      currentPath.endsWith("index.html")
+    ) {
+      currentPage =
+        pathParts[pathParts.length - 2] || pathParts[pathParts.length - 1];
+    } else {
+      // Lấy tên file hoặc thư mục cuối cùng
+      currentPage = pathParts[pathParts.length - 1].replace(".html", "");
+    }
+
+    // Nếu vẫn không có, lấy từ thư mục
+    if (!currentPage || currentPage === "") {
+      currentPage = pathParts[pathParts.length - 1];
+    }
+
+    // Debug: in ra tất cả thông tin để kiểm tra
+    console.log("=== DEBUG ACTIVE PAGE ===");
+    console.log("Full URL:", window.location.href);
+    console.log("Pathname:", currentPath);
+    console.log("Path parts:", currentPath.split("/"));
+    console.log("Detected page:", currentPage);
+    console.log(
+      "Available menu items:",
+      Array.from(this.sidebar.querySelectorAll(".menu-item[data-page]")).map(
+        (item) => item.getAttribute("data-page")
+      )
+    );
 
     // Xóa active class cũ
     const activeItems = this.sidebar.querySelectorAll(".menu-item.active");
@@ -167,7 +196,27 @@ class SimpleSidebarManager {
     );
     if (currentMenuItem) {
       currentMenuItem.classList.add("active");
-      console.log("Set active menu item:", currentPage);
+      console.log("✅ Set active menu item:", currentPage);
+    } else {
+      console.warn("❌ No menu item found for page:", currentPage);
+      // Chỉ fallback về register-pump-nozzle nếu đang ở trang chính (root)
+      if (
+        currentPath === "/" ||
+        currentPath.endsWith("/") ||
+        currentPage === ""
+      ) {
+        const defaultMenuItem = this.sidebar.querySelector(
+          `[data-page="register-pump-nozzle"]`
+        );
+        if (defaultMenuItem) {
+          defaultMenuItem.classList.add("active");
+          currentPage = "register-pump-nozzle";
+          console.log("🔄 Fallback to default page:", currentPage);
+        }
+      } else {
+        console.log("⚠️ No active menu item set for page:", currentPage);
+        // Không set active cho item nào nếu không tìm thấy
+      }
     }
 
     this.currentPage = currentPage;
