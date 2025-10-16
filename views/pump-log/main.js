@@ -163,32 +163,8 @@ function renderPumpLogTable() {
       <td>${log.pumpSerial}</td>
     `;
 
-    // Add click event to row
-    row.addEventListener("click", function () {
-      showLogDetails(log);
-    });
-
-    // Add hover effect
-    row.style.cursor = "pointer";
-
     pumpLogTableBody.appendChild(row);
   });
-}
-
-// Show log details
-function showLogDetails(log) {
-  const message = `
-    Chi tiết log bơm:
-    - Pump ID: ${log.pumpId}
-    - Nhiên liệu: ${log.fuel}
-    - Số lít: ${log.liter}
-    - Đơn giá: ${log.price}
-    - Thành tiền: ${log.money}
-    - Thời gian: ${log.time}
-    - Trạng thái: ${log.status}
-  `;
-
-  showToast(message, "info");
 }
 
 // Show filter options
@@ -297,11 +273,6 @@ function renderFilteredTable(data) {
       <td>${log.pumpSerial}</td>
     `;
 
-    row.addEventListener("click", function () {
-      showLogDetails(log);
-    });
-
-    row.style.cursor = "pointer";
     pumpLogTableBody.appendChild(row);
   });
 }
@@ -370,7 +341,6 @@ function formatDate(date) {
 // Export functions for potential use in other modules
 window.PumpLogApp = {
   switchTab,
-  showLogDetails,
   filterPumpLogs,
   showToast,
   formatCurrency,
