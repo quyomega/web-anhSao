@@ -1,0 +1,296 @@
+/* Content Area */
+.content {
+  flex: 1;
+  padding: 0 16px;
+  overflow-y: auto;
+}
+
+/* Search Container */
+.search-container {
+  margin-bottom: 16px;
+}
+
+.search-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 0 16px;
+  transition: border-color 0.3s ease;
+}
+
+.search-input-container:focus-within {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.search-icon {
+  color: #9ca3af;
+  margin-right: 12px;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 12px 0;
+  font-size: 16px;
+  background: transparent;
+  color: #374151;
+}
+
+.search-input::placeholder {
+  color: #9ca3af;
+}
+
+/* Pump List */
+.pump-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Pump Information Card */
+.pump-card {
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid #e5e7eb;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.pump-card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pump-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+  margin-bottom: 8px;
+  min-height: 21px;
+}
+
+.pump-info-row:last-child {
+  margin-bottom: 0;
+}
+
+.pump-info-label {
+  font-size: 14px;
+  color: #6b7280;
+  font-weight: 500;
+  flex-shrink: 0;
+  min-width: 120px;
+}
+.pump-label-eng {
+  color: #2E3747;
+}
+.pump-label-vn{
+  color: #858A93;
+}
+.pump-info-value {
+  font-size: 14px;
+  color: #111827;
+  font-weight: 400;
+  text-align: right;
+  flex: 1;
+  margin-left: 8px;
+}
+
+/* Specific styling for different value types */
+.pump-info-value.pump-id {
+  font-weight: 600;
+  color: #2E3747;
+}
+
+.pump-info-value.fuel-type {
+  color: #2E3747;
+  font-weight: 500;
+}
+
+.pump-info-value.pump-type {
+  color: #2E3747;
+  font-weight: 500;
+}
+
+.pump-info-value.serial {
+  color: #2E3747;
+  font-weight: 500;
+}
+
+.pump-info-value.sell-code {
+  color: #2E3747;
+  font-weight: 500;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #6b7280;
+}
+
+.empty-state-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 16px;
+  color: #d1d5db;
+}
+
+.empty-state-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #374151;
+}
+
+.empty-state-description {
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+/* Loading States */
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pump-card {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Mobile Design - Default */
+.main-content {
+  max-width: 100%;
+  margin: 0;
+  box-shadow: none;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .content {
+    padding: 0 16px;
+  }
+
+  .search-input {
+    padding: 10px 0;
+    font-size: 14px;
+  }
+
+  .pump-info-label {
+    min-width: auto;
+    font-size: 13px;
+  }
+
+  .pump-info-value {
+    margin-left: 0;
+    font-size: 13px;
+  }
+}
+
+/* Toast Notification Styles */
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: white;
+  border-radius: 8px;
+  padding: 16px 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-left: 4px solid #10b981;
+  z-index: 9999;
+  min-width: 300px;
+  max-width: 400px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  animation: slideInRight 0.3s ease-out;
+  transform: translateX(0);
+}
+
+.toast.success {
+  border-left-color: #10b981;
+  background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
+}
+
+.toast.error {
+  border-left-color: #ef4444;
+  background: linear-gradient(135deg, #fef2f2 0%, #ffffff 100%);
+}
+
+.toast.warning {
+  border-left-color: #f59e0b;
+  background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%);
+}
+
+.toast-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.toast-message {
+  flex: 1;
+  line-height: 1.4;
+}
+
+.toast-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6b7280;
+  font-size: 16px;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.toast-close:hover {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+/* Animations */
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}

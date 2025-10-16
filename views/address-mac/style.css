@@ -15,7 +15,7 @@
 
 .mac-info-card {
   background: white;
-  border-radius: 16px;
+  border-radius: 12px;
   padding: 30px;
   border: 1px solid var(--outline-subtle, #DEDFE2);
   text-align: center;

@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
           showToast("Chức năng đang phát triển", "warning");
           break;
         case "Thông tin vòi bơm":
-          showToast("Chức năng đang phát triển", "warning");
+          Navigation.goTo("../pump-info/index.html");
           break;
         case "Danh sách log bơm":
           showToast("Chức năng đang phát triển", "warning");
