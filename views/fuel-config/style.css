@@ -82,9 +82,10 @@
   right: 0px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 12px;
   background: white;
-  padding: 8px 0 40px;
+  padding: 8px 16px 40px;
   border-top: 1px solid #e0e0e0;
 }
 
@@ -281,12 +282,12 @@
   cursor: pointer;
   transition: all 0.2s ease;
   border: none;
-  margin: 0 16px;
 }
 
 .btn-secondary {
-  background: #f3f4f6;
-  color: #374151;
+  background: #ffffff;
+  color: #2e3747;
+  border: 1px solid #dedfe2;
 }
 
 .btn-secondary:hover {
@@ -305,6 +306,13 @@
 .btn-primary:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+  background: #ebebed;
+  color: #b0b3ba;
+}
+
+.btn-primary:disabled:hover {
+  background: #9ca3af;
+  transform: none;
 }
 
 /* Empty State */

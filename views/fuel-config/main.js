@@ -95,6 +95,8 @@ document.addEventListener("DOMContentLoaded", function () {
       addConfigSection.classList.add("show");
     }, 10);
 
+    // Set trạng thái ban đầu của nút (disabled)
+    saveBtn.disabled = true;
     pumpIdInput.focus();
   }
 
@@ -117,6 +119,10 @@ document.addEventListener("DOMContentLoaded", function () {
     fuelTypeSelect.value = config.fuelType;
     saveBtn.textContent = "Cập nhật";
     showAddForm();
+    // Kiểm tra validation sau khi set giá trị
+    setTimeout(() => {
+      checkFormValidation();
+    }, 100);
   }
 
   // Hủy chỉnh sửa
@@ -174,6 +180,22 @@ document.addEventListener("DOMContentLoaded", function () {
     if (config) {
       startEdit(config);
     }
+  }
+
+  // Kiểm tra validation real-time cho nút submit
+  function checkFormValidation() {
+    const pumpId = pumpIdInput.value.trim();
+    const fuelType = fuelTypeSelect.value.trim();
+
+    // Kiểm tra trùng lặp Pump ID
+    const existingConfig = fuelConfigs.find(
+      (c) => c.pumpId === pumpId && c.id !== editingConfigId
+    );
+
+    const isValid = pumpId && fuelType && !existingConfig;
+    saveBtn.disabled = !isValid;
+
+    return isValid;
   }
 
   // Validate form
@@ -266,6 +288,11 @@ document.addEventListener("DOMContentLoaded", function () {
       configForm.dispatchEvent(new Event("submit"));
     }
   });
+
+  // Event listeners cho validation real-time
+  pumpIdInput.addEventListener("input", checkFormValidation);
+  pumpIdInput.addEventListener("change", checkFormValidation);
+  fuelTypeSelect.addEventListener("change", checkFormValidation);
 
   // Xử lý Escape key để đóng form
   document.addEventListener("keydown", (e) => {

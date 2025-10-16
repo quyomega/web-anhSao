@@ -99,6 +99,8 @@ document.addEventListener("DOMContentLoaded", function () {
       addConfigSection.classList.add("show");
     }, 10);
 
+    // Set trạng thái ban đầu của nút (disabled)
+    saveBtn.disabled = true;
     fuelNameInput.focus();
   }
 
@@ -121,6 +123,10 @@ document.addEventListener("DOMContentLoaded", function () {
     fuelPriceInput.value = price.fuelPrice;
     saveBtn.textContent = "Cập nhật";
     showAddForm();
+    // Kiểm tra validation sau khi set giá trị
+    setTimeout(() => {
+      checkFormValidation();
+    }, 100);
   }
 
   // Hủy chỉnh sửa
@@ -178,6 +184,29 @@ document.addEventListener("DOMContentLoaded", function () {
     if (price) {
       startEdit(price);
     }
+  }
+
+  // Kiểm tra validation real-time cho nút submit
+  function checkFormValidation() {
+    const fuelName = fuelNameInput.value.trim();
+    const fuelPrice = fuelPriceInput.value.trim();
+
+    // Kiểm tra trùng lặp tên nhiên liệu
+    const existingPrice = fuelPrices.find(
+      (p) =>
+        p.fuelName.toLowerCase() === fuelName.toLowerCase() &&
+        p.id !== editingPriceId
+    );
+
+    const isValid =
+      fuelName &&
+      fuelPrice &&
+      !isNaN(fuelPrice) &&
+      parseInt(fuelPrice) > 0 &&
+      !existingPrice;
+    saveBtn.disabled = !isValid;
+
+    return isValid;
   }
 
   // Validate form
@@ -275,6 +304,12 @@ document.addEventListener("DOMContentLoaded", function () {
       configForm.dispatchEvent(new Event("submit"));
     }
   });
+
+  // Event listeners cho validation real-time
+  fuelNameInput.addEventListener("input", checkFormValidation);
+  fuelNameInput.addEventListener("change", checkFormValidation);
+  fuelPriceInput.addEventListener("input", checkFormValidation);
+  fuelPriceInput.addEventListener("change", checkFormValidation);
 
   // Xử lý Escape key để đóng form
   document.addEventListener("keydown", (e) => {
