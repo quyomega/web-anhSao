@@ -123,6 +123,110 @@
       </div>
     </div>
 
+    <!-- Filter Section -->
+    <div class="filter-modal-section" id="filterSection" style="display: none">
+      <div class="section-header">
+        <h2 class="section-title">Lọc</h2>
+      </div>
+      <div class="filter-form" id="filterForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Thời gian</label>
+            <div class="date-range-input" id="dateRangeInput">
+              <svg
+                class="date-icon"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+              >
+                <path
+                  d="M6 2V4M14 2V4M2.5 6.5H17.5M4 3.5C4 2.67157 4.67157 2 5.5 2H6.5C7.32843 2 8 2.67157 8 3.5V4.5C8 5.32843 7.32843 6 6.5 6H5.5C4.67157 6 4 5.32843 4 4.5V3.5ZM12 3.5C12 2.67157 12.6716 2 13.5 2H14.5C15.3284 2 16 2.67157 16 3.5V4.5C16 5.32843 15.3284 6 14.5 6H13.5C12.6716 6 12 5.32843 12 4.5V3.5ZM2.5 6.5V15.5C2.5 16.8807 3.61929 18 5 18H15C16.3807 18 17.5 16.8807 17.5 15.5V6.5M2.5 6.5H17.5"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <span class="date-range-text" id="dateRangeText"
+                >01/07/2025 - 30/07/2025</span
+              >
+              <svg
+                class="date-arrow"
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+              >
+                <path
+                  d="M4 6L8 10L12 6"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+
+            <!-- Date Picker (Hidden by default) -->
+            <div class="date-picker" id="datePicker" style="display: none">
+              <div class="date-picker-header">
+                <button class="date-picker-nav" id="prevMonth">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path
+                      d="M10 12L6 8L10 4"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </button>
+                <span class="date-picker-month" id="currentMonth"
+                  >Tháng 7 2025</span
+                >
+                <button class="date-picker-nav" id="nextMonth">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path
+                      d="M6 4L10 8L6 12"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <div class="date-picker-weekdays">
+                <div class="weekday">CN</div>
+                <div class="weekday">T2</div>
+                <div class="weekday">T3</div>
+                <div class="weekday">T4</div>
+                <div class="weekday">T5</div>
+                <div class="weekday">T6</div>
+                <div class="weekday">T7</div>
+              </div>
+              <div class="date-picker-days" id="datePickerDays">
+                <!-- Days will be populated by JavaScript -->
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group form-actions">
+            <button type="button" class="btn btn-secondary" id="resetFilterBtn">
+              Đặt lại
+            </button>
+            <button type="button" class="btn btn-primary" id="applyFilterBtn">
+              Lọc
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filter Overlay -->
+    <div class="filter-overlay" id="filterOverlay"></div>
+
     <!-- Scripts -->
     <script src="../../common/js/utils.js"></script>
     <script src="../../common/components/sidebar/sidebar.js"></script>
