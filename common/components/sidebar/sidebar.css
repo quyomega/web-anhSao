@@ -73,20 +73,22 @@
   padding-top: 20px;
 }
 
-.sidebar .menu-icon {
-  width: 20px;
-  height: 20px;
-  margin-right: 15px;
-  color: white;
-}
-
 .sidebar .menu-text {
   font-size: 14px;
   color: white;
   font-weight: 400;
 }
-.sidebar .menu-text :hover{
-  font-size: 500;
+
+.sidebar .menu-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 15px;
+  color: white;
+  transition: color 0.1s ease;
+}
+
+.sidebar .menu-item:hover .menu-text {
+  font-weight: 550;
 }
 
 /* Sidebar Overlay */
