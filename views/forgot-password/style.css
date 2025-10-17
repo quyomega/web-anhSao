@@ -1,0 +1,552 @@
+/* Container chính */
+.forgot-password-container {
+  min-height: 100vh;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Header */
+.header {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.page-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.menu-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  color: #333;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.menu-btn:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.menu-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Card chính */
+.forgot-password-card {
+  background: white;
+  border-radius: 12px;
+  padding: 32px 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  animation: slideIn 0.5s ease-out;
+}
+
+/* Form */
+.forgot-password-form {
+  width: 100%;
+}
+
+/* Input groups */
+.input-group {
+  margin-bottom: 24px;
+}
+
+.input-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.input-container {
+  position: relative;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.input-container.mac-input {
+  background: #f5f5f5;
+  border-color: #d0d0d0;
+}
+
+.input-container input {
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 16px;
+  font-size: 16px;
+  background: transparent;
+  color: #333;
+}
+
+.input-container.mac-input input {
+  color: #666;
+  cursor: not-allowed;
+}
+
+.input-container input::placeholder {
+  color: #999;
+}
+
+.input-container:focus-within {
+  border-color: #ccc;
+}
+
+/* Button group */
+.button-group {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+/* Back button */
+.back-btn {
+  flex: 1;
+  background: #f5f5f5;
+  color: #666;
+  border: none;
+  border-radius: 8px;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.back-btn:hover {
+  background: #e0e0e0;
+}
+
+.back-btn:active {
+  transform: translateY(1px);
+}
+
+.back-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Verify button */
+.verify-btn {
+  flex: 1;
+  background: #e0e0e0;
+  color: #666;
+  border: none;
+  border-radius: 8px;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.verify-btn:hover {
+  background: #d0d0d0;
+}
+
+.verify-btn:active {
+  transform: translateY(1px);
+}
+
+.verify-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.verify-btn.valid {
+  background: #2196f3;
+  color: white;
+}
+
+.verify-btn.valid:hover {
+  background: #1976d2;
+}
+
+/* Error states */
+.input-container.error {
+  border-color: #f44336;
+}
+
+.error-message {
+  color: #f44336;
+  font-size: 12px;
+  margin-top: 4px;
+  display: none;
+}
+
+.input-group.error .error-message {
+  display: block;
+}
+
+/* Success Dialog */
+.success-dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.success-dialog.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.dialog-content {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  margin: 20px;
+  max-width: 320px;
+  width: 100%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  animation: dialogSlideIn 0.3s ease-out;
+}
+
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.dialog-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: #666;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.close-btn:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.close-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.dialog-body {
+  margin-bottom: 20px;
+}
+
+.dialog-message {
+  font-size: 14px;
+  color: #333;
+  margin: 0 0 12px 0;
+  line-height: 1.5;
+}
+
+.password-display {
+  color: #2196f3;
+  font-weight: 600;
+  font-family: monospace;
+}
+
+.dialog-instruction {
+  font-size: 12px;
+  color: #666;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.dialog-footer {
+  text-align: center;
+}
+
+.confirm-btn {
+  background: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.confirm-btn:hover {
+  background: #1976d2;
+}
+
+.confirm-btn:active {
+  transform: translateY(1px);
+}
+
+/* Loading states */
+.btn-loading {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.loading-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 1s ease-in-out infinite;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Toast notifications */
+.toast {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  animation: slideInDown 0.3s ease-out;
+  max-width: 90%;
+}
+
+.toast.success {
+  background: #4caf50;
+  color: white;
+}
+
+.toast.error {
+  background: #f44336;
+  color: white;
+}
+
+.toast.warning {
+  background: #ff9800;
+  color: white;
+}
+
+/* Animations */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -100%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes dialogSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .forgot-password-container {
+    padding: 16px;
+  }
+
+  .forgot-password-card {
+    padding: 24px 20px;
+    margin-bottom: 16px;
+  }
+
+  .header {
+    margin-bottom: 32px;
+  }
+
+  .page-title {
+    font-size: 16px;
+  }
+
+  .input-container input {
+    padding: 14px;
+    font-size: 14px;
+  }
+
+  .button-group {
+    gap: 8px;
+  }
+
+  .back-btn,
+  .verify-btn {
+    padding: 14px;
+    font-size: 14px;
+  }
+
+  .back-btn {
+    gap: 6px;
+  }
+
+  .dialog-content {
+    margin: 16px;
+    padding: 20px;
+  }
+
+  .dialog-title {
+    font-size: 16px;
+  }
+
+  .confirm-btn {
+    padding: 10px 20px;
+    font-size: 13px;
+  }
+}
+
+/* Focus states for accessibility */
+.input-container input:focus {
+  background: transparent;
+  outline: none;
+  border: none;
+}
+
+.input-container:focus-within {
+  border-color: #e0e0e0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove any browser default focus styles */
+.input-container input:focus,
+.input-container input:focus-visible,
+.input-container input:focus-within {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Ensure no success styling */
+.input-container.success,
+.input-group.success,
+.input-container.success input,
+.input-group.success input {
+  border-color: #e0e0e0 !important;
+  background: white !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Override any browser or framework default success colors */
+.input-container input:valid,
+.input-container input:invalid,
+.input-container input[aria-invalid="false"],
+.input-container input[aria-invalid="true"] {
+  border-color: #e0e0e0 !important;
+  background: white !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Force override any possible blue colors - MUST be at the end */
+.input-container,
+.input-container input,
+.input-container input:focus,
+.input-container input:focus-within,
+.input-container:focus-within,
+.input-container:focus-within input {
+  border-color: #e0e0e0 !important;
+  background: white !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Nuclear option - override everything */
+input[type="tel"] {
+  border-color: #e0e0e0 !important;
+  background: white !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+input[type="tel"]:focus,
+input[type="tel"]:valid,
+input[type="tel"]:invalid {
+  border-color: #e0e0e0 !important;
+  background: white !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .input-container {
+    border-color: #000;
+  }
+
+  .verify-btn {
+    border: 2px solid #000;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .forgot-password-card {
+    animation: none;
+  }
+
+  .toast {
+    animation: none;
+  }
+
+  .loading-spinner {
+    animation: none;
+  }
+}
