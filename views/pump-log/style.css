@@ -782,6 +782,9 @@
   background: #ebebed;
   transform: none;
 }
+#pumpLogTableBody {
+  box-sizing: unset !important;
+}
 /* Mobile Responsive */
 @media (max-width: 480px) {
   .table-container {
@@ -828,44 +831,44 @@
 
   .pump-log-table th:nth-child(1).sticky-col {
     left: 0;
-    width: 60px;
-    min-width: 60px;
-    max-width: 60px;
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
   }
 
   .pump-log-table th:nth-child(2).sticky-col {
-    left: 60px;
-    width: 60px;
-    min-width: 60px;
-    max-width: 60px;
+    left: 50px;
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
   }
 
   .pump-log-table th:nth-child(3).sticky-col {
     left: 120px;
-    width: 60px;
-    min-width: 60px;
-    max-width: 60px;
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
   }
 
   .pump-log-table td:nth-child(1).sticky-col {
-    left: 0px;
-    width: 60px;
-    min-width: 60px;
-    max-width: 60px;
+    left: 0;
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
   }
 
   .pump-log-table td:nth-child(2).sticky-col {
-    left: 60px;
-    width: 60px;
-    min-width: 60px;
-    max-width: 60px;
+    left: 50px;
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
   }
 
   .pump-log-table td:nth-child(3).sticky-col {
     left: 120px;
-    width: 60px;
-    min-width: 60px;
-    max-width: 60px;
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
   }
 
   .status-badge {

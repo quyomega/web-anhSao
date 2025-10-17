@@ -1,7 +1,7 @@
 /* Content Area */
 .content {
   flex: 1;
-  padding: 0 16px;
+  padding: 0 16px 16px;
   overflow-y: auto;
 }
 
@@ -192,9 +192,6 @@
 
 /* Responsive Design */
 @media (max-width: 480px) {
-  .content {
-    padding: 0 16px;
-  }
 
   .pump-info-label {
     min-width: auto;

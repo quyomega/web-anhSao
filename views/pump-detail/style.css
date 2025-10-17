@@ -88,7 +88,7 @@
 .pump-type {
   font-size: 18px;
   font-weight: 600;
-  color: #304FFD;
+  color: #304ffd;
 }
 
 /* Transaction Metrics */
@@ -114,14 +114,14 @@
 
 .metric-label {
   font-size: 14px;
-  color: #0D172A;
+  color: #0d172a;
   font-weight: 600;
 }
 
 .metric-value {
   font-size: 14px;
   font-weight: 500;
-  color: #2E3747;
+  color: #2e3747;
 }
 
 /* Volume Data */
@@ -176,7 +176,7 @@
   margin-bottom: 16px;
   display: flex;
   flex-direction: column;
-  color: #FAFAFB;
+  color: #fafafb;
   justify-content: space-between;
   align-items: center;
 }
@@ -184,7 +184,7 @@
 .record-count {
   font-size: 16px;
   font-weight: 550;
-  color: #2E3747;
+  color: #2e3747;
 }
 
 .timestamp-value {

@@ -5,8 +5,190 @@
   overflow-y: auto;
 }
 
-/* Add Configuration Section */
-.add-config-section {
+/* WiFi Status Section */
+.wifi-status-section {
+  margin-bottom: 24px;
+}
+
+.wifi-status-card {
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+  transition: all 0.2s ease;
+  min-height: 80px;
+}
+
+.wifi-status-card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.wifi-status-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.wifi-status-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 24px;
+  line-height: 24px;
+}
+
+.wifi-status-label {
+  font-size: 14px;
+  color: #666;
+  font-weight: normal;
+  margin: 0;
+  line-height: 24px;
+  height: 24px;
+  min-width: 120px;
+}
+
+.wifi-status-value {
+  font-size: 16px;
+  color: #333;
+  font-weight: bold;
+  margin: 0;
+  line-height: 24px;
+  height: 24px;
+}
+
+.wifi-status-value.connected {
+  color: #10b981;
+}
+
+.wifi-status-value.disconnected {
+  color: #ef4444;
+}
+
+.wifi-status-actions {
+  display: flex;
+  align-items: center;
+  margin-top: 12px;
+}
+
+/* WiFi Networks Section */
+.wifi-networks-section {
+  margin-bottom: 24px;
+}
+
+.wifi-networks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.wifi-network-item {
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+  transition: all 0.2s ease;
+  position: relative;
+  min-height: 80px;
+  cursor: pointer;
+}
+
+.wifi-network-item:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+}
+
+.wifi-network-item.connected {
+  border-color: #10b981;
+  background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
+}
+
+.wifi-network-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.wifi-network-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.wifi-network-name {
+  font-size: 16px;
+  color: #333;
+  font-weight: 600;
+  margin: 0;
+  line-height: 24px;
+  height: 24px;
+}
+
+.wifi-network-details {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: #666;
+}
+
+.wifi-network-security {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.wifi-network-signal {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.wifi-network-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+}
+
+.connect-btn,
+.info-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 4px;
+  color: #666;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  width: 32px;
+  min-height: 32px;
+}
+
+.connect-btn:hover {
+  background-color: #f0f8ff;
+  color: #0066cc;
+}
+
+.info-btn:hover {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.connect-btn svg,
+.info-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* WiFi Configuration Form */
+.wifi-config-section {
   background: white;
   border-radius: 8px 8px 0 0;
   padding: 16px;
@@ -25,13 +207,13 @@
   padding-bottom: 180px; /* Space for bottom buttons */
 }
 
-.add-config-section.show {
+.wifi-config-section.show {
   transform: translateY(0);
   opacity: 1;
 }
 
 /* Overlay background */
-.add-config-overlay {
+.wifi-config-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -44,7 +226,7 @@
   transition: all 0.3s ease;
 }
 
-.add-config-overlay.show {
+.wifi-config-overlay.show {
   opacity: 1;
   visibility: visible;
 }
@@ -60,19 +242,12 @@
   margin: 0;
 }
 
-.config-form {
+.wifi-config-form {
   width: 100%;
 }
 
-.form-row {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
 .form-group {
-  flex: 1;
-  min-width: 200px;
+  margin-bottom: 20px;
 }
 
 .form-group.form-actions {
@@ -102,7 +277,7 @@
   margin-bottom: 8px;
 }
 
-.form-select {
+.form-input {
   width: 100%;
   padding: 12px 16px;
   border: 1px solid #d1d5db;
@@ -111,121 +286,54 @@
   background: white;
   transition: border-color 0.3s ease;
   box-sizing: border-box;
-  cursor: pointer;
   height: 48px;
   line-height: 24px;
 }
 
-.form-select:focus {
+.form-input:focus {
   outline: none;
   border-color: #3b82f6;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
-/* Fuel Configuration List */
-.fuel-config-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+.form-input:read-only {
+  background-color: #f9fafb;
+  color: #6b7280;
+  cursor: not-allowed;
 }
 
-.fuel-config-item {
-  background: white;
-  border-radius: 12px;
-  padding: 16px;
-  border: 1px solid #e0e0e0;
-  transition: all 0.2s ease;
+/* Password Input Container */
+.password-input-container {
   position: relative;
-  min-height: 80px;
-}
-
-.fuel-config-item:hover {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
-
-.fuel-config-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.fuel-config-info {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.fuel-config-row {
   display: flex;
   align-items: center;
-  gap: 8px;
-  min-height: 24px;
-  line-height: 24px;
 }
 
-.fuel-config-label {
-  font-size: 14px;
-  color: #666;
-  font-weight: normal;
-  margin: 0;
-  line-height: 24px;
-  height: 24px;
+.password-input-container .form-input {
+  padding-right: 50px;
 }
 
-.fuel-config-value {
-  font-size: 16px;
-  color: #333;
-  font-weight: bold;
-  margin: 0;
-  line-height: 24px;
-  height: 24px;
-}
-
-.fuel-config-value.fuel-type {
-  color: #0066cc;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 24px;
-  height: 24px;
-}
-
-.fuel-config-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  align-items: center;
-}
-
-.edit-btn,
-.menu-btn {
+.password-toggle {
+  position: absolute;
+  right: 12px;
   background: none;
   border: none;
   cursor: pointer;
-  padding: 6px;
+  padding: 4px;
   border-radius: 4px;
   color: #666;
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 32px;
-  width: 32px;
-  min-height: 32px;
 }
 
-.edit-btn:hover {
-  background-color: #f0f8ff;
-  color: #0066cc;
+.password-toggle:hover {
+  background-color: #f3f4f6;
+  color: #374151;
 }
 
-.menu-btn:hover {
-  background-color: #f0f0f0;
-  color: #333;
-}
-
-.edit-btn svg,
-.menu-btn svg {
+.password-toggle svg {
   width: 20px;
   height: 20px;
 }
@@ -240,8 +348,8 @@
   z-index: 100;
 }
 
-/* Floating Add Button */
-.floating-add-btn {
+/* Floating Scan Button */
+.floating-scan-btn {
   width: 100%;
   display: flex;
   align-items: center;
@@ -259,16 +367,16 @@
   box-shadow: 0 4px 12px rgba(48, 79, 253, 0.3);
 }
 
-.floating-add-btn:hover {
+.floating-scan-btn:hover {
   background-color: #304ffd;
   transform: translateY(-1px);
 }
 
-.floating-add-btn:active {
+.floating-scan-btn:active {
   transform: translateY(0);
 }
 
-.floating-add-btn .add-icon {
+.floating-scan-btn .scan-icon {
   width: 20px;
   height: 20px;
 }
@@ -428,6 +536,47 @@
   color: #374151;
 }
 
+/* Signal Strength Indicators */
+.signal-strength {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.signal-bar {
+  width: 3px;
+  background-color: #d1d5db;
+  border-radius: 1px;
+  transition: all 0.2s ease;
+}
+
+.signal-bar.active {
+  background-color: #10b981;
+}
+
+.signal-bar:nth-child(1) {
+  height: 4px;
+}
+
+.signal-bar:nth-child(2) {
+  height: 6px;
+}
+
+.signal-bar:nth-child(3) {
+  height: 8px;
+}
+
+.signal-bar:nth-child(4) {
+  height: 10px;
+}
+
+/* Security Icons */
+.security-icon {
+  width: 16px;
+  height: 16px;
+  color: #666;
+}
+
 /* Animations */
 @keyframes fadeIn {
   from {
@@ -471,6 +620,20 @@
   }
 }
 
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.scanning {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
 /* Mobile Design - Default */
 .main-content {
   max-width: 100%;
@@ -480,18 +643,28 @@
 
 /* Responsive Design */
 @media (max-width: 480px) {
+  .content {
+    padding-bottom: 20px;
+  }
   .footer {
     padding: 8px 16px 40px;
   }
-  .fuel-config-content {
+  .wifi-network-content {
     align-items: flex-start;
     gap: 12px;
   }
-  .fuel-config-actions {
+  .wifi-network-actions {
     align-self: center;
   }
-  .floating-add-btn {
+  .floating-scan-btn {
     padding: 12px 16px;
+    font-size: 14px;
+  }
+  .wifi-status-label {
+    min-width: 100px;
+    font-size: 13px;
+  }
+  .wifi-status-value {
     font-size: 14px;
   }
 }

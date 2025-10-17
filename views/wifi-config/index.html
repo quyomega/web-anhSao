@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cấu hình Wifi - ATC Petro</title>
+    <link rel="stylesheet" href="../../common/assets/css/reset.css" />
+    <link rel="stylesheet" href="../../common/components/sidebar/sidebar.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../../../common/components/css/style.css" />
+  </head>
+  <body>
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Header -->
+      <div class="header">
+        <h1 class="page-title">Cấu hình wifi</h1>
+        <button class="menu-toggle" id="menuToggle">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="12"
+            viewBox="0 0 20 12"
+            fill="none"
+          >
+            <path
+              d="M19.3271 10.2539C19.7051 10.2925 20 10.6118 20 11C20 11.3882 19.7051 11.7075 19.3271 11.7461L19.25 11.75H0.75C0.335786 11.75 0 11.4142 0 11C0 10.5858 0.335786 10.25 0.75 10.25H19.25L19.3271 10.2539Z"
+              fill="#2E3747"
+            />
+            <path
+              d="M19.3271 5.25391C19.7051 5.29253 20 5.61183 20 6C20 6.38817 19.7051 6.70747 19.3271 6.74609L19.25 6.75H0.75C0.335786 6.75 0 6.41421 0 6C0 5.58579 0.335786 5.25 0.75 5.25H19.25L19.3271 5.25391Z"
+              fill="#2E3747"
+            />
+            <path
+              d="M19.3271 0.253906C19.7051 0.292528 20 0.611834 20 1C20 1.38817 19.7051 1.70747 19.3271 1.74609L19.25 1.75H0.75C0.335786 1.75 0 1.41421 0 1C0 0.585786 0.335786 0.25 0.75 0.25H19.25L19.3271 0.253906Z"
+              fill="#2E3747"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Content Area -->
+      <div class="content">
+        <!-- Current WiFi Status -->
+        <div class="wifi-status-section">
+          <div class="section-header">
+            <h2 class="section-title">Trạng thái kết nối hiện tại</h2>
+          </div>
+          <div class="wifi-status-card" id="wifiStatusCard">
+            <div class="wifi-status-info">
+              <div class="wifi-status-row">
+                <div class="wifi-status-label">Mạng hiện tại:</div>
+                <div class="wifi-status-value" id="currentNetwork">
+                  Chưa kết nối
+                </div>
+              </div>
+              <div class="wifi-status-row">
+                <div class="wifi-status-label">Trạng thái:</div>
+                <div class="wifi-status-value" id="connectionStatus">
+                  Ngắt kết nối
+                </div>
+              </div>
+              <div class="wifi-status-row">
+                <div class="wifi-status-label">Cường độ tín hiệu:</div>
+                <div class="wifi-status-value" id="signalStrength">--</div>
+              </div>
+            </div>
+            <div class="wifi-status-actions">
+              <button
+                class="btn btn-secondary"
+                id="disconnectBtn"
+                style="display: none"
+              >
+                Ngắt kết nối
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Available WiFi Networks -->
+        <div class="wifi-networks-section">
+          <div class="section-header">
+            <h2 class="section-title">Danh sách wifi khả dụng</h2>
+          </div>
+          <div class="wifi-networks-list" id="wifiNetworksList">
+            <!-- WiFi networks will be dynamically generated -->
+          </div>
+        </div>
+
+        <!-- WiFi Configuration Form - Hidden by default -->
+        <div
+          class="wifi-config-section"
+          id="wifiConfigSection"
+          style="display: none"
+        >
+          <div class="section-header">
+            <h2 class="section-title">Cấu hình wifi</h2>
+          </div>
+          <form class="wifi-config-form" id="wifiConfigForm">
+            <div class="form-group">
+              <label for="wifiName" class="form-label">Tên mạng (SSID)</label>
+              <input
+                type="text"
+                id="wifiName"
+                class="form-input"
+                readonly
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="wifiPassword" class="form-label">Mật khẩu</label>
+              <div class="password-input-container">
+                <input
+                  type="password"
+                  id="wifiPassword"
+                  class="form-input"
+                  placeholder="Nhập mật khẩu wifi"
+                  required
+                />
+                <button
+                  type="button"
+                  class="password-toggle"
+                  id="passwordToggle"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                  >
+                    <path
+                      d="M10 3.75C6.25 3.75 3.125 6.25 1.25 10C3.125 13.75 6.25 16.25 10 16.25C13.75 16.25 16.875 13.75 18.75 10C16.875 6.25 13.75 3.75 10 3.75ZM10 14.375C7.5 14.375 5.625 12.5 5.625 10C5.625 7.5 7.5 5.625 10 5.625C12.5 5.625 14.375 7.5 14.375 10C14.375 12.5 12.5 14.375 10 14.375Z"
+                      fill="#666"
+                    />
+                    <path
+                      d="M10 7.5C8.625 7.5 7.5 8.625 7.5 10C7.5 11.375 8.625 12.5 10 12.5C11.375 12.5 12.5 11.375 12.5 10C12.5 8.625 11.375 7.5 10 7.5Z"
+                      fill="#666"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div class="form-group form-actions">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                id="cancelWifiBtn"
+              >
+                Hủy
+              </button>
+              <button type="submit" class="btn btn-primary" id="connectWifiBtn">
+                Kết nối
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="footer">
+        <button class="floating-scan-btn" id="scanWifiBtn">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+          >
+            <path
+              d="M7.61413 15.0173C9.05702 13.9033 10.9507 13.9033 12.3936 15.0173C12.6668 15.2283 12.7176 15.6206 12.5067 15.8938C12.2958 16.1666 11.9033 16.2175 11.6302 16.0069C10.6373 15.2403 9.37037 15.2403 8.37748 16.0069C8.10431 16.2173 7.71182 16.1668 7.50101 15.8938C7.2902 15.6207 7.3412 15.2283 7.61413 15.0173Z"
+              fill="white"
+            />
+            <path
+              d="M5.6016 12.1959C8.25493 10.1408 11.7382 10.1408 14.3915 12.1959C14.6643 12.4073 14.7142 12.8003 14.503 13.0732C14.2916 13.346 13.8986 13.3959 13.6257 13.1847C11.4229 11.4785 8.56931 11.4784 6.36657 13.1847C6.09378 13.3957 5.70144 13.3457 5.49011 13.0732C5.27894 12.8003 5.32879 12.4072 5.6016 12.1959Z"
+              fill="white"
+            />
+            <path
+              d="M4.15303 9.38258C7.69258 6.64974 12.3151 6.64977 15.8547 9.38258C16.1278 9.59352 16.1787 9.98585 15.9678 10.259C15.7568 10.5321 15.3637 10.5822 15.0905 10.3713C12.001 7.98628 8.00579 7.98603 4.91638 10.3713C4.64318 10.5821 4.2508 10.5322 4.03991 10.259C3.82907 9.98591 3.88005 9.59356 4.15303 9.38258Z"
+              fill="white"
+            />
+            <path
+              d="M1.91019 6.69947C6.80636 2.91855 13.1941 2.91844 18.0902 6.69947C18.3633 6.91035 18.414 7.30276 18.2033 7.57594C17.9925 7.84899 17.6 7.89967 17.3269 7.68906C12.8807 4.25544 7.11971 4.25555 2.67354 7.68906C2.40036 7.89967 2.00795 7.84899 1.79708 7.57594C1.5863 7.30275 1.63708 6.9104 1.91019 6.69947Z"
+              fill="white"
+            />
+          </svg>
+          Quét mạng wifi
+        </button>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../common/js/utils.js"></script>
+    <script src="../../common/components/sidebar/sidebar.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
