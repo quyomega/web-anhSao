@@ -9,9 +9,7 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!-- Main Content -->
     <div class="main-content">
-      <!-- Header -->
       <div class="header">
         <h1 class="page-title">Cấu hình wifi</h1>
         <button class="menu-toggle" id="menuToggle">
@@ -38,36 +36,30 @@
         </button>
       </div>
 
-      <!-- Content Area -->
       <div class="content">
-        <!-- Connected WiFi Section -->
-        <div
-          class="wifi-connected-section"
-          id="wifiConnectedSection"
-          style="display: none"
-        >
-          <div class="section-header">
-            <h2 class="section-title">Đã kết nối</h2>
+        <div class="container">
+          <div
+            class="wifi-connected-section"
+            id="wifiConnectedSection"
+            style="display: none"
+          >
+            <div class="section-header">
+              <h2 class="section-title">Đã kết nối</h2>
+            </div>
+            <div class="wifi-connected-card" id="wifiConnectedCard"></div>
           </div>
-          <div class="wifi-connected-card" id="wifiConnectedCard">
-            <!-- Connected WiFi will be displayed here -->
-          </div>
-        </div>
 
-        <!-- Available WiFi Networks -->
-        <div class="wifi-networks-section">
-          <div class="section-header">
-            <h2 class="section-title">Danh sách wifi khả dụng</h2>
-          </div>
-          <div class="wifi-networks-card">
-            <div class="wifi-networks-list" id="wifiNetworksList">
-              <!-- WiFi networks will be dynamically generated -->
+          <div class="wifi-networks-section">
+            <div class="section-header">
+              <h2 class="section-title">Danh sách wifi khả dụng</h2>
+            </div>
+            <div class="wifi-networks-card">
+              <div class="wifi-networks-list" id="wifiNetworksList"></div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- WiFi Password Dialog -->
       <div
         class="wifi-dialog-overlay"
         id="wifiDialogOverlay"
@@ -146,7 +138,6 @@
       </div>
     </div>
 
-    <!-- Scripts -->
     <script src="../common/js/utils.js"></script>
     <script src="../common/components/sidebar/sidebar.js"></script>
     <script src="main.js"></script>

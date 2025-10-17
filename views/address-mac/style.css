@@ -9,17 +9,20 @@
 
 /* Content */
 .content {
-  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+  padding: 0 16px;
 }
 .container{
   display: flex;
   justify-content: center;
   width: 100%;
+  max-width: 500px;
 }
 .mac-info-card {
   background: white;
   border-radius: 12px;
-  padding: 30px;
+  padding: 16px;
   border: 1px solid var(--outline-subtle, #DEDFE2);
   text-align: center;
   width: 100%;

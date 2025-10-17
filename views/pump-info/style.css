@@ -3,8 +3,13 @@
   flex: 1;
   padding: 0 16px 16px;
   overflow-y: auto;
+  display: flex;
+  justify-content: center;
 }
-
+.container{
+  width: 100%;
+  max-width: 500px;
+}
 /* Search Container */
 .search-container {
   position: sticky;

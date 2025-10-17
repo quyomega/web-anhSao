@@ -9,9 +9,7 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!-- Main Content -->
     <div class="main-content">
-      <!-- Header -->
       <div class="header">
         <h1 class="page-title">Đồng bộ thời gian</h1>
         <button class="menu-toggle" id="menuToggle">
@@ -38,81 +36,78 @@
         </button>
       </div>
 
-      <!-- Content Area -->
       <div class="content">
-        <!-- Time Sync Form -->
-        <div class="time-sync-form">
-          <div class="form-card">
-            <!-- Pump ID Selection -->
-            <div class="form-group">
-              <label class="form-label">Pump ID (ID vòi bơm)</label>
-              <div class="dropdown-container">
-                <select id="pumpIdSelect" class="form-select">
-                  <option value="A">A</option>
-                  <option value="B">B</option>
-                  <option value="C">C</option>
-                  <option value="D">D</option>
-                  <option value="E">E</option>
-                  <option value="F">F</option>
-                </select>
-                <div class="dropdown-arrow">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                  >
-                    <path
-                      d="M4 6L8 10L12 6"
-                      stroke="#2E3747"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
+        <div class="container">
+          <div class="time-sync-form">
+            <div class="form-card">
+              <div class="form-group">
+                <label class="form-label">Pump ID (ID vòi bơm)</label>
+                <div class="dropdown-container">
+                  <select id="pumpIdSelect" class="form-select">
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                    <option value="F">F</option>
+                  </select>
+                  <div class="dropdown-arrow">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                    >
+                      <path
+                        d="M4 6L8 10L12 6"
+                        stroke="#2E3747"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <!-- Time Input -->
-            <div class="form-group">
-              <label class="form-label">Time (Thời gian)</label>
-              <div class="time-input-container">
-                <div class="time-input-icon">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="M10 1.66699C14.6024 1.66699 18.3333 5.39793 18.3333 10.0003C18.3333 14.6027 14.6024 18.3337 10 18.3337C5.39763 18.3337 1.66667 14.6027 1.66667 10.0003C1.66667 5.39793 5.39763 1.66699 10 1.66699ZM10 2.91699C6.3181 2.91699 3.33333 5.90176 3.33333 9.58366C3.33333 13.2656 6.3181 16.2503 10 16.2503C13.6819 16.2503 16.6667 13.2656 16.6667 9.58366C16.6667 5.90176 13.6819 2.91699 10 2.91699Z"
-                      fill="#2E3747"
-                    />
-                    <path
-                      d="M10 5.83366C10.3452 5.83366 10.625 6.11352 10.625 6.45866V9.58366L13.125 12.0837C13.3452 12.3039 13.3452 12.6539 13.125 12.8741C12.9048 13.0943 12.5548 13.0943 12.3346 12.8741L9.66797 10.2074C9.55786 10.0973 9.5 9.94552 9.5 9.79199V6.45866C9.5 6.11352 9.77986 5.83366 10.125 5.83366H10Z"
-                      fill="#2E3747"
-                    />
-                  </svg>
+              <div class="form-group">
+                <label class="form-label">Time (Thời gian)</label>
+                <div class="time-input-container">
+                  <div class="time-input-icon">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M10 1.66699C14.6024 1.66699 18.3333 5.39793 18.3333 10.0003C18.3333 14.6027 14.6024 18.3337 10 18.3337C5.39763 18.3337 1.66667 14.6027 1.66667 10.0003C1.66667 5.39793 5.39763 1.66699 10 1.66699ZM10 2.91699C6.3181 2.91699 3.33333 5.90176 3.33333 9.58366C3.33333 13.2656 6.3181 16.2503 10 16.2503C13.6819 16.2503 16.6667 13.2656 16.6667 9.58366C16.6667 5.90176 13.6819 2.91699 10 2.91699Z"
+                        fill="#2E3747"
+                      />
+                      <path
+                        d="M10 5.83366C10.3452 5.83366 10.625 6.11352 10.625 6.45866V9.58366L13.125 12.0837C13.3452 12.3039 13.3452 12.6539 13.125 12.8741C12.9048 13.0943 12.5548 13.0943 12.3346 12.8741L9.66797 10.2074C9.55786 10.0973 9.5 9.94552 9.5 9.79199V6.45866C9.5 6.11352 9.77986 5.83366 10.125 5.83366H10Z"
+                        fill="#2E3747"
+                      />
+                    </svg>
+                  </div>
+                  <input
+                    type="text"
+                    id="timeInput"
+                    class="time-input"
+                    value="15:15:45 - 05/10/2025"
+                    readonly
+                  />
                 </div>
-                <input
-                  type="text"
-                  id="timeInput"
-                  class="time-input"
-                  value="15:15:45 - 05/10/2025"
-                  readonly
-                />
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Footer -->
       <div class="footer">
         <button class="btn btn-secondary" id="syncOneBtn">Đồng bộ 1 ID</button>
         <button class="btn btn-primary" id="syncAllBtn">

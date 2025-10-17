@@ -3,8 +3,13 @@
   flex: 1;
   padding: 0 16px;
   overflow-y: auto;
+  display: flex;
+  justify-content: center;
 }
-
+.container {
+  width: 100%;
+  max-width: 500px;
+}
 /* WiFi Connected Section */
 .wifi-connected-section {
   margin-bottom: 16px;
