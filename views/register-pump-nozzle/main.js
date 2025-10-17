@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let isRunning = false;
 
-  // Sidebar functionality
   menuToggle.addEventListener("click", function (e) {
     e.stopPropagation();
     toggleSidebar();
@@ -24,7 +23,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Sidebar menu items
   const menuItems = document.querySelectorAll(".sidebar .menu-item");
   menuItems.forEach((item) => {
     item.addEventListener("click", function () {
@@ -38,7 +36,6 @@ document.addEventListener("DOMContentLoaded", function () {
           Navigation.goTo("../address-mac/index.html");
           break;
         case "Khai báo vòi bơm":
-          // Đã ở trang này rồi
           break;
         case "Cấu hình nhiên liệu":
           showToast("Chức năng đang phát triển", "warning");
@@ -85,7 +82,6 @@ document.addEventListener("DOMContentLoaded", function () {
     Navigation.goTo("../login/index.html");
   }
 
-  // Kiểm tra đăng nhập
   const user = Storage.get("user");
   if (!user) {
     showToast("Vui lòng đăng nhập", "warning");
@@ -94,7 +90,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 1500);
   }
 
-  // Toggle start/stop functionality
   controlButton.addEventListener("click", function () {
     if (isRunning) {
       stopPump();
@@ -110,13 +105,9 @@ document.addEventListener("DOMContentLoaded", function () {
     controlButton.textContent = "Stop";
     controlButton.className = "stop-button";
 
-    // Disable form inputs when running
     formInputs.forEach((input) => {
       input.disabled = true;
     });
-
-    console.log("Pump started");
-    // Here you would add actual pump control logic
   }
 
   function stopPump() {
@@ -126,16 +117,12 @@ document.addEventListener("DOMContentLoaded", function () {
     controlButton.textContent = "Start";
     controlButton.className = "start-button";
 
-    // Enable form inputs when stopped
     formInputs.forEach((input) => {
       input.disabled = false;
     });
 
-    console.log("Pump stopped");
-    // Here you would add actual pump control logic
   }
 
-  // Form validation
   function validateForm() {
     const id = document.getElementById("id").value;
     const lineServer = document.getElementById("lineServer").value;
@@ -159,7 +146,6 @@ document.addEventListener("DOMContentLoaded", function () {
     return true;
   }
 
-  // Add validation before starting
   controlButton.addEventListener("click", function (e) {
     if (!isRunning && !validateForm()) {
       e.preventDefault();
@@ -167,7 +153,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Save form data to localStorage
   function saveFormData() {
     const formData = {
       id: document.getElementById("id").value,
@@ -179,7 +164,6 @@ document.addEventListener("DOMContentLoaded", function () {
     localStorage.setItem("pumpConfig", JSON.stringify(formData));
   }
 
-  // Load form data from localStorage
   function loadFormData() {
     const savedData = localStorage.getItem("pumpConfig");
     if (savedData) {
@@ -195,18 +179,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Save data when form changes
   formInputs.forEach((input) => {
     input.addEventListener("change", saveFormData);
     input.addEventListener("input", saveFormData);
   });
 
-  // Load saved data on page load
   loadFormData();
 
-  // Menu icon functionality (placeholder)
   document.querySelector(".menu-icon").addEventListener("click", function () {
-    console.log("Menu clicked");
-    // Add menu functionality here
   });
 });

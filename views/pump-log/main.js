@@ -1,4 +1,3 @@
-// Sample data for pump logs
 const pumpLogData = [
   {
     stt: "01",
@@ -72,7 +71,6 @@ const pumpLogData = [
   },
 ];
 
-// Sample data for current pump logs
 const currentLogData = [
   {
     stt: "01",
@@ -121,14 +119,12 @@ const currentLogData = [
   },
 ];
 
-// DOM elements
 let tabButtons;
 let tabPanels;
 let filterBtn;
 let pumpLogTableBody;
 let currentLogTableBody;
 
-// Filter section elements
 let filterSection;
 let filterOverlay;
 let dateRangeInput;
@@ -141,13 +137,11 @@ let datePickerDays;
 let resetFilterBtn;
 let applyFilterBtn;
 
-// Filter state
 let currentDate = new Date();
 let selectedStartDate = null;
 let selectedEndDate = null;
 let isSelectingRange = false;
 
-// Initialize the application
 document.addEventListener("DOMContentLoaded", function () {
   initializeElements();
   setupEventListeners();
@@ -155,7 +149,6 @@ document.addEventListener("DOMContentLoaded", function () {
   renderCurrentLogTable();
 });
 
-// Initialize DOM elements
 function initializeElements() {
   tabButtons = document.querySelectorAll(".tab-btn");
   tabPanels = document.querySelectorAll(".tab-panel");
@@ -163,7 +156,6 @@ function initializeElements() {
   pumpLogTableBody = document.getElementById("pumpLogTableBody");
   currentLogTableBody = document.getElementById("currentLogTableBody");
 
-  // Filter section elements
   filterSection = document.getElementById("filterSection");
   filterOverlay = document.getElementById("filterOverlay");
   dateRangeInput = document.getElementById("dateRangeInput");
@@ -177,9 +169,7 @@ function initializeElements() {
   applyFilterBtn = document.getElementById("applyFilterBtn");
 }
 
-// Setup event listeners
 function setupEventListeners() {
-  // Tab switching
   tabButtons.forEach((button) => {
     button.addEventListener("click", function () {
       const targetTab = this.getAttribute("data-tab");
@@ -187,14 +177,12 @@ function setupEventListeners() {
     });
   });
 
-  // Filter button
   if (filterBtn) {
     filterBtn.addEventListener("click", function () {
       showFilterSection();
     });
   }
 
-  // Filter section event listeners
   if (filterOverlay) {
     filterOverlay.addEventListener("click", hideFilterSection);
   }
@@ -219,24 +207,19 @@ function setupEventListeners() {
     applyFilterBtn.addEventListener("click", applyFilters);
   }
 
-  // Initialize date picker
   initializeDatePicker();
 }
 
-// Switch between tabs
 function switchTab(targetTab) {
-  // Remove active class from all tabs and panels
   tabButtons.forEach((btn) => btn.classList.remove("active"));
   tabPanels.forEach((panel) => panel.classList.remove("active"));
 
-  // Add active class to selected tab and panel
   const activeButton = document.querySelector(`[data-tab="${targetTab}"]`);
   const activePanel = document.getElementById(targetTab);
 
   if (activeButton) activeButton.classList.add("active");
   if (activePanel) activePanel.classList.add("active");
 
-  // Update toggle switch position
   const tabGroup = document.querySelector(".tab-group");
   if (tabGroup) {
     if (targetTab === "current-log") {
@@ -246,11 +229,9 @@ function switchTab(targetTab) {
     }
   }
 
-  // Show toast notification
   showToast(`Đã chuyển sang tab ${getTabDisplayName(targetTab)}`, "success");
 }
 
-// Get display name for tab
 function getTabDisplayName(tabId) {
   const names = {
     "log-list": "Danh sách log bơm",
@@ -259,7 +240,6 @@ function getTabDisplayName(tabId) {
   return names[tabId] || tabId;
 }
 
-// Render pump log table
 function renderPumpLogTable() {
   if (!pumpLogTableBody) return;
 
@@ -289,7 +269,6 @@ function renderPumpLogTable() {
   });
 }
 
-// Render current log table
 function renderCurrentLogTable() {
   if (!currentLogTableBody) return;
 
@@ -320,7 +299,6 @@ function renderCurrentLogTable() {
   });
 }
 
-// Show filter section
 function showFilterSection() {
   if (filterSection && filterOverlay) {
     filterSection.style.display = "block";
@@ -331,7 +309,6 @@ function showFilterSection() {
   }
 }
 
-// Hide filter section
 function hideFilterSection() {
   if (filterSection && filterOverlay) {
     filterSection.classList.remove("show");
@@ -342,7 +319,6 @@ function hideFilterSection() {
   }
 }
 
-// Toggle date picker
 function toggleDatePicker() {
   if (datePicker) {
     const isVisible = datePicker.style.display !== "none";
@@ -357,9 +333,7 @@ function toggleDatePicker() {
   }
 }
 
-// Initialize date picker
 function initializeDatePicker() {
-  // Set default date range (current month)
   const today = new Date();
   const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
   const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
@@ -370,20 +344,17 @@ function initializeDatePicker() {
   updateDateRangeText();
 }
 
-// Change month in date picker
 function changeMonth(direction) {
   currentDate.setMonth(currentDate.getMonth() + direction);
   renderDatePicker();
 }
 
-// Render date picker
 function renderDatePicker() {
   if (!currentMonth || !datePickerDays) return;
 
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
 
-  // Update month display
   const monthNames = [
     "Tháng 1",
     "Tháng 2",
@@ -400,16 +371,13 @@ function renderDatePicker() {
   ];
   currentMonth.textContent = `${monthNames[month]} ${year}`;
 
-  // Get first day of month and number of days
   const firstDay = new Date(year, month, 1);
   const lastDay = new Date(year, month + 1, 0);
   const startDate = new Date(firstDay);
   startDate.setDate(startDate.getDate() - firstDay.getDay());
 
-  // Clear previous days
   datePickerDays.innerHTML = "";
 
-  // Generate calendar days
   for (let i = 0; i < 42; i++) {
     const date = new Date(startDate);
     date.setDate(startDate.getDate() + i);
@@ -418,12 +386,10 @@ function renderDatePicker() {
     dayElement.className = "date-day";
     dayElement.textContent = date.getDate();
 
-    // Check if date is in current month
     if (date.getMonth() !== month) {
       dayElement.classList.add("other-month");
     }
 
-    // Check if date is in selected range
     if (selectedStartDate && selectedEndDate) {
       if (date >= selectedStartDate && date <= selectedEndDate) {
         if (date.getTime() === selectedStartDate.getTime()) {
@@ -436,22 +402,18 @@ function renderDatePicker() {
       }
     }
 
-    // Add click event
     dayElement.addEventListener("click", () => selectDate(date));
 
     datePickerDays.appendChild(dayElement);
   }
 }
 
-// Select date
 function selectDate(date) {
   if (!selectedStartDate || (selectedStartDate && selectedEndDate)) {
-    // Start new selection
     selectedStartDate = new Date(date);
     selectedEndDate = null;
     isSelectingRange = true;
   } else {
-    // Complete range selection
     if (date < selectedStartDate) {
       selectedEndDate = new Date(selectedStartDate);
       selectedStartDate = new Date(date);
@@ -460,7 +422,6 @@ function selectDate(date) {
     }
     isSelectingRange = false;
     updateDateRangeText();
-    // Hide date picker after selection
     setTimeout(() => {
       datePicker.style.display = "none";
       dateRangeInput.classList.remove("active");
@@ -470,7 +431,6 @@ function selectDate(date) {
   renderDatePicker();
 }
 
-// Update date range text
 function updateDateRangeText() {
   if (dateRangeText && selectedStartDate && selectedEndDate) {
     const formatDate = (date) => {
@@ -486,9 +446,7 @@ function updateDateRangeText() {
   }
 }
 
-// Reset filters
 function resetFilters() {
-  // Reset date range to current month
   const today = new Date();
   const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
   const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
@@ -497,18 +455,14 @@ function resetFilters() {
   selectedEndDate = lastDay;
   updateDateRangeText();
 
-  // Re-render date picker
   renderDatePicker();
 
   showToast("Đã đặt lại bộ lọc", "success");
 }
 
-// Apply filters
 function applyFilters() {
-  // Apply filters to data
   let filteredData = [...pumpLogData];
 
-  // Filter by date range
   if (selectedStartDate && selectedEndDate) {
     filteredData = filteredData.filter((log) => {
       const logDate = new Date(
@@ -518,18 +472,14 @@ function applyFilters() {
     });
   }
 
-  // Render filtered results
   renderFilteredTable(filteredData);
 
-  // Hide section
   hideFilterSection();
 
-  // Show success message
   const filterCount = filteredData.length;
   showToast(`Đã áp dụng bộ lọc. Tìm thấy ${filterCount} kết quả`, "success");
 }
 
-// Filter pump logs
 function filterPumpLogs(filterType) {
   let filteredData = [...pumpLogData];
 
@@ -541,7 +491,6 @@ function filterPumpLogs(filterType) {
       filteredData = pumpLogData.filter((log) => log.status === "Fail");
       break;
     case "Hôm nay":
-      // Filter by today's date (simplified)
       filteredData = pumpLogData.filter((log) => {
         const logDate = new Date(
           log.time.split(" ")[0].split("/").reverse().join("-")
@@ -552,18 +501,14 @@ function filterPumpLogs(filterType) {
       break;
     case "Tuần này":
     case "Tháng này":
-      // Similar date filtering logic
       break;
     default:
-      // Show all data
       break;
   }
 
-  // Re-render table with filtered data
   renderFilteredTable(filteredData);
 }
 
-// Render filtered table
 function renderFilteredTable(data) {
   if (!pumpLogTableBody) return;
 
@@ -604,15 +549,12 @@ function renderFilteredTable(data) {
   });
 }
 
-// Show toast notification
 function showToast(message, type = "info") {
-  // Remove existing toast
   const existingToast = document.querySelector(".toast");
   if (existingToast) {
     existingToast.remove();
   }
 
-  // Create toast element
   const toast = document.createElement("div");
   toast.className = `toast ${type}`;
 
@@ -624,10 +566,8 @@ function showToast(message, type = "info") {
     <button class="toast-close" onclick="this.parentElement.remove()">×</button>
   `;
 
-  // Add to document
   document.body.appendChild(toast);
 
-  // Auto remove after 3 seconds
   setTimeout(() => {
     if (toast.parentElement) {
       toast.remove();
@@ -635,7 +575,6 @@ function showToast(message, type = "info") {
   }, 3000);
 }
 
-// Get toast icon based on type
 function getToastIcon(type) {
   const icons = {
     success: "✓",
@@ -646,7 +585,6 @@ function getToastIcon(type) {
   return icons[type] || icons.info;
 }
 
-// Utility function to format currency
 function formatCurrency(amount) {
   return new Intl.NumberFormat("vi-VN", {
     style: "currency",
@@ -654,7 +592,6 @@ function formatCurrency(amount) {
   }).format(amount);
 }
 
-// Utility function to format date
 function formatDate(date) {
   return new Intl.DateTimeFormat("vi-VN", {
     year: "numeric",
@@ -665,25 +602,19 @@ function formatDate(date) {
   }).format(date);
 }
 
-// View current log details
 function viewCurrentLogDetails(stt) {
   const log = currentLogData.find((item) => item.stt === stt);
   if (log) {
-    // Navigate to pump detail page with pump ID
     navigateToPumpDetail(log.pumpId);
   }
 }
 
-// Navigate to pump detail page
 function navigateToPumpDetail(pumpId) {
-  // Store the selected pump ID in sessionStorage for the detail page
   sessionStorage.setItem("selectedPumpId", pumpId);
 
-  // Navigate to pump detail page
   window.location.href = "../pump-detail/index.html";
 }
 
-// Export functions for potential use in other modules
 window.PumpLogApp = {
   switchTab,
   filterPumpLogs,

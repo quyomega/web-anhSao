@@ -1,8 +1,4 @@
-// Main JavaScript cho trang cấu hình nhiên liệu ATC Petro
-
-// Đợi DOM load xong
 document.addEventListener("DOMContentLoaded", function () {
-  // Lấy các elements
   const fuelConfigList = document.getElementById("fuelConfigList");
   const addConfigBtn = document.getElementById("addConfigBtn");
   const addConfigSection = document.getElementById("addConfigSection");
@@ -12,12 +8,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const pumpIdInput = document.getElementById("pumpId");
   const fuelTypeSelect = document.getElementById("fuelType");
 
-  // State management
   let fuelConfigs = [];
   let editingConfigId = null;
   let overlay = null;
 
-  // Khởi tạo dữ liệu mẫu
   const sampleData = [
     { id: 1, pumpId: "A", fuelType: "Xăng RON 95" },
     { id: 2, pumpId: "B", fuelType: "Xăng RON 92" },
@@ -25,14 +19,12 @@ document.addEventListener("DOMContentLoaded", function () {
     { id: 4, pumpId: "D", fuelType: "Dầu DO" },
   ];
 
-  // Load dữ liệu từ localStorage hoặc sử dụng dữ liệu mẫu
   function loadFuelConfigs() {
     const savedConfigs = Storage.get("fuelConfigs");
     fuelConfigs = savedConfigs || sampleData;
     renderFuelConfigs();
   }
 
-  // Render danh sách cấu hình nhiên liệu
   function renderFuelConfigs() {
     if (fuelConfigs.length === 0) {
       fuelConfigList.innerHTML = `
@@ -79,28 +71,23 @@ document.addEventListener("DOMContentLoaded", function () {
       .join("");
   }
 
-  // Hiện form thêm cấu hình
   function showAddForm() {
-    // Tạo overlay nếu chưa có
     if (!overlay) {
       overlay = document.createElement("div");
       overlay.className = "add-config-overlay";
       document.body.appendChild(overlay);
     }
 
-    // Hiện overlay và form
     overlay.classList.add("show");
     addConfigSection.style.display = "block";
     setTimeout(() => {
       addConfigSection.classList.add("show");
     }, 10);
 
-    // Set trạng thái ban đầu của nút (disabled)
     saveBtn.disabled = true;
     pumpIdInput.focus();
   }
 
-  // Ẩn form thêm cấu hình
   function hideAddForm() {
     addConfigSection.classList.remove("show");
     if (overlay) {
@@ -112,20 +99,17 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 300);
   }
 
-  // Bắt đầu chỉnh sửa cấu hình
   function startEdit(config) {
     editingConfigId = config.id;
     pumpIdInput.value = config.pumpId;
     fuelTypeSelect.value = config.fuelType;
     saveBtn.textContent = "Cập nhật";
     showAddForm();
-    // Kiểm tra validation sau khi set giá trị
     setTimeout(() => {
       checkFormValidation();
     }, 100);
   }
 
-  // Hủy chỉnh sửa
   function cancelEdit() {
     editingConfigId = null;
     configForm.reset();
@@ -134,7 +118,6 @@ document.addEventListener("DOMContentLoaded", function () {
     hideAddForm();
   }
 
-  // Thêm cấu hình mới
   function addConfig(configData) {
     const newId = Math.max(...fuelConfigs.map((c) => c.id), 0) + 1;
     const newConfig = {
@@ -149,7 +132,6 @@ document.addEventListener("DOMContentLoaded", function () {
     showToast("Thêm cấu hình thành công", "success");
   }
 
-  // Cập nhật cấu hình
   function updateConfig(configData) {
     const index = fuelConfigs.findIndex((c) => c.id === editingConfigId);
     if (index !== -1) {
@@ -164,7 +146,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Xóa cấu hình
   function deleteConfig(id) {
     if (confirm("Bạn có chắc chắn muốn xóa cấu hình này?")) {
       fuelConfigs = fuelConfigs.filter((c) => c.id !== id);
@@ -174,7 +155,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Chỉnh sửa cấu hình
   function editConfig(id) {
     const config = fuelConfigs.find((c) => c.id === id);
     if (config) {
@@ -182,12 +162,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Kiểm tra validation real-time cho nút submit
   function checkFormValidation() {
     const pumpId = pumpIdInput.value.trim();
     const fuelType = fuelTypeSelect.value.trim();
 
-    // Kiểm tra trùng lặp Pump ID
     const existingConfig = fuelConfigs.find(
       (c) => c.pumpId === pumpId && c.id !== editingConfigId
     );
@@ -198,7 +176,6 @@ document.addEventListener("DOMContentLoaded", function () {
     return isValid;
   }
 
-  // Validate form
   function validateForm() {
     FormValidator.clearAllErrors(configForm);
 
@@ -222,7 +199,6 @@ document.addEventListener("DOMContentLoaded", function () {
       isValid = false;
     }
 
-    // Kiểm tra trùng lặp Pump ID
     const existingConfig = fuelConfigs.find(
       (c) => c.pumpId === pumpId && c.id !== editingConfigId
     );
@@ -235,18 +211,15 @@ document.addEventListener("DOMContentLoaded", function () {
     return isValid;
   }
 
-  // Event Listeners
   addConfigBtn.addEventListener("click", showAddForm);
   cancelBtn.addEventListener("click", cancelEdit);
 
-  // Đóng form khi click overlay
   document.addEventListener("click", (e) => {
     if (e.target === overlay) {
       cancelEdit();
     }
   });
 
-  // Xử lý submit form
   configForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -261,7 +234,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     showLoading(saveBtn);
 
-    // Simulate API call
     setTimeout(() => {
       if (editingConfigId) {
         updateConfig(formData);
@@ -270,11 +242,10 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       hideLoading(saveBtn);
-      cancelEdit(); // Reset form and hide form
+      cancelEdit(); 
     }, 500);
   });
 
-  // Xử lý Enter key
   pumpIdInput.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -289,22 +260,18 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Event listeners cho validation real-time
   pumpIdInput.addEventListener("input", checkFormValidation);
   pumpIdInput.addEventListener("change", checkFormValidation);
   fuelTypeSelect.addEventListener("change", checkFormValidation);
 
-  // Xử lý Escape key để đóng form
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && addConfigSection.classList.contains("show")) {
       cancelEdit();
     }
   });
 
-  // Khởi tạo
   loadFuelConfigs();
 
-  // Expose functions globally for onclick handlers
   window.editConfig = editConfig;
   window.deleteConfig = deleteConfig;
 });

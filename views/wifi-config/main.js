@@ -1,8 +1,4 @@
-// Main JavaScript cho trang cấu hình Wifi ATC Petro
-
-// Đợi DOM load xong
 document.addEventListener("DOMContentLoaded", function () {
-  // Lấy các elements
   const wifiNetworksList = document.getElementById("wifiNetworksList");
   const wifiConnectedSection = document.getElementById("wifiConnectedSection");
   const wifiConnectedCard = document.getElementById("wifiConnectedCard");
@@ -14,12 +10,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const cancelBtn = document.getElementById("cancelBtn");
   const connectBtn = document.getElementById("connectBtn");
 
-  // State management
   let wifiNetworks = [];
   let selectedNetwork = null;
   let connectedNetwork = null;
 
-  // Dữ liệu mẫu cho các mạng wifi
   const sampleWifiNetworks = [
     {
       id: 1,
@@ -63,14 +57,12 @@ document.addEventListener("DOMContentLoaded", function () {
     },
   ];
 
-  // Load dữ liệu từ localStorage hoặc sử dụng dữ liệu mẫu
   function loadWifiData() {
     wifiNetworks = sampleWifiNetworks;
     renderWifiNetworks();
     renderConnectedWifi();
   }
 
-  // Render danh sách mạng wifi
   function renderWifiNetworks() {
     wifiNetworksList.innerHTML = wifiNetworks
       .map(
@@ -98,7 +90,6 @@ document.addEventListener("DOMContentLoaded", function () {
       .join("");
   }
 
-  // Render mạng đã kết nối
   function renderConnectedWifi() {
     if (connectedNetwork) {
       wifiConnectedSection.style.display = "block";
@@ -124,7 +115,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Hiện dialog nhập mật khẩu
   function showWifiPasswordDialog(network) {
     selectedNetwork = network;
     wifiDialogTitle.textContent = network.ssid;
@@ -134,7 +124,6 @@ document.addEventListener("DOMContentLoaded", function () {
     wifiPasswordInput.focus();
   }
 
-  // Ẩn dialog
   function hideWifiPasswordDialog() {
     wifiDialogOverlay.style.display = "none";
     selectedNetwork = null;
@@ -142,18 +131,15 @@ document.addEventListener("DOMContentLoaded", function () {
     connectBtn.disabled = true;
   }
 
-  // Validate mật khẩu và enable/disable nút kết nối
   function validatePassword() {
     const password = wifiPasswordInput.value.trim();
     connectBtn.disabled = password.length < 8;
   }
 
-  // Toggle hiển thị mật khẩu
   function togglePasswordVisibility() {
     const isPassword = wifiPasswordInput.type === "password";
     wifiPasswordInput.type = isPassword ? "text" : "password";
 
-    // Thay đổi icon
     const icon = passwordToggle.querySelector("svg");
     if (isPassword) {
       icon.innerHTML = `
@@ -170,18 +156,15 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Kết nối WiFi
   function connectToWifi() {
     if (!selectedNetwork || connectBtn.disabled) return;
 
     const password = wifiPasswordInput.value.trim();
 
-    // Simulate connection process
     connectBtn.disabled = true;
     connectBtn.textContent = "Đang kết nối...";
 
     setTimeout(() => {
-      // Ngắt kết nối hiện tại nếu có
       if (connectedNetwork) {
         const currentNetwork = wifiNetworks.find(
           (n) => n.id === connectedNetwork.id
@@ -191,7 +174,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       }
 
-      // Kết nối mạng mới
       const targetNetwork = wifiNetworks.find(
         (n) => n.id === selectedNetwork.id
       );
@@ -204,7 +186,6 @@ document.addEventListener("DOMContentLoaded", function () {
         };
       }
 
-      // Cập nhật UI
       renderWifiNetworks();
       renderConnectedWifi();
       hideWifiPasswordDialog();
@@ -212,35 +193,30 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 2000);
   }
 
-  // Event Listeners
   wifiPasswordInput.addEventListener("input", validatePassword);
   passwordToggle.addEventListener("click", togglePasswordVisibility);
   wifiDialogClose.addEventListener("click", hideWifiPasswordDialog);
   cancelBtn.addEventListener("click", hideWifiPasswordDialog);
   connectBtn.addEventListener("click", connectToWifi);
 
-  // Đóng dialog khi click overlay
   wifiDialogOverlay.addEventListener("click", (e) => {
     if (e.target === wifiDialogOverlay) {
       hideWifiPasswordDialog();
     }
   });
 
-  // Xử lý phím Enter để kết nối
   wifiPasswordInput.addEventListener("keydown", (e) => {
     if (e.key === "Enter" && !connectBtn.disabled) {
       connectToWifi();
     }
   });
 
-  // Xử lý phím Escape để đóng dialog
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && wifiDialogOverlay.style.display === "flex") {
       hideWifiPasswordDialog();
     }
   });
 
-  // Hiện thông tin wifi
   function showWifiInfo(networkId) {
     const network = wifiNetworks.find((n) => n.id === networkId);
     if (!network) return;
@@ -256,10 +232,8 @@ document.addEventListener("DOMContentLoaded", function () {
     alert(info);
   }
 
-  // Khởi tạo
   loadWifiData();
 
-  // Expose functions globally for onclick handlers
   window.selectWifiNetwork = function (networkId) {
     const network = wifiNetworks.find((n) => n.id === networkId);
     if (network) {

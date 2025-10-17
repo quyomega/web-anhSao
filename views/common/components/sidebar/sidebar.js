@@ -13,14 +13,11 @@ class SimpleSidebarManager {
   }
 
   init() {
-    // Tạo sidebar ngay lập tức
     this.createSidebar();
   }
 
   createSidebar() {
-    console.log("Creating simple sidebar");
 
-    // Tạo sidebar HTML
     const sidebarHTML = `
       <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
@@ -145,31 +142,23 @@ class SimpleSidebarManager {
       <div class="sidebar-overlay" id="sidebarOverlay"></div>
     `;
 
-    // Thêm vào body
     document.body.insertAdjacentHTML("afterbegin", sidebarHTML);
 
-    // Khởi tạo references
     this.sidebar = document.getElementById("sidebar");
     this.overlay = document.getElementById("sidebarOverlay");
     this.menuToggle = document.getElementById("menuToggle");
 
-    // Set active page
     this.setActivePage();
 
-    // Bind events
     this.bindEvents();
-
-    console.log("Simple sidebar created successfully");
   }
 
   setActivePage() {
-    // Lấy tên trang hiện tại từ URL
     const currentPath = window.location.pathname;
     const pathParts = currentPath.split("/").filter((part) => part !== "");
 
     let currentPage = "";
 
-    // Nếu URL kết thúc bằng index.html, lấy tên thư mục trước đó
     if (
       currentPath.endsWith("/index.html") ||
       currentPath.endsWith("index.html")
@@ -177,42 +166,22 @@ class SimpleSidebarManager {
       currentPage =
         pathParts[pathParts.length - 2] || pathParts[pathParts.length - 1];
     } else {
-      // Lấy tên file hoặc thư mục cuối cùng
       currentPage = pathParts[pathParts.length - 1].replace(".html", "");
     }
 
-    // Nếu vẫn không có, lấy từ thư mục
     if (!currentPage || currentPage === "") {
       currentPage = pathParts[pathParts.length - 1];
     }
 
-    // Debug: in ra tất cả thông tin để kiểm tra
-    console.log("=== DEBUG ACTIVE PAGE ===");
-    console.log("Full URL:", window.location.href);
-    console.log("Pathname:", currentPath);
-    console.log("Path parts:", currentPath.split("/"));
-    console.log("Detected page:", currentPage);
-    console.log(
-      "Available menu items:",
-      Array.from(this.sidebar.querySelectorAll(".menu-item[data-page]")).map(
-        (item) => item.getAttribute("data-page")
-      )
-    );
-
-    // Xóa active class cũ
     const activeItems = this.sidebar.querySelectorAll(".menu-item.active");
     activeItems.forEach((item) => item.classList.remove("active"));
 
-    // Thêm active class cho trang hiện tại
     const currentMenuItem = this.sidebar.querySelector(
       `[data-page="${currentPage}"]`
     );
     if (currentMenuItem) {
       currentMenuItem.classList.add("active");
-      console.log("✅ Set active menu item:", currentPage);
     } else {
-      console.warn("❌ No menu item found for page:", currentPage);
-      // Chỉ fallback về register-pump-nozzle nếu đang ở trang chính (root)
       if (
         currentPath === "/" ||
         currentPath.endsWith("/") ||
@@ -224,11 +193,8 @@ class SimpleSidebarManager {
         if (defaultMenuItem) {
           defaultMenuItem.classList.add("active");
           currentPage = "register-pump-nozzle";
-          console.log("🔄 Fallback to default page:", currentPage);
         }
       } else {
-        console.log("⚠️ No active menu item set for page:", currentPage);
-        // Không set active cho item nào nếu không tìm thấy
       }
     }
 
@@ -236,24 +202,20 @@ class SimpleSidebarManager {
   }
 
   bindEvents() {
-    // Toggle sidebar
     if (this.menuToggle) {
       this.menuToggle.addEventListener("click", () => {
         this.toggleSidebar();
       });
     }
 
-    // Đóng sidebar khi click overlay
     if (this.overlay) {
       this.overlay.addEventListener("click", () => {
         this.closeSidebar();
       });
     }
 
-    // Navigation và hover effects
     const menuItems = this.sidebar.querySelectorAll(".menu-item[data-page]");
     menuItems.forEach((item) => {
-      // Navigation click
       item.addEventListener("click", (e) => {
         const page = item.getAttribute("data-page");
         if (page && page !== this.currentPage) {
@@ -261,13 +223,10 @@ class SimpleSidebarManager {
         }
       });
 
-      // Hover effects cho SVG icons - thay đổi toàn bộ icon
       const svgIcon = item.querySelector("svg");
       if (svgIcon) {
-        // Lưu trữ icon gốc
         const originalIcon = svgIcon.innerHTML;
 
-        // Định nghĩa icon hover cho từng menu item
         const hoverIcons = {
           "address-mac": `<path d="M10.0001 1.66667C5.40008 1.66667 1.66675 5.40001 1.66675 10C1.66675 14.6 5.40008 18.3333 10.0001 18.3333C14.6001 18.3333 18.3334 14.6 18.3334 10C18.3334 5.40001 14.6001 1.66667 10.0001 1.66667ZM7.10841 11.225C7.35008 11.4667 7.35008 11.8667 7.10841 12.1083C6.98341 12.2333 6.82508 12.2917 6.66675 12.2917C6.50841 12.2917 6.35008 12.2333 6.22508 12.1083L4.55841 10.4417C4.31675 10.2 4.31675 9.80001 4.55841 9.55834L6.22508 7.89167C6.46675 7.65001 6.86675 7.65001 7.10841 7.89167C7.35008 8.13334 7.35008 8.53334 7.10841 8.77501L5.88341 10L7.10841 11.225ZM11.4084 8.30001L9.74175 12.1917C9.64175 12.425 9.40841 12.5667 9.16675 12.5667C9.08342 12.5667 9.00008 12.55 8.92508 12.5167C8.60842 12.3833 8.45841 12.0167 8.60008 11.6917L10.2667 7.8C10.4001 7.48334 10.7667 7.33334 11.0834 7.47501C11.4001 7.61667 11.5417 7.98334 11.4084 8.30001ZM15.4417 10.4417L13.7751 12.1083C13.6501 12.2333 13.4917 12.2917 13.3334 12.2917C13.1751 12.2917 13.0167 12.2333 12.8917 12.1083C12.6501 11.8667 12.6501 11.4667 12.8917 11.225L14.1167 10L12.8917 8.77501C12.6501 8.53334 12.6501 8.13334 12.8917 7.89167C13.1334 7.65001 13.5334 7.65001 13.7751 7.89167L15.4417 9.55834C15.6834 9.80001 15.6834 10.2 15.4417 10.4417Z" fill="#FFFAFA"/>`,
           "register-pump-nozzle": `<path d="M15.625 15.4169C15.9701 15.4169 16.2499 15.6967 16.25 16.0419C16.25 16.387 15.9702 16.6669 15.625 16.6669H0.625C0.279822 16.6669 0 16.387 0 16.0419C8.55584e-05 15.6967 0.279875 15.4169 0.625 15.4169H15.625Z" fill="#FFFAFA"/><path d="M7.17122 2.90139C8.05138 5.28864 9.82509 7.0194 12.1834 7.7663L7.44873 12.9291L7.44792 12.9282C7.26867 13.1279 7.02974 13.2972 6.8042 13.4214C6.63216 13.5161 6.43791 13.6017 6.2443 13.6582L6.05062 13.7046L6.04655 13.7054L3.61409 14.1327L3.61491 14.1335C3.00342 14.2419 2.41486 14.0832 1.99788 13.6761C1.58418 13.2718 1.40595 12.6883 1.47217 12.0738V12.0721L1.7513 9.55097L1.75293 9.53958L1.78792 9.34508C1.83269 9.14901 1.90478 8.94926 1.98568 8.77053C2.09295 8.53363 2.24067 8.27963 2.41699 8.08612L2.41862 8.0845L7.17122 2.90139Z" fill="#FFFAFA"/><path d="M10.7764 0.0213458C11.6318 -0.0912191 12.487 0.241778 13.3415 1.01174L13.5124 1.17206L13.5132 1.17288L13.6792 1.34052C14.4802 2.17937 14.8446 3.03097 14.786 3.89667C14.7329 4.67795 14.3406 5.35455 13.8607 5.92792L13.6507 6.16718L13.1331 6.73033C10.6679 6.16828 8.86022 4.41627 8.1429 1.84263L8.62061 1.32262L8.84033 1.09312C9.36917 0.568617 10.0092 0.122525 10.7764 0.0213458Z" fill="#FFFAFA"/>`,
@@ -297,15 +256,12 @@ class SimpleSidebarManager {
   }
 
   toggleSidebar() {
-    console.log("Toggle sidebar clicked");
     if (this.sidebar) {
       this.sidebar.classList.toggle("active");
       if (this.overlay) {
         this.overlay.classList.toggle("active");
       }
-      console.log("Sidebar classes:", this.sidebar.className);
     } else {
-      console.error("Sidebar element not found");
     }
   }
 
@@ -319,10 +275,8 @@ class SimpleSidebarManager {
   }
 
   navigateToPage(page) {
-    // Đóng sidebar trước khi navigate
     this.closeSidebar();
 
-    // Navigate đến trang mới
     const pageUrls = {
       "address-mac": "../address-mac/index.html",
       "register-pump-nozzle": "../register-pump-nozzle/index.html",
@@ -342,7 +296,6 @@ class SimpleSidebarManager {
   }
 }
 
-// Khởi tạo sidebar khi DOM loaded
 document.addEventListener("DOMContentLoaded", () => {
   window.sidebarManager = new SimpleSidebarManager();
 });

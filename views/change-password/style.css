@@ -1,7 +1,7 @@
 /* Change Password page specific styles *//* Content area */
 .content {
   flex: 1;
-  padding: 24px;
+  padding: 24px 24px 100px;
 }
 
 /* Form container */

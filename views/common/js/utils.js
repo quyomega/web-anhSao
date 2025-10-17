@@ -1,8 +1,4 @@
-// Utility functions cho ứng dụng ATC.Petro
-
-// Hiển thị toast notification
 function showToast(message, type = "success") {
-  // Xóa toast cũ nếu có
   const existingToast = document.querySelector(".toast");
   if (existingToast) {
     existingToast.remove();
@@ -25,7 +21,6 @@ function showToast(message, type = "success") {
 
   document.body.appendChild(toast);
 
-  // Tự động xóa sau 4 giây
   setTimeout(() => {
     if (toast.parentNode) {
       toast.style.animation = "slideOutRight 0.3s ease-in";
@@ -38,7 +33,6 @@ function showToast(message, type = "success") {
   }, 4000);
 }
 
-// Hiển thị loading
 function showLoading(button) {
   if (button) {
     button.disabled = true;
@@ -49,7 +43,6 @@ function showLoading(button) {
   }
 }
 
-// Ẩn loading
 function hideLoading(button) {
   if (button) {
     button.disabled = false;
@@ -62,19 +55,16 @@ function hideLoading(button) {
   }
 }
 
-// Validate email
 function validateEmail(email) {
   const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return re.test(email);
 }
 
-// Validate phone number (Vietnam)
 function validatePhone(phone) {
   const re = /^(\+84|84|0)[1-9][0-9]{8,9}$/;
   return re.test(phone.replace(/\s/g, ""));
 }
 
-// Format currency (VND)
 function formatCurrency(amount) {
   return new Intl.NumberFormat("vi-VN", {
     style: "currency",
@@ -82,7 +72,6 @@ function formatCurrency(amount) {
   }).format(amount);
 }
 
-// Format date
 function formatDate(date, format = "dd/mm/yyyy") {
   const d = new Date(date);
   const day = String(d.getDate()).padStart(2, "0");
@@ -97,7 +86,6 @@ function formatDate(date, format = "dd/mm/yyyy") {
   return d.toLocaleDateString("vi-VN");
 }
 
-// Debounce function
 function debounce(func, wait) {
   let timeout;
   return function executedFunction(...args) {
@@ -110,7 +98,6 @@ function debounce(func, wait) {
   };
 }
 
-// Throttle function
 function throttle(func, limit) {
   let inThrottle;
   return function () {
@@ -124,9 +111,7 @@ function throttle(func, limit) {
   };
 }
 
-// Form validation helpers
 const FormValidator = {
-  // Hiển thị lỗi
   showError: function (input, message) {
     const inputGroup = input.closest(".input-group");
     if (inputGroup) {
@@ -142,7 +127,6 @@ const FormValidator = {
     }
   },
 
-  // Xóa lỗi
   clearError: function (input) {
     const inputGroup = input.closest(".input-group");
     if (inputGroup) {
@@ -154,7 +138,6 @@ const FormValidator = {
     }
   },
 
-  // Xóa tất cả lỗi
   clearAllErrors: function (form) {
     const errorGroups = form.querySelectorAll(".input-group.error");
     errorGroups.forEach((group) => {
@@ -166,7 +149,6 @@ const FormValidator = {
     });
   },
 
-  // Validate required fields
   validateRequired: function (inputs) {
     let isValid = true;
     inputs.forEach((input) => {
@@ -181,13 +163,11 @@ const FormValidator = {
   },
 };
 
-// Local storage helpers
 const Storage = {
   set: function (key, value) {
     try {
       localStorage.setItem(key, JSON.stringify(value));
     } catch (error) {
-      console.error("Storage set error:", error);
     }
   },
 
@@ -196,7 +176,6 @@ const Storage = {
       const item = localStorage.getItem(key);
       return item ? JSON.parse(item) : null;
     } catch (error) {
-      console.error("Storage get error:", error);
       return null;
     }
   },
@@ -205,7 +184,6 @@ const Storage = {
     try {
       localStorage.removeItem(key);
     } catch (error) {
-      console.error("Storage remove error:", error);
     }
   },
 
@@ -213,31 +191,25 @@ const Storage = {
     try {
       localStorage.clear();
     } catch (error) {
-      console.error("Storage clear error:", error);
     }
   },
 };
 
-// Navigation helpers
 const Navigation = {
-  // Chuyển trang
   goTo: function (url) {
     window.location.href = url;
   },
 
-  // Chuyển trang với delay
   goToWithDelay: function (url, delay = 1000) {
     setTimeout(() => {
       this.goTo(url);
     }, delay);
   },
 
-  // Quay lại trang trước
   goBack: function () {
     window.history.back();
   },
 
-  // Reload trang
   reload: function () {
     window.location.reload();
   },

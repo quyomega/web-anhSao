@@ -9,9 +9,7 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!-- Main Content -->
     <div class="main-content">
-      <!-- Header -->
       <div class="header">
         <h1 class="page-title">Danh sách log bơm</h1>
         <button class="menu-toggle" id="menuToggle">
@@ -38,9 +36,7 @@
         </button>
       </div>
 
-      <!-- Content Area -->
       <div class="content">
-        <!-- Navigation Tabs -->
         <div class="nav-tabs">
           <div class="tab-group">
             <button class="tab-btn active" data-tab="log-list">
@@ -65,9 +61,7 @@
           </div>
         </div>
 
-        <!-- Tab Content -->
         <div class="tab-content">
-          <!-- Log List Tab -->
           <div class="tab-panel active" id="log-list">
             <div class="table-container">
               <table class="pump-log-table" id="pumpLogTable">
@@ -88,13 +82,11 @@
                   </tr>
                 </thead>
                 <tbody id="pumpLogTableBody">
-                  <!-- Data will be populated by JavaScript -->
                 </tbody>
               </table>
             </div>
           </div>
 
-          <!-- Current Log Tab -->
           <div class="tab-panel" id="current-log">
             <div class="table-container">
               <table class="pump-log-table" id="currentLogTable">
@@ -111,7 +103,6 @@
                   </tr>
                 </thead>
                 <tbody id="currentLogTableBody">
-                  <!-- Data will be populated by JavaScript -->
                 </tbody>
               </table>
             </div>
@@ -120,7 +111,6 @@
       </div>
     </div>
 
-    <!-- Filter Section -->
     <div class="filter-modal-section" id="filterSection" style="display: none">
       <div class="section-header">
         <h2 class="section-title">Lọc</h2>
@@ -165,7 +155,6 @@
               </svg>
             </div>
 
-            <!-- Date Picker (Hidden by default) -->
             <div class="date-picker" id="datePicker" style="display: none">
               <div class="date-picker-header">
                 <button class="date-picker-nav" id="prevMonth">
@@ -204,7 +193,6 @@
                 <div class="weekday">T7</div>
               </div>
               <div class="date-picker-days" id="datePickerDays">
-                <!-- Days will be populated by JavaScript -->
               </div>
             </div>
           </div>
@@ -221,10 +209,8 @@
       </div>
     </div>
 
-    <!-- Filter Overlay -->
     <div class="filter-overlay" id="filterOverlay"></div>
 
-    <!-- Scripts -->
     <script src="../common/js/utils.js"></script>
     <script src="../common/components/sidebar/sidebar.js"></script>
     <script src="main.js"></script>

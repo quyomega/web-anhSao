@@ -1,4 +1,3 @@
-// Sample data for pump details
 const pumpDetailData = {
   A: {
     pumpId: "A",
@@ -67,7 +66,6 @@ const pumpDetailData = {
   },
 };
 
-// DOM elements
 let pumpDropdown;
 let pumpStatus;
 let pumpType;
@@ -84,30 +82,25 @@ let nextBtn;
 let stepInput;
 let stepValue;
 
-// Current state
 let currentPumpId = "A";
 let currentStep = 1;
 
-// Initialize the application
 document.addEventListener("DOMContentLoaded", function () {
   initializeElements();
   setupEventListeners();
 
-  // Check if there's a selected pump ID from navigation
   const selectedPumpId = sessionStorage.getItem("selectedPumpId");
   if (selectedPumpId && pumpDetailData[selectedPumpId]) {
     currentPumpId = selectedPumpId;
     if (pumpDropdown) {
       pumpDropdown.value = selectedPumpId;
     }
-    // Clear the stored pump ID
     sessionStorage.removeItem("selectedPumpId");
   }
 
   loadPumpData(currentPumpId);
 });
 
-// Initialize DOM elements
 function initializeElements() {
   pumpDropdown = document.getElementById("pumpDropdown");
   pumpStatus = document.getElementById("pumpStatus");
@@ -126,9 +119,7 @@ function initializeElements() {
   stepValue = document.getElementById("stepValue");
 }
 
-// Setup event listeners
 function setupEventListeners() {
-  // Pump dropdown change
   if (pumpDropdown) {
     pumpDropdown.addEventListener("change", function () {
       currentPumpId = this.value;
@@ -137,7 +128,6 @@ function setupEventListeners() {
     });
   }
 
-  // Navigation buttons
   if (prevBtn) {
     prevBtn.addEventListener("click", function () {
       navigateRecords(-currentStep);
@@ -150,7 +140,6 @@ function setupEventListeners() {
     });
   }
 
-  // Step inputs
   if (stepInput) {
     stepInput.addEventListener("change", function () {
       currentStep = parseInt(this.value) || 1;
@@ -167,7 +156,6 @@ function setupEventListeners() {
   }
 }
 
-// Load pump data
 function loadPumpData(pumpId) {
   const data = pumpDetailData[pumpId];
   if (!data) {
@@ -175,18 +163,15 @@ function loadPumpData(pumpId) {
     return;
   }
 
-  // Update pump status
   if (pumpStatus) {
     pumpStatus.textContent = data.status;
     pumpStatus.className = `status-badge ${data.status.toLowerCase()}`;
   }
 
-  // Update pump type
   if (pumpType) {
     pumpType.textContent = data.pumpType;
   }
 
-  // Update transaction metrics
   if (moneyValue) {
     moneyValue.textContent = data.money;
   }
@@ -197,7 +182,6 @@ function loadPumpData(pumpId) {
     priceValue.textContent = data.price;
   }
 
-  // Update volume data
   if (datalogVolume) {
     datalogVolume.textContent = data.datalogVolume;
   }
@@ -208,7 +192,6 @@ function loadPumpData(pumpId) {
     counterVolume.textContent = data.counterVolume;
   }
 
-  // Update record info
   if (recordCount) {
     recordCount.textContent = data.recordCount;
   }
@@ -217,14 +200,12 @@ function loadPumpData(pumpId) {
   }
 }
 
-// Navigate records
 function navigateRecords(direction) {
   const currentRecord = parseInt(recordCount.textContent.split(" / ")[0]);
   const totalRecords = parseInt(recordCount.textContent.split(" / ")[1]);
 
   let newRecord = currentRecord + direction;
 
-  // Clamp to valid range
   if (newRecord < 1) {
     newRecord = 1;
     showToast("Đã đến bản ghi đầu tiên", "warning");
@@ -235,19 +216,15 @@ function navigateRecords(direction) {
     showToast(`Chuyển đến bản ghi ${newRecord}`, "info");
   }
 
-  // Update record count
   if (recordCount) {
     recordCount.textContent = `${newRecord} / ${totalRecords}`;
   }
 
-  // Update timestamp (simulate time change)
   updateTimestamp();
 
-  // Update volume data (simulate small changes)
   updateVolumeData(newRecord);
 }
 
-// Update timestamp
 function updateTimestamp() {
   if (timestamp) {
     const now = new Date();
@@ -262,17 +239,15 @@ function updateTimestamp() {
   }
 }
 
-// Update volume data
 function updateVolumeData(recordNumber) {
   const data = pumpDetailData[currentPumpId];
   if (!data) return;
 
-  // Simulate small changes in volume data
   const baseDatalog = parseInt(data.datalogVolume);
   const baseNewest = parseInt(data.newestVolume);
   const baseCounter = parseInt(data.counterVolume);
 
-  const variation = (recordNumber % 10) - 5; // -5 to +4 variation
+  const variation = (recordNumber % 10) - 5;
 
   if (datalogVolume) {
     datalogVolume.textContent = baseDatalog + variation;
@@ -285,15 +260,12 @@ function updateVolumeData(recordNumber) {
   }
 }
 
-// Show toast notification
 function showToast(message, type = "info") {
-  // Remove existing toast
   const existingToast = document.querySelector(".toast");
   if (existingToast) {
     existingToast.remove();
   }
 
-  // Create toast element
   const toast = document.createElement("div");
   toast.className = `toast ${type}`;
 
@@ -305,10 +277,8 @@ function showToast(message, type = "info") {
     <button class="toast-close" onclick="this.parentElement.remove()">×</button>
   `;
 
-  // Add to document
   document.body.appendChild(toast);
 
-  // Auto remove after 3 seconds
   setTimeout(() => {
     if (toast.parentElement) {
       toast.remove();
@@ -316,7 +286,6 @@ function showToast(message, type = "info") {
   }, 3000);
 }
 
-// Get toast icon based on type
 function getToastIcon(type) {
   const icons = {
     success: "✓",
@@ -327,7 +296,6 @@ function getToastIcon(type) {
   return icons[type] || icons.info;
 }
 
-// Utility function to format currency
 function formatCurrency(amount) {
   return new Intl.NumberFormat("vi-VN", {
     style: "currency",
@@ -335,7 +303,6 @@ function formatCurrency(amount) {
   }).format(amount);
 }
 
-// Utility function to format date
 function formatDate(date) {
   return new Intl.DateTimeFormat("vi-VN", {
     year: "numeric",
@@ -346,7 +313,6 @@ function formatDate(date) {
   }).format(date);
 }
 
-// Export functions for potential use in other modules
 window.PumpDetailApp = {
   loadPumpData,
   navigateRecords,

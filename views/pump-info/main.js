@@ -1,16 +1,10 @@
-// Main JavaScript cho trang thông tin vòi bơm ATC Petro
-
-// Đợi DOM load xong
 document.addEventListener("DOMContentLoaded", function () {
-  // Lấy các elements
   const pumpList = document.getElementById("pumpList");
   const searchInput = document.getElementById("searchInput");
 
-  // State management
   let allPumpData = [];
   let filteredPumpData = [];
 
-  // Dữ liệu mẫu cho thông tin vòi bơm
   const samplePumpData = [
     {
       id: 1,
@@ -59,7 +53,6 @@ document.addEventListener("DOMContentLoaded", function () {
     },
   ];
 
-  // Load dữ liệu từ localStorage hoặc sử dụng dữ liệu mẫu
   function loadPumpData() {
     const savedData = Storage.get("pumpInfoData");
     allPumpData = savedData || samplePumpData;
@@ -67,7 +60,6 @@ document.addEventListener("DOMContentLoaded", function () {
     renderPumpList();
   }
 
-  // Render danh sách thông tin vòi bơm
   function renderPumpList() {
     if (filteredPumpData.length === 0) {
       pumpList.innerHTML = `
@@ -144,7 +136,6 @@ document.addEventListener("DOMContentLoaded", function () {
       .join("");
   }
 
-  // Tìm kiếm vòi bơm
   function searchPumps(searchTerm) {
     if (!searchTerm.trim()) {
       filteredPumpData = [...allPumpData];
@@ -163,16 +154,13 @@ document.addEventListener("DOMContentLoaded", function () {
     renderPumpList();
   }
 
-  // Debounced search function
   const debouncedSearch = debounce(searchPumps, 300);
 
-  // Event Listeners
   searchInput.addEventListener("input", function (e) {
     const searchTerm = e.target.value;
     debouncedSearch(searchTerm);
   });
 
-  // Xử lý Enter key trong search
   searchInput.addEventListener("keydown", function (e) {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -181,7 +169,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Xử lý Escape key để clear search
   searchInput.addEventListener("keydown", function (e) {
     if (e.key === "Escape") {
       e.target.value = "";
@@ -190,7 +177,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Kiểm tra đăng nhập
   const user = Storage.get("user");
   if (!user) {
     showToast("Vui lòng đăng nhập", "warning");
@@ -200,10 +186,8 @@ document.addEventListener("DOMContentLoaded", function () {
     return;
   }
 
-  // Khởi tạo
   loadPumpData();
 
-  // Expose functions globally if needed
   window.searchPumps = searchPumps;
   window.loadPumpData = loadPumpData;
 });

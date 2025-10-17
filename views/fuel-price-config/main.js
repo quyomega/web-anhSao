@@ -1,8 +1,4 @@
-// Main JavaScript cho trang cấu hình giá nhiên liệu ATC Petro
-
-// Đợi DOM load xong
 document.addEventListener("DOMContentLoaded", function () {
-  // Lấy các elements
   const fuelPriceList = document.getElementById("fuelPriceList");
   const addPriceBtn = document.getElementById("addPriceBtn");
   const addConfigSection = document.getElementById("addConfigSection");
@@ -12,27 +8,21 @@ document.addEventListener("DOMContentLoaded", function () {
   const fuelNameInput = document.getElementById("fuelName");
   const fuelPriceInput = document.getElementById("fuelPrice");
 
-  // State management
   let fuelPrices = [];
   let editingPriceId = null;
   let overlay = null;
 
-  // Khởi tạo dữ liệu mẫu
   const sampleData = [
     { id: 1, fuelName: "Xăng RON 95", fuelPrice: 21000 },
     { id: 2, fuelName: "Xăng RON 92", fuelPrice: 20000 },
     { id: 3, fuelName: "Dầu Diesel", fuelPrice: 18000 },
     { id: 4, fuelName: "Dầu DO", fuelPrice: 15000 },
   ];
-
-  // Load dữ liệu từ localStorage hoặc sử dụng dữ liệu mẫu
   function loadFuelPrices() {
     const savedPrices = Storage.get("fuelPrices");
     fuelPrices = savedPrices || sampleData;
     renderFuelPrices();
   }
-
-  // Render danh sách cấu hình giá nhiên liệu
   function renderFuelPrices() {
     if (fuelPrices.length === 0) {
       fuelPriceList.innerHTML = `
@@ -83,28 +73,20 @@ document.addEventListener("DOMContentLoaded", function () {
       .join("");
   }
 
-  // Hiện form thêm cấu hình
   function showAddForm() {
-    // Tạo overlay nếu chưa có
     if (!overlay) {
       overlay = document.createElement("div");
       overlay.className = "add-config-overlay";
       document.body.appendChild(overlay);
     }
-
-    // Hiện overlay và form
     overlay.classList.add("show");
     addConfigSection.style.display = "block";
     setTimeout(() => {
       addConfigSection.classList.add("show");
     }, 10);
-
-    // Set trạng thái ban đầu của nút (disabled)
     saveBtn.disabled = true;
     fuelNameInput.focus();
   }
-
-  // Ẩn form thêm cấu hình
   function hideAddForm() {
     addConfigSection.classList.remove("show");
     if (overlay) {
@@ -115,21 +97,16 @@ document.addEventListener("DOMContentLoaded", function () {
       addConfigSection.style.display = "none";
     }, 300);
   }
-
-  // Bắt đầu chỉnh sửa cấu hình
   function startEdit(price) {
     editingPriceId = price.id;
     fuelNameInput.value = price.fuelName;
     fuelPriceInput.value = price.fuelPrice;
     saveBtn.textContent = "Cập nhật";
     showAddForm();
-    // Kiểm tra validation sau khi set giá trị
     setTimeout(() => {
       checkFormValidation();
     }, 100);
   }
-
-  // Hủy chỉnh sửa
   function cancelEdit() {
     editingPriceId = null;
     configForm.reset();
@@ -138,7 +115,6 @@ document.addEventListener("DOMContentLoaded", function () {
     hideAddForm();
   }
 
-  // Thêm cấu hình giá mới
   function addPrice(priceData) {
     const newId = Math.max(...fuelPrices.map((p) => p.id), 0) + 1;
     const newPrice = {
@@ -153,7 +129,6 @@ document.addEventListener("DOMContentLoaded", function () {
     showToast("Thêm cấu hình giá thành công", "success");
   }
 
-  // Cập nhật cấu hình giá
   function updatePrice(priceData) {
     const index = fuelPrices.findIndex((p) => p.id === editingPriceId);
     if (index !== -1) {
@@ -168,7 +143,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Xóa cấu hình giá
   function deletePrice(id) {
     if (confirm("Bạn có chắc chắn muốn xóa cấu hình giá này?")) {
       fuelPrices = fuelPrices.filter((p) => p.id !== id);
@@ -178,7 +152,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Chỉnh sửa cấu hình giá
   function editPrice(id) {
     const price = fuelPrices.find((p) => p.id === id);
     if (price) {
@@ -186,12 +159,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Kiểm tra validation real-time cho nút submit
   function checkFormValidation() {
     const fuelName = fuelNameInput.value.trim();
     const fuelPrice = fuelPriceInput.value.trim();
 
-    // Kiểm tra trùng lặp tên nhiên liệu
     const existingPrice = fuelPrices.find(
       (p) =>
         p.fuelName.toLowerCase() === fuelName.toLowerCase() &&
@@ -209,7 +180,6 @@ document.addEventListener("DOMContentLoaded", function () {
     return isValid;
   }
 
-  // Validate form
   function validateForm() {
     FormValidator.clearAllErrors(configForm);
 
@@ -236,7 +206,6 @@ document.addEventListener("DOMContentLoaded", function () {
       isValid = false;
     }
 
-    // Kiểm tra trùng lặp tên nhiên liệu
     const existingPrice = fuelPrices.find(
       (p) =>
         p.fuelName.toLowerCase() === fuelName.toLowerCase() &&
@@ -251,18 +220,15 @@ document.addEventListener("DOMContentLoaded", function () {
     return isValid;
   }
 
-  // Event Listeners
   addPriceBtn.addEventListener("click", showAddForm);
   cancelBtn.addEventListener("click", cancelEdit);
 
-  // Đóng form khi click overlay
   document.addEventListener("click", (e) => {
     if (e.target === overlay) {
       cancelEdit();
     }
   });
 
-  // Xử lý submit form
   configForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -277,7 +243,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     showLoading(saveBtn);
 
-    // Simulate API call
     setTimeout(() => {
       if (editingPriceId) {
         updatePrice(formData);
@@ -286,11 +251,10 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       hideLoading(saveBtn);
-      cancelEdit(); // Reset form and hide form
+      cancelEdit(); 
     }, 500);
   });
 
-  // Xử lý Enter key
   fuelNameInput.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -305,23 +269,19 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Event listeners cho validation real-time
   fuelNameInput.addEventListener("input", checkFormValidation);
   fuelNameInput.addEventListener("change", checkFormValidation);
   fuelPriceInput.addEventListener("input", checkFormValidation);
   fuelPriceInput.addEventListener("change", checkFormValidation);
 
-  // Xử lý Escape key để đóng form
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && addConfigSection.classList.contains("show")) {
       cancelEdit();
     }
   });
 
-  // Khởi tạo
   loadFuelPrices();
 
-  // Expose functions globally for onclick handlers
   window.editPrice = editPrice;
   window.deletePrice = deletePrice;
 });
