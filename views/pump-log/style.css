@@ -782,9 +782,6 @@
   background: #ebebed;
   transform: none;
 }
-#pumpLogTableBody {
-  box-sizing: unset !important;
-}
 /* Mobile Responsive */
 @media (max-width: 480px) {
   .table-container {
