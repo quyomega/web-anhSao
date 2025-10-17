@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đồng bộ thời gian - ATC Petro</title>
+    <link rel="stylesheet" href="../../common/assets/css/reset.css" />
+    <link rel="stylesheet" href="../../common/components/sidebar/sidebar.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../../../common/components/css/style.css" />
+  </head>
+  <body>
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Header -->
+      <div class="header">
+        <h1 class="page-title">Đồng bộ thời gian</h1>
+        <button class="menu-toggle" id="menuToggle">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="12"
+            viewBox="0 0 20 12"
+            fill="none"
+          >
+            <path
+              d="M19.3271 10.2539C19.7051 10.2925 20 10.6118 20 11C20 11.3882 19.7051 11.7075 19.3271 11.7461L19.25 11.75H0.75C0.335786 11.75 0 11.4142 0 11C0 10.5858 0.335786 10.25 0.75 10.25H19.25L19.3271 10.2539Z"
+              fill="#2E3747"
+            />
+            <path
+              d="M19.3271 5.25391C19.7051 5.29253 20 5.61183 20 6C20 6.38817 19.7051 6.70747 19.3271 6.74609L19.25 6.75H0.75C0.335786 6.75 0 6.41421 0 6C0 5.58579 0.335786 5.25 0.75 5.25H19.25L19.3271 5.25391Z"
+              fill="#2E3747"
+            />
+            <path
+              d="M19.3271 0.253906C19.7051 0.292528 20 0.611834 20 1C20 1.38817 19.7051 1.70747 19.3271 1.74609L19.25 1.75H0.75C0.335786 1.75 0 1.41421 0 1C0 0.585786 0.335786 0.25 0.75 0.25H19.25L19.3271 0.253906Z"
+              fill="#2E3747"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Content Area -->
+      <div class="content">
+        <!-- Time Sync Form -->
+        <div class="time-sync-form">
+          <div class="form-card">
+            <!-- Pump ID Selection -->
+            <div class="form-group">
+              <label class="form-label">Pump ID (ID vòi bơm)</label>
+              <div class="dropdown-container">
+                <select id="pumpIdSelect" class="form-select">
+                  <option value="A">A</option>
+                  <option value="B">B</option>
+                  <option value="C">C</option>
+                  <option value="D">D</option>
+                  <option value="E">E</option>
+                  <option value="F">F</option>
+                </select>
+                <div class="dropdown-arrow">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                  >
+                    <path
+                      d="M4 6L8 10L12 6"
+                      stroke="#2E3747"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- Time Input -->
+            <div class="form-group">
+              <label class="form-label">Time (Thời gian)</label>
+              <div class="time-input-container">
+                <div class="time-input-icon">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M10 1.66699C14.6024 1.66699 18.3333 5.39793 18.3333 10.0003C18.3333 14.6027 14.6024 18.3337 10 18.3337C5.39763 18.3337 1.66667 14.6027 1.66667 10.0003C1.66667 5.39793 5.39763 1.66699 10 1.66699ZM10 2.91699C6.3181 2.91699 3.33333 5.90176 3.33333 9.58366C3.33333 13.2656 6.3181 16.2503 10 16.2503C13.6819 16.2503 16.6667 13.2656 16.6667 9.58366C16.6667 5.90176 13.6819 2.91699 10 2.91699Z"
+                      fill="#2E3747"
+                    />
+                    <path
+                      d="M10 5.83366C10.3452 5.83366 10.625 6.11352 10.625 6.45866V9.58366L13.125 12.0837C13.3452 12.3039 13.3452 12.6539 13.125 12.8741C12.9048 13.0943 12.5548 13.0943 12.3346 12.8741L9.66797 10.2074C9.55786 10.0973 9.5 9.94552 9.5 9.79199V6.45866C9.5 6.11352 9.77986 5.83366 10.125 5.83366H10Z"
+                      fill="#2E3747"
+                    />
+                  </svg>
+                </div>
+                <input
+                  type="text"
+                  id="timeInput"
+                  class="time-input"
+                  value="15:15:45 - 05/10/2025"
+                  readonly
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="footer">
+        <button class="btn btn-secondary" id="syncOneBtn">Đồng bộ 1 ID</button>
+        <button class="btn btn-primary" id="syncAllBtn">
+          Đồng bộ tất cả ID
+        </button>
+      </div>
+    </div>
+
+    <!-- Time Picker Modal -->
+    <div
+      class="time-picker-overlay"
+      id="timePickerOverlay"
+      style="display: none"
+    >
+      <div class="time-picker-modal">
+        <div class="time-picker-header">
+          <h3 class="time-picker-title">Chọn thời gian</h3>
+          <button class="time-picker-close" id="timePickerClose">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+            >
+              <path
+                d="M15 5L5 15M5 5L15 15"
+                stroke="#2E3747"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
+        <div class="time-picker-content">
+          <div class="time-picker-section">
+            <label class="time-picker-label">Thời gian</label>
+            <input type="time" id="timePicker" class="time-picker-input" />
+          </div>
+          <div class="time-picker-section">
+            <label class="time-picker-label">Ngày</label>
+            <input type="date" id="datePicker" class="time-picker-input" />
+          </div>
+        </div>
+        <div class="time-picker-actions">
+          <button class="btn btn-secondary" id="cancelTimeBtn">Hủy</button>
+          <button class="btn btn-primary" id="confirmTimeBtn">Xác nhận</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../common/js/utils.js"></script>
+    <script src="../../common/components/sidebar/sidebar.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
