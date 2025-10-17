@@ -1,3 +1,7 @@
+body {
+  background-color: #ffffff;
+}
+
 /* Container chính */
 .main-content {
   width: 100%;
@@ -6,7 +10,7 @@
   align-items: center;
   justify-content: space-evenly;
 }
-.content{
+.content {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,8 +20,9 @@
 /* Card đăng nhập */
 .login-card {
   background: white;
-  border: 1px solid #d1d5db;
-  border-radius: 12px;
+  border: 1px solid #DEDFE2;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.04), 0 4px 8px 0 rgba(0, 0, 0, 0.06);
+  border-radius: 16px;
   padding: 16px;
   min-width: 447px;
   max-width: 500px;
@@ -29,8 +34,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #FFFFFF;
   padding: 0px;
+  background: #ffffff;
 }
 
 .logo {
@@ -68,9 +73,11 @@
 }
 
 .company-name {
-  font-size: 28px;
-  font-weight: bold;
-  color: #1e3a8a;
+  color: #0021B5;
+  font-size: 22.4px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: normal;
 }
 
 /* Form đăng nhập */
@@ -79,27 +86,34 @@
 }
 
 .login-title {
-  color: #2E3747;
+  color: #2e3747;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   gap: 4px;
   align-self: stretch;
   font-size: 16px;
-  margin: 16px 0;
+  font-weight: 500;
+  font-style: normal;
+  line-height: 24px;
+  margin-bottom: 16px;
 }
 
 .input-group {
   margin-bottom: 16px;
 }
-
 .input-label {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 4px;
   align-self: stretch;
-  font-size: 14px;
+  color: #0D172A;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px;
+  margin-bottom: 4px;
 }
 
 .input-container {
@@ -119,7 +133,7 @@
 
 .input-icon {
   color: #9ca3af;
-  margin-right: 12px;
+  margin-right: 8px;
   width: 20px;
   height: 20px;
   flex-shrink: 0;
@@ -199,7 +213,7 @@
 
 .company-name-info {
   font-size: 16px;
-  color: #2E3747;
+  color: #2e3747;
   text-transform: uppercase;
 }
 
@@ -295,7 +309,6 @@
 
 /* Responsive */
 @media (max-width: 480px) {
-
   .content {
     align-items: normal;
     padding: 0 16px;
