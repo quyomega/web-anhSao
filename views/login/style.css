@@ -226,11 +226,13 @@ body {
   font-size: 16px;
   color: #2e3747;
   text-transform: uppercase;
+  margin-left: 28px;
 }
 
 .company-details {
   display: flex;
   flex-direction: column;
+  gap: 4px;
 }
 
 .info-item {

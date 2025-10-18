@@ -261,7 +261,6 @@
   transition: all 0.3s ease;
   background-color: #304ffd;
   color: white;
-  box-shadow: 0 4px 12px rgba(48, 79, 253, 0.3);
 }
 
 .floating-add-btn:hover {
