@@ -20,7 +20,7 @@ body {
 /* Card đăng nhập */
 .login-card {
   background: white;
-  border: 1px solid #DEDFE2;
+  border: 1px solid #dedfe2;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.04), 0 4px 8px 0 rgba(0, 0, 0, 0.06);
   border-radius: 16px;
   padding: 16px;
@@ -73,7 +73,7 @@ body {
 }
 
 .company-name {
-  color: #0021B5;
+  color: #0021b5;
   font-size: 22.4px;
   font-style: normal;
   font-weight: 900;
@@ -108,7 +108,7 @@ body {
   align-items: flex-start;
   gap: 4px;
   align-self: stretch;
-  color: #0D172A;
+  color: #0d172a;
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
@@ -203,12 +203,23 @@ body {
   opacity: 0.7;
   cursor: not-allowed;
 }
-
+.footer {
+  position: unset;
+  width: 100%;
+  border-top: 0;
+  z-index: 0;
+  padding: 0 16px;
+  display: flex;
+  justify-content: center;
+}
 /* Thông tin công ty */
 .company-info {
   display: flex;
   flex-direction: column;
   text-align: left;
+  gap: 8px;
+  width: 100%;
+  max-width: 447px;
 }
 
 .company-name-info {
@@ -228,11 +239,9 @@ body {
   gap: 8px;
   font-size: 14px;
   color: black;
-}
-
-.info-icon {
-  color: black;
-  flex-shrink: 0;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
 }
 
 /* Error states */
@@ -347,6 +356,10 @@ body {
 
   .company-name-info {
     font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    margin-left: 28px;
   }
 
   .info-item {
