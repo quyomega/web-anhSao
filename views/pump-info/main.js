@@ -5,59 +5,93 @@ document.addEventListener("DOMContentLoaded", function () {
   let allPumpData = [];
   let filteredPumpData = [];
 
-  const samplePumpData = [
-    {
-      id: 1,
-      pumpId: "A",
-      fuelType: "RON 95-III",
-      pumpType: "ATMC",
-      pumpSign: "PDM221-2014",
-      pumpSerial: "01234",
-      sellCodeHeader: "01234ATC",
-    },
-    {
-      id: 2,
-      pumpId: "B",
-      fuelType: "RON 92-II",
-      pumpType: "ATMC",
-      pumpSign: "PDM221-2014",
-      pumpSerial: "01234",
-      sellCodeHeader: "01234ATC",
-    },
-    {
-      id: 3,
-      pumpId: "C",
-      fuelType: "Dầu DO",
-      pumpType: "ATMC",
-      pumpSign: "PDM221-2014",
-      pumpSerial: "01234",
-      sellCodeHeader: "01234ATC",
-    },
-    {
-      id: 4,
-      pumpId: "D",
-      fuelType: "Xăng E5",
-      pumpType: "ATMC",
-      pumpSign: "PDM221-2014",
-      pumpSerial: "01235",
-      sellCodeHeader: "01235ATC",
-    },
-    {
-      id: 5,
-      pumpId: "E",
-      fuelType: "Xăng E10",
-      pumpType: "ATMC",
-      pumpSign: "PDM221-2014",
-      pumpSerial: "01236",
-      sellCodeHeader: "01236ATC",
-    },
-  ];
+  // Dữ liệu mẫu từ API để test và xem cách hiển thị
+  const mockApiData = {
+    items: [
+      {
+        pump_id: "A",
+        fuel_type: "RON 95-III",
+        pump_type: "ATMC",
+        pump_sign: "PDM221-2014",
+        pump_serial: "01234",
+        sell_code_header: "01234ATC",
+      },
+      {
+        pump_id: "B",
+        fuel_type: "RON 92-II",
+        pump_type: "ATMC",
+        pump_sign: "PDM221-2014",
+        pump_serial: "01234",
+        sell_code_header: "01234ATC",
+      },
+      {
+        pump_id: "C",
+        fuel_type: "Dầu DO",
+        pump_type: "ATMC",
+        pump_sign: "PDM221-2014",
+        pump_serial: "01234",
+        sell_code_header: "01234ATC",
+      },
+      {
+        pump_id: "D",
+        fuel_type: "Xăng E5",
+        pump_type: "ATMC",
+        pump_sign: "PDM221-2014",
+        pump_serial: "01235",
+        sell_code_header: "01235ATC",
+      },
+      {
+        pump_id: "E",
+        fuel_type: "Xăng E10",
+        pump_type: "ATMC",
+        pump_sign: "PDM221-2014",
+        pump_serial: "01236",
+        sell_code_header: "01236ATC",
+      },
+    ],
+  };
 
-  function loadPumpData() {
-    const savedData = Storage.get("pumpInfoData");
-    allPumpData = savedData || samplePumpData;
+  function processApiData(data) {
+    // Chuyển đổi dữ liệu từ API format sang format hiện tại
+    if (data && data.items && Array.isArray(data.items)) {
+      allPumpData = data.items.map((item, index) => ({
+        id: index + 1,
+        pumpId: item.pump_id,
+        fuelType: item.fuel_type,
+        pumpType: item.pump_type,
+        pumpSign: item.pump_sign,
+        pumpSerial: item.pump_serial,
+        sellCodeHeader: item.sell_code_header,
+      }));
+    } else {
+      allPumpData = [];
+    }
     filteredPumpData = [...allPumpData];
     renderPumpList();
+  }
+
+  function loadPumpData() {
+    // Hiển thị loading state
+    pumpList.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state-title">Đang tải dữ liệu...</div>
+      </div>
+    `;
+
+    fetch("/api/pump-info")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Không thể tải thông tin vòi bơm");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        processApiData(data);
+      })
+      .catch((error) => {
+        // Sử dụng dữ liệu mẫu khi API lỗi để bạn có thể xem cách hiển thị
+        processApiData(mockApiData);
+      });
   }
 
   function renderPumpList() {

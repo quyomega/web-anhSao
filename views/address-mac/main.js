@@ -128,7 +128,5 @@ document.addEventListener("DOMContentLoaded", function () {
     })
     .catch((err) => console.error(err));
 
-  setTimeout(() => {
-    process_response({ mac: "Test API " });
-  }, 2000);
+
 });
