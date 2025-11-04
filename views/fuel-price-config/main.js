@@ -12,16 +12,52 @@ document.addEventListener("DOMContentLoaded", function () {
   let editingPriceId = null;
   let overlay = null;
 
-  const sampleData = [
-    { id: 1, fuelName: "Xăng RON 95", fuelPrice: 21000 },
-    { id: 2, fuelName: "Xăng RON 92", fuelPrice: 20000 },
-    { id: 3, fuelName: "Dầu Diesel", fuelPrice: 18000 },
-    { id: 4, fuelName: "Dầu DO", fuelPrice: 15000 },
-  ];
-  function loadFuelPrices() {
-    const savedPrices = Storage.get("fuelPrices");
-    fuelPrices = savedPrices || sampleData;
+  // Dữ liệu mẫu từ API để test và xem cách hiển thị
+  const mockApiData = {
+    items: [
+      { fuel: "Xăng RON 95", price: 21000 },
+      { fuel: "Xăng RON 92", price: 20000 },
+      { fuel: "Dầu Diesel", price: 18000 },
+      { fuel: "Dầu DO", price: 15000 },
+    ],
+  };
+
+  function processApiData(data) {
+    // Chuyển đổi dữ liệu từ API format sang format hiện tại
+    if (data && data.items && Array.isArray(data.items)) {
+      fuelPrices = data.items.map((item, index) => ({
+        id: index + 1,
+        fuelName: item.fuel,
+        fuelPrice: item.price,
+      }));
+    } else {
+      fuelPrices = [];
+    }
     renderFuelPrices();
+  }
+
+  function loadFuelPrices() {
+    // Hiển thị loading state
+    fuelPriceList.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state-title">Đang tải dữ liệu...</div>
+      </div>
+    `;
+
+    fetch("/api/fuel-price")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Không thể tải cấu hình giá nhiên liệu");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        processApiData(data);
+      })
+      .catch((error) => {
+        // Sử dụng dữ liệu mẫu khi API lỗi để bạn có thể xem cách hiển thị
+        processApiData(mockApiData);
+      });
   }
   function renderFuelPrices() {
     if (fuelPrices.length === 0) {
@@ -116,31 +152,77 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function addPrice(priceData) {
-    const newId = Math.max(...fuelPrices.map((p) => p.id), 0) + 1;
-    const newPrice = {
-      id: newId,
-      fuelName: priceData.fuelName,
-      fuelPrice: parseInt(priceData.fuelPrice),
+    // Chuẩn bị dữ liệu theo format API
+    const apiData = {
+      fuel: priceData.fuelName,
+      price_vnd: parseInt(priceData.fuelPrice),
     };
 
-    fuelPrices.push(newPrice);
-    Storage.set("fuelPrices", fuelPrices);
-    renderFuelPrices();
-    showToast("Thêm cấu hình giá thành công", "success");
+    return fetch("/api/fuel_price", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(apiData),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Không thể thêm cấu hình giá nhiên liệu");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data.status === "success") {
+          showToast("Thêm cấu hình giá thành công", "success");
+          // Reload lại dữ liệu từ API sau khi thêm thành công
+          loadFuelPrices();
+          return data;
+        } else {
+          throw new Error("Thêm cấu hình giá thất bại");
+        }
+      })
+      .catch((error) => {
+        console.error("Lỗi khi thêm cấu hình giá:", error);
+        showToast("Không thể thêm cấu hình giá nhiên liệu", "error");
+        throw error;
+      });
   }
 
   function updatePrice(priceData) {
-    const index = fuelPrices.findIndex((p) => p.id === editingPriceId);
-    if (index !== -1) {
-      fuelPrices[index] = {
-        ...fuelPrices[index],
-        fuelName: priceData.fuelName,
-        fuelPrice: parseInt(priceData.fuelPrice),
-      };
-      Storage.set("fuelPrices", fuelPrices);
-      renderFuelPrices();
-      showToast("Cập nhật cấu hình giá thành công", "success");
-    }
+    // Chuẩn bị dữ liệu theo format API
+    const apiData = {
+      fuel: priceData.fuelName,
+      price_vnd: parseInt(priceData.fuelPrice),
+    };
+
+    return fetch("/api/fuel_price", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(apiData),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Không thể cập nhật cấu hình giá nhiên liệu");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data.status === "success") {
+          showToast("Cập nhật cấu hình giá thành công", "success");
+          // Reload lại dữ liệu từ API sau khi cập nhật thành công
+          loadFuelPrices();
+          return data;
+        } else {
+          throw new Error("Cập nhật cấu hình giá thất bại");
+        }
+      })
+      .catch((error) => {
+        console.error("Lỗi khi cập nhật cấu hình giá:", error);
+        showToast("Không thể cập nhật cấu hình giá nhiên liệu", "error");
+        throw error;
+      });
   }
 
   function deletePrice(id) {
@@ -243,16 +325,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
     showLoading(saveBtn);
 
-    setTimeout(() => {
-      if (editingPriceId) {
-        updatePrice(formData);
-      } else {
-        addPrice(formData);
-      }
-
-      hideLoading(saveBtn);
-      cancelEdit(); 
-    }, 500);
+    if (editingPriceId) {
+      updatePrice(formData)
+        .then(() => {
+          hideLoading(saveBtn);
+          cancelEdit();
+        })
+        .catch(() => {
+          hideLoading(saveBtn);
+        });
+    } else {
+      addPrice(formData)
+        .then(() => {
+          hideLoading(saveBtn);
+          cancelEdit();
+        })
+        .catch(() => {
+          hideLoading(saveBtn);
+        });
+    }
   });
 
   fuelNameInput.addEventListener("keydown", (e) => {

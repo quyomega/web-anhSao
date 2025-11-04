@@ -12,17 +12,57 @@ document.addEventListener("DOMContentLoaded", function () {
   let editingConfigId = null;
   let overlay = null;
 
-  const sampleData = [
-    { id: 1, pumpId: "A", fuelType: "Xăng RON 95" },
-    { id: 2, pumpId: "B", fuelType: "Xăng RON 92" },
-    { id: 3, pumpId: "C", fuelType: "Dầu Diesel" },
-    { id: 4, pumpId: "D", fuelType: "Dầu DO" },
-  ];
+  // Dữ liệu mẫu từ API để test và xem cách hiển thị
+  const mockApiData = {
+    id: 1,
+    line_server_name: "abc",
+    serial_port: "COM1",
+    baud_rate: 9600,
+    status: "running",
+    pumps: [
+      { pump_id: "A", fuel: "Xăng RON 95" },
+      { pump_id: "B", fuel: "Xăng RON 92" },
+      { pump_id: "C", fuel: "Dầu Diesel" },
+      { pump_id: "D", fuel: "Dầu DO" },
+    ],
+  };
+
+  function processApiData(data) {
+    // Chuyển đổi dữ liệu từ API format sang format hiện tại
+    if (data && data.pumps && Array.isArray(data.pumps)) {
+      fuelConfigs = data.pumps.map((pump, index) => ({
+        id: index + 1,
+        pumpId: pump.pump_id,
+        fuelType: pump.fuel,
+      }));
+    } else {
+      fuelConfigs = [];
+    }
+    renderFuelConfigs();
+  }
 
   function loadFuelConfigs() {
-    const savedConfigs = Storage.get("fuelConfigs");
-    fuelConfigs = savedConfigs || sampleData;
-    renderFuelConfigs();
+    // Hiển thị loading state
+    fuelConfigList.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state-title">Đang tải dữ liệu...</div>
+      </div>
+    `;
+
+    fetch("/api/fuel-config")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Không thể tải cấu hình nhiên liệu");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        processApiData(data);
+      })
+      .catch((error) => {
+        // Sử dụng dữ liệu mẫu khi API lỗi để bạn có thể xem cách hiển thị
+        processApiData(mockApiData);
+      });
   }
 
   function renderFuelConfigs() {
@@ -119,31 +159,77 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function addConfig(configData) {
-    const newId = Math.max(...fuelConfigs.map((c) => c.id), 0) + 1;
-    const newConfig = {
-      id: newId,
-      pumpId: configData.pumpId,
-      fuelType: configData.fuelType,
+    // Chuẩn bị dữ liệu theo format API
+    const apiData = {
+      pump_id: configData.pumpId,
+      fuel: configData.fuelType,
     };
 
-    fuelConfigs.push(newConfig);
-    Storage.set("fuelConfigs", fuelConfigs);
-    renderFuelConfigs();
-    showToast("Thêm cấu hình thành công", "success");
+    return fetch("/api/fuel-config", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(apiData),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Không thể thêm cấu hình nhiên liệu");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data.status === "success") {
+          showToast("Thêm cấu hình thành công", "success");
+          // Reload lại dữ liệu từ API sau khi thêm thành công
+          loadFuelConfigs();
+          return data;
+        } else {
+          throw new Error("Thêm cấu hình thất bại");
+        }
+      })
+      .catch((error) => {
+        console.error("Lỗi khi thêm cấu hình:", error);
+        showToast("Không thể thêm cấu hình nhiên liệu", "error");
+        throw error;
+      });
   }
 
   function updateConfig(configData) {
-    const index = fuelConfigs.findIndex((c) => c.id === editingConfigId);
-    if (index !== -1) {
-      fuelConfigs[index] = {
-        ...fuelConfigs[index],
-        pumpId: configData.pumpId,
-        fuelType: configData.fuelType,
-      };
-      Storage.set("fuelConfigs", fuelConfigs);
-      renderFuelConfigs();
-      showToast("Cập nhật cấu hình thành công", "success");
-    }
+    // Chuẩn bị dữ liệu theo format API
+    const apiData = {
+      pump_id: configData.pumpId,
+      fuel: configData.fuelType,
+    };
+
+    return fetch("/api/fuel-config", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(apiData),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Không thể cập nhật cấu hình nhiên liệu");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data.status === "success") {
+          showToast("Cập nhật cấu hình thành công", "success");
+          // Reload lại dữ liệu từ API sau khi cập nhật thành công
+          loadFuelConfigs();
+          return data;
+        } else {
+          throw new Error("Cập nhật cấu hình thất bại");
+        }
+      })
+      .catch((error) => {
+        console.error("Lỗi khi cập nhật cấu hình:", error);
+        showToast("Không thể cập nhật cấu hình nhiên liệu", "error");
+        throw error;
+      });
   }
 
   function deleteConfig(id) {
@@ -234,16 +320,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
     showLoading(saveBtn);
 
-    setTimeout(() => {
-      if (editingConfigId) {
-        updateConfig(formData);
-      } else {
-        addConfig(formData);
-      }
-
-      hideLoading(saveBtn);
-      cancelEdit(); 
-    }, 500);
+    if (editingConfigId) {
+      updateConfig(formData)
+        .then(() => {
+          hideLoading(saveBtn);
+          cancelEdit();
+        })
+        .catch(() => {
+          hideLoading(saveBtn);
+        });
+    } else {
+      addConfig(formData)
+        .then(() => {
+          hideLoading(saveBtn);
+          cancelEdit();
+        })
+        .catch(() => {
+          hideLoading(saveBtn);
+        });
+    }
   });
 
   pumpIdInput.addEventListener("keydown", (e) => {
