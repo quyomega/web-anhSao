@@ -98,29 +98,102 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  function startPump() {
-    isRunning = true;
-    statusElement.textContent = "Running";
-    statusElement.className = "status-tag running";
-    controlButton.textContent = "Stop";
-    controlButton.className = "stop-button";
+  function getFormData() {
+    return {
+      id: parseInt(document.getElementById("id").value) || 1,
+      line_server_name: document.getElementById("lineServer").value,
+      pump_id_list: document.getElementById("pumpList").value,
+      serial_port: document.getElementById("serialPort").value,
+      baud_rate: parseInt(document.getElementById("baudRate").value) || 9600,
+    };
+  }
 
-    formInputs.forEach((input) => {
-      input.disabled = true;
-    });
+  function updatePumpStatus(status) {
+    const formData = getFormData();
+    const dataToSend = {
+      ...formData,
+      status: status,
+    };
+
+    return fetch("api/pump_status", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dataToSend),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Không thể cập nhật trạng thái");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        showToast(
+          status === "running"
+            ? "Đã khởi động vòi bơm thành công"
+            : "Đã dừng vòi bơm thành công",
+          "success"
+        );
+        return data;
+      })
+      .catch((err) => {
+        console.error("Lỗi khi cập nhật trạng thái:", err);
+        showToast("Không thể cập nhật trạng thái", "error");
+        throw err;
+      });
+  }
+
+  function startPump() {
+    if (!validateForm()) {
+      return;
+    }
+
+    controlButton.disabled = true;
+    controlButton.textContent = "Đang xử lý...";
+
+    updatePumpStatus("running")
+      .then(() => {
+        isRunning = true;
+        statusElement.textContent = "Running";
+        statusElement.className = "status-tag running";
+        controlButton.textContent = "Stop";
+        controlButton.className = "stop-button";
+        controlButton.disabled = false;
+
+        formInputs.forEach((input) => {
+          input.disabled = true;
+        });
+      })
+      .catch(() => {
+        controlButton.disabled = false;
+        controlButton.textContent = "Start";
+        controlButton.className = "start-button";
+      });
   }
 
   function stopPump() {
-    isRunning = false;
-    statusElement.textContent = "Stop";
-    statusElement.className = "status-tag stopped";
-    controlButton.textContent = "Start";
-    controlButton.className = "start-button";
+    controlButton.disabled = true;
+    controlButton.textContent = "Đang xử lý...";
 
-    formInputs.forEach((input) => {
-      input.disabled = false;
-    });
+    updatePumpStatus("stop")
+      .then(() => {
+        isRunning = false;
+        statusElement.textContent = "Stop";
+        statusElement.className = "status-tag stopped";
+        controlButton.textContent = "Start";
+        controlButton.className = "start-button";
+        controlButton.disabled = false;
 
+        formInputs.forEach((input) => {
+          input.disabled = false;
+        });
+      })
+      .catch(() => {
+        controlButton.disabled = false;
+        controlButton.textContent = "Stop";
+        controlButton.className = "stop-button";
+      });
   }
 
   function validateForm() {
@@ -146,13 +219,6 @@ document.addEventListener("DOMContentLoaded", function () {
     return true;
   }
 
-  controlButton.addEventListener("click", function (e) {
-    if (!isRunning && !validateForm()) {
-      e.preventDefault();
-      return;
-    }
-  });
-
   function saveFormData() {
     const formData = {
       id: document.getElementById("id").value,
@@ -165,18 +231,64 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function loadFormData() {
-    const savedData = localStorage.getItem("pumpConfig");
-    if (savedData) {
-      const formData = JSON.parse(savedData);
-      document.getElementById("id").value = formData.id || "1";
-      document.getElementById("lineServer").value =
-        formData.lineServer || "1234";
-      document.getElementById("pumpList").value =
-        formData.pumpList || "A, B, C, D";
-      document.getElementById("serialPort").value =
-        formData.serialPort || "COM4";
-      document.getElementById("baudRate").value = formData.baudRate || "19200";
-    }
+    fetch("api/pump_status")
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.id !== undefined) {
+          document.getElementById("id").value = data.id;
+        }
+        if (data.line_server_name) {
+          document.getElementById("lineServer").value = data.line_server_name;
+        }
+        if (data.pump_id_list) {
+          document.getElementById("pumpList").value = data.pump_id_list;
+        }
+        if (data.serial_port) {
+          document.getElementById("serialPort").value = data.serial_port;
+        }
+        if (data.baud_rate) {
+          document.getElementById("baudRate").value = data.baud_rate;
+        }
+        // Cập nhật status từ API
+        if (data.status) {
+          if (data.status === "running") {
+            isRunning = true;
+            statusElement.textContent = "Running";
+            statusElement.className = "status-tag running";
+            controlButton.textContent = "Stop";
+            controlButton.className = "stop-button";
+            formInputs.forEach((input) => {
+              input.disabled = true;
+            });
+          } else {
+            isRunning = false;
+            statusElement.textContent = "Stop";
+            statusElement.className = "status-tag stopped";
+            controlButton.textContent = "Start";
+            controlButton.className = "start-button";
+            formInputs.forEach((input) => {
+              input.disabled = false;
+            });
+          }
+        }
+      })
+      .catch((err) => {
+        console.error("Lỗi khi tải dữ liệu từ API:", err);
+        showToast("Không thể tải dữ liệu từ server", "error");
+        const savedData = localStorage.getItem("pumpConfig");
+        if (savedData) {
+          const formData = JSON.parse(savedData);
+          document.getElementById("id").value = formData.id || "1";
+          document.getElementById("lineServer").value =
+            formData.lineServer || "1234";
+          document.getElementById("pumpList").value =
+            formData.pumpList || "A, B, C, D";
+          document.getElementById("serialPort").value =
+            formData.serialPort || "COM4";
+          document.getElementById("baudRate").value =
+            formData.baudRate || "19200";
+        }
+      });
   }
 
   formInputs.forEach((input) => {
@@ -186,6 +298,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   loadFormData();
 
-  document.querySelector(".menu-icon").addEventListener("click", function () {
-  });
+  document
+    .querySelector(".menu-icon")
+    .addEventListener("click", function () {});
 });

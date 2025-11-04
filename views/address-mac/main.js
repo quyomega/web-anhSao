@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
     navigator.clipboard
       .writeText(macText)
       .then(function () {
-        showToast("Đã copy địa chỉ MAC!", "success");
+        showToast("Đã sao chép thành công !!!", "success");
 
         copyButton.style.transform = "scale(0.95)";
         setTimeout(() => {
@@ -116,4 +116,19 @@ document.addEventListener("DOMContentLoaded", function () {
     this.style.transform = "translateY(0)";
     this.style.boxShadow = "none";
   });
+  function process_response(data) {
+    if (data && data.mac) {
+      document.getElementById("macAddress").innerText = data.mac;
+    }
+  }
+  fetch("api/mac")
+    .then((r) => r.json())
+    .then((data) => {
+      process_response(data);
+    })
+    .catch((err) => console.error(err));
+
+  setTimeout(() => {
+    process_response({ mac: "Test API " });
+  }, 2000);
 });
