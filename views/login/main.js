@@ -66,7 +66,6 @@ document.addEventListener("DOMContentLoaded", function () {
       Navigation.goTo("../address-mac/index.html");
     } else {
       hideLoading(loginBtn);
-      showToast("Tên đăng nhập hoặc mật khẩu không đúng", "error");
       FormValidator.showError(
         passwordInput,
         "Tên đăng nhập hoặc mật khẩu không đúng"

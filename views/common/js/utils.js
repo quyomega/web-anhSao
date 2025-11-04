@@ -8,15 +8,30 @@ function showToast(message, type = "success") {
   toast.className = `toast ${type}`;
 
   const iconMap = {
-    success: "✅",
-    error: "❌",
-    warning: "⚠️",
+    success: `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M16.6667 5L7.50004 14.1667L3.33337 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>`,
+    error: `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>`,
+    warning: `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M10 6.66667V10M10 13.3333H10.0083M18.3333 10C18.3333 14.6024 14.6024 18.3333 10 18.3333C5.39763 18.3333 1.66667 14.6024 1.66667 10C1.66667 5.39763 5.39763 1.66667 10 1.66667C14.6024 1.66667 18.3333 5.39763 18.3333 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>`,
   };
 
   toast.innerHTML = `
-        <span class="toast-icon">${iconMap[type] || "ℹ️"}</span>
+        <div class="toast-icon">${
+          iconMap[type] ||
+          `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10 9.16667V13.3333M10 6.66667H10.0083M18.3333 10C18.3333 14.6024 14.6024 18.3333 10 18.3333C5.39763 18.3333 1.66667 14.6024 1.66667 10C1.66667 5.39763 5.39763 1.66667 10 1.66667C14.6024 1.66667 18.3333 5.39763 18.3333 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>`
+        }</div>
         <span class="toast-message">${message}</span>
-        <button class="toast-close" onclick="this.parentElement.remove()">×</button>
+        <button class="toast-close" onclick="this.parentElement.remove()" aria-label="Đóng">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
     `;
 
   document.body.appendChild(toast);
@@ -167,8 +182,7 @@ const Storage = {
   set: function (key, value) {
     try {
       localStorage.setItem(key, JSON.stringify(value));
-    } catch (error) {
-    }
+    } catch (error) {}
   },
 
   get: function (key) {
@@ -183,15 +197,13 @@ const Storage = {
   remove: function (key) {
     try {
       localStorage.removeItem(key);
-    } catch (error) {
-    }
+    } catch (error) {}
   },
 
   clear: function () {
     try {
       localStorage.clear();
-    } catch (error) {
-    }
+    } catch (error) {}
   },
 };
 
