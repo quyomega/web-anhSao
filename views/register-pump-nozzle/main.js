@@ -110,12 +110,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function updatePumpStatus(status) {
     const formData = getFormData();
+    // Lấy trạng thái hiện tại từ UI (statusElement) để đảm bảo đúng
+    const currentStatusText = statusElement.textContent.trim().toLowerCase();
+    const currentStatusFromUI =
+      currentStatusText === "running" ? "running" : "stop";
+    // Ưu tiên status được truyền vào, nếu không có thì dùng trạng thái từ UI
+    const statusToSend = status || currentStatusFromUI;
     const dataToSend = {
       ...formData,
-      status: status,
+      status: statusToSend,
     };
 
-    return fetch("api/pump_status", {
+    return fetch("/api/pump_status", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -231,7 +237,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function loadFormData() {
-    fetch("api/pump_status")
+    fetch("/api/pump_status")
       .then((response) => response.json())
       .then((data) => {
         if (data.id !== undefined) {
@@ -280,9 +286,8 @@ document.addEventListener("DOMContentLoaded", function () {
           const formData = JSON.parse(savedData);
           document.getElementById("id").value = formData.id || "1";
           document.getElementById("lineServer").value =
-            formData.lineServer || "1234";
-          document.getElementById("pumpList").value =
-            formData.pumpList || "A, B, C, D";
+            formData.lineServer || "1";
+          document.getElementById("pumpList").value = formData.pumpList || "A";
           document.getElementById("serialPort").value =
             formData.serialPort || "COM4";
           document.getElementById("baudRate").value =

@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("macAddress").innerText = data.mac;
     }
   }
-  fetch("api/mac")
+  fetch("/api/mac")
     .then((r) => r.json())
     .then((data) => {
       process_response(data);
