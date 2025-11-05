@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let filteredPumpData = [];
 
   const mockApiData = {
-    items: [
+    "items": [
       {
         pump_id: "A",
         fuel_type: "RON 95-III",

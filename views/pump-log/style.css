@@ -1,11 +1,9 @@
-/* Content */
 .content {
   flex: 1;
   padding: 16px;
   overflow-y: auto;
 }
 
-/* Navigation Tabs */
 .nav-tabs {
   display: flex;
   align-items: center;
@@ -121,37 +119,32 @@
   -webkit-overflow-scrolling: touch;
 }
 
-/* Pump Log Table */
 .pump-log-table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 900px; /* Ensure table has minimum width for horizontal scroll */
-  font-size: 13px; /* Reduced from 14px to match current log table */
-  table-layout: fixed; /* Fixed table layout for consistent column widths */
+  min-width: 900px; 
+  font-size: 13px; 
+  table-layout: fixed; 
 }
 
-/* Current Log Table - use same styling as main table */
 #currentLogTable {
-  min-width: 900px; /* Same as main table */
+  min-width: 900px; 
 }
 
-/* Ensure both tables have consistent row heights */
 #currentLogTable th,
 #currentLogTable td {
-  padding: 8px 12px; /* Same as main table */
-  font-size: 12px; /* Same as main table */
+  padding: 8px 12px; 
+  font-size: 12px; 
 }
 
-/* Set consistent row heights for both tables */
 .pump-log-table tbody tr {
-  height: 50px; /* Fixed row height */
+  height: 50px; 
 }
 
 #currentLogTable tbody tr {
-  height: 50px; /* Same fixed row height */
+  height: 50px; 
 }
 
-/* Ensure consistent line height for table cells */
 .pump-log-table th,
 .pump-log-table td,
 #currentLogTable th,
@@ -168,7 +161,7 @@
 }
 
 .pump-log-table th {
-  padding: 8px 12px; /* Reduced from 16px to match current log table */
+  padding: 8px 12px; 
   text-align: left;
   font-weight: 600;
   color: #374151;
@@ -205,7 +198,6 @@
   max-width: 100px;
 }
 
-/* Non-sticky columns - set fixed widths */
 .pump-log-table th:nth-child(4),
 .pump-log-table td:nth-child(4) {
   width: 80px;
@@ -270,7 +262,7 @@
 }
 
 .pump-log-table td {
-  padding: 8px 12px; /* Reduced from 16px to match current log table */
+  padding: 8px 12px;
   border-bottom: 1px solid #f3f4f6;
   color: #374151;
   white-space: nowrap;

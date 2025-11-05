@@ -1,123 +1,5 @@
-const pumpLogData = [
-  {
-    stt: "01",
-    pumpId: "A",
-    fuel: "DO 0.0001S-V",
-    liter: "5 Lít",
-    price: "15.000₫",
-    money: "75.000₫",
-    time: "16/10/2025 4:52",
-    count: "1",
-    status: "Success",
-    totalLiter: "5 Lít",
-    totalAmount: "75.000₫",
-    pumpSerial: "100A1B1",
-  },
-  {
-    stt: "02",
-    pumpId: "B",
-    fuel: "RON 95-III",
-    liter: "10 Lít",
-    price: "21.000₫",
-    money: "210.000₫",
-    time: "17/10/2025 9:44",
-    count: "3",
-    status: "Fail",
-    totalLiter: "10 Lít",
-    totalAmount: "210.000₫",
-    pumpSerial: "100A1B2",
-  },
-  {
-    stt: "03",
-    pumpId: "C",
-    fuel: "RON 95-IV",
-    liter: "15 Lít",
-    price: "21.500₫",
-    money: "322.500₫",
-    time: "15/10/20252:08",
-    count: "5",
-    status: "Success",
-    totalLiter: "15 Lít",
-    totalAmount: "322.500₫",
-    pumpSerial: "100A1B3",
-  },
-  {
-    stt: "04",
-    pumpId: "D",
-    fuel: "RON 92",
-    liter: "20 Lít",
-    price: "20.000₫",
-    money: "400.000₫",
-    time: "14/10/2025 8:12",
-    count: "7",
-    status: "Success",
-    totalLiter: "20 Lít",
-    totalAmount: "400.000₫",
-    pumpSerial: "100A1B4",
-  },
-  {
-    stt: "05",
-    pumpId: "E",
-    fuel: "Dầu hỏa",
-    liter: "35 Lít",
-    price: "15.000₫",
-    money: "525.000₫",
-    time: "13/10/2025 7:38",
-    count: "9",
-    status: "Fail",
-    totalLiter: "35 Lít",
-    totalAmount: "525.000₫",
-    pumpSerial: "100A1B5",
-  },
-];
-
-const currentLogData = [
-  {
-    stt: "01",
-    pumpId: "A",
-    fuel: "DO 0.0001S-V",
-    liter: "5 Lít",
-    price: "15.000₫",
-    money: "75.000₫",
-    count: "1",
-  },
-  {
-    stt: "02",
-    pumpId: "B",
-    fuel: "RON 95-III",
-    liter: "10 Lít",
-    price: "21.000₫",
-    money: "210.000₫",
-    count: "3",
-  },
-  {
-    stt: "03",
-    pumpId: "C",
-    fuel: "RON 95-IV",
-    liter: "15 Lít",
-    price: "21.500₫",
-    money: "322.500₫",
-    count: "5",
-  },
-  {
-    stt: "04",
-    pumpId: "D",
-    fuel: "RON 92",
-    liter: "20 Lít",
-    price: "20.000₫",
-    money: "400.000₫",
-    count: "7",
-  },
-  {
-    stt: "05",
-    pumpId: "E",
-    fuel: "Dầu hỏa",
-    liter: "35 Lít",
-    price: "15.000₫",
-    money: "525.000₫",
-    count: "9",
-  },
-];
+let pumpLogData = [];
+let currentLogData = [];
 
 let tabButtons;
 let tabPanels;
@@ -145,8 +27,8 @@ let isSelectingRange = false;
 document.addEventListener("DOMContentLoaded", function () {
   initializeElements();
   setupEventListeners();
-  renderPumpLogTable();
-  renderCurrentLogTable();
+  loadPumpLogData();
+  loadCurrentLogData();
 });
 
 function initializeElements() {
@@ -240,10 +122,240 @@ function getTabDisplayName(tabId) {
   return names[tabId] || tabId;
 }
 
+function processApiData(data) {
+  if (data && data.logs && Array.isArray(data.logs)) {
+    pumpLogData = data.logs.map((log) => ({
+      stt: log.stt,
+      pumpId: log.pump_id,
+      fuel: log.fuel,
+      liter: `${log.liter} Lít`,
+      price: formatNumber(log.price_vnd) + "₫",
+      money: formatNumber(log.money_vnd) + "₫",
+      time: log.time,
+      count: log.count.toString(),
+      status: log.status,
+      totalLiter: `${log.total_liter} Lít`,
+      totalAmount: formatNumber(log.total_amount_vnd) + "₫",
+      pumpSerial: log.pump_serial,
+      // Giữ nguyên dữ liệu gốc để filter
+      _rawLiter: log.liter,
+      _rawTime: log.time,
+    }));
+  } else {
+    pumpLogData = [];
+  }
+  renderPumpLogTable();
+}
+
+function processCurrentLogData(data) {
+  if (data && data.logs && Array.isArray(data.logs)) {
+    currentLogData = data.logs.map((log) => ({
+      stt: log.stt,
+      pumpId: log.pump_id,
+      fuel: log.fuel,
+      liter: `${log.liter} Lít`,
+      price: formatNumber(log.price_vnd) + "₫",
+      money: formatNumber(log.money_vnd) + "₫",
+      count: log.count.toString(),
+    }));
+  } else {
+    currentLogData = [];
+  }
+  renderCurrentLogTable();
+}
+
+function formatNumber(num) {
+  return new Intl.NumberFormat("vi-VN").format(num);
+}
+
+const mockApiData = {
+  logs: [
+    {
+      stt: "01",
+      pump_id: "A",
+      fuel: "DO 0.0001S-V",
+      liter: 5,
+      price_vnd: 15000,
+      money_vnd: 75000,
+      time: "16/10/2025 4:52",
+      count: 1,
+      status: "Success",
+      total_liter: 5,
+      total_amount_vnd: 75000,
+      pump_serial: "100A1B1",
+    },
+    {
+      stt: "02",
+      pump_id: "B",
+      fuel: "RON 95-III",
+      liter: 10,
+      price_vnd: 21000,
+      money_vnd: 210000,
+      time: "17/10/2025 9:44",
+      count: 3,
+      status: "Fail",
+      total_liter: 10,
+      total_amount_vnd: 210000,
+      pump_serial: "100A1B2",
+    },
+    {
+      stt: "03",
+      pump_id: "C",
+      fuel: "RON 95-IV",
+      liter: 15,
+      price_vnd: 21500,
+      money_vnd: 322500,
+      time: "15/10/2025 2:08",
+      count: 5,
+      status: "Success",
+      total_liter: 15,
+      total_amount_vnd: 322500,
+      pump_serial: "100A1B3",
+    },
+    {
+      stt: "04",
+      pump_id: "D",
+      fuel: "RON 92",
+      liter: 20,
+      price_vnd: 20000,
+      money_vnd: 400000,
+      time: "14/10/2025 8:12",
+      count: 7,
+      status: "Success",
+      total_liter: 20,
+      total_amount_vnd: 400000,
+      pump_serial: "100A1B4",
+    },
+    {
+      stt: "05",
+      pump_id: "E",
+      fuel: "Dầu hỏa",
+      liter: 35,
+      price_vnd: 15000,
+      money_vnd: 525000,
+      time: "13/10/2025 7:38",
+      count: 9,
+      status: "Fail",
+      total_liter: 35,
+      total_amount_vnd: 525000,
+      pump_serial: "100A1B5",
+    },
+  ],
+};
+
+const mockCurrentLogData = {
+  logs: [
+    {
+      stt: "01",
+      pump_id: "A",
+      fuel: "DO 0.0001S-V",
+      liter: 5,
+      price_vnd: 15000,
+      money_vnd: 75000,
+      time: "16/10/2025 4:52",
+      count: 1,
+    },
+    {
+      stt: "02",
+      pump_id: "B",
+      fuel: "RON 95-III",
+      liter: 10,
+      price_vnd: 21000,
+      money_vnd: 210000,
+      time: "17/10/2025 9:44",
+      count: 3,
+    },
+    {
+      stt: "03",
+      pump_id: "C",
+      fuel: "RON 95-IV",
+      liter: 15,
+      price_vnd: 21500,
+      money_vnd: 322500,
+      time: "15/10/2025 2:08",
+      count: 5,
+    },
+  ],
+};
+
+function loadPumpLogData() {
+  if (pumpLogTableBody) {
+    pumpLogTableBody.innerHTML = `
+      <tr>
+        <td colspan="12" style="text-align: center; padding: 40px; color: #6b7280;">
+          Đang tải dữ liệu...
+        </td>
+      </tr>
+    `;
+  }
+
+  fetch("/api/pump-log")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Không thể tải dữ liệu log bơm");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      processApiData(data);
+    })
+    .catch((error) => {
+      console.error("Lỗi khi tải dữ liệu:", error);
+      console.log("Sử dụng dữ liệu mẫu để test...");
+      // Sử dụng dữ liệu mẫu khi API lỗi
+      processApiData(mockApiData);
+      showToast("Đang sử dụng dữ liệu mẫu (API chưa hoạt động)", "info");
+    });
+}
+
+function loadCurrentLogData() {
+  if (currentLogTableBody) {
+    currentLogTableBody.innerHTML = `
+      <tr>
+        <td colspan="8" style="text-align: center; padding: 40px; color: #6b7280;">
+          Đang tải dữ liệu...
+        </td>
+      </tr>
+    `;
+  }
+
+  fetch("/api/log-curent")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Không thể tải dữ liệu log bơm hiện tại");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      processCurrentLogData(data);
+    })
+    .catch((error) => {
+      console.error("Lỗi khi tải dữ liệu log bơm hiện tại:", error);
+      console.log("Sử dụng dữ liệu mẫu để test...");
+      // Sử dụng dữ liệu mẫu khi API lỗi
+      processCurrentLogData(mockCurrentLogData);
+      showToast(
+        "Đang sử dụng dữ liệu mẫu cho log bơm hiện tại (API chưa hoạt động)",
+        "info"
+      );
+    });
+}
+
 function renderPumpLogTable() {
   if (!pumpLogTableBody) return;
 
   pumpLogTableBody.innerHTML = "";
+
+  if (pumpLogData.length === 0) {
+    pumpLogTableBody.innerHTML = `
+      <tr>
+        <td colspan="12" style="text-align: center; padding: 40px; color: #6b7280;">
+          Không có dữ liệu
+        </td>
+      </tr>
+    `;
+    return;
+  }
 
   pumpLogData.forEach((log, index) => {
     const row = document.createElement("tr");
@@ -273,6 +385,17 @@ function renderCurrentLogTable() {
   if (!currentLogTableBody) return;
 
   currentLogTableBody.innerHTML = "";
+
+  if (currentLogData.length === 0) {
+    currentLogTableBody.innerHTML = `
+      <tr>
+        <td colspan="8" style="text-align: center; padding: 40px; color: #6b7280;">
+          Không có dữ liệu
+        </td>
+      </tr>
+    `;
+    return;
+  }
 
   currentLogData.forEach((log, index) => {
     const row = document.createElement("tr");
@@ -457,27 +580,93 @@ function resetFilters() {
 
   renderDatePicker();
 
+  // Tải lại dữ liệu ban đầu khi reset
+  loadPumpLogData();
+
   showToast("Đã đặt lại bộ lọc", "success");
 }
 
-function applyFilters() {
-  let filteredData = [...pumpLogData];
+function formatDateToDDMMYYYY(date) {
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
+}
 
-  if (selectedStartDate && selectedEndDate) {
-    filteredData = filteredData.filter((log) => {
-      const logDate = new Date(
-        log.time.split(" ")[0].split("/").reverse().join("-")
-      );
-      return logDate >= selectedStartDate && logDate <= selectedEndDate;
-    });
+function applyFilters() {
+  if (!selectedStartDate || !selectedEndDate) {
+    showToast("Vui lòng chọn khoảng thời gian", "warning");
+    return;
   }
 
-  renderFilteredTable(filteredData);
+  // Hiển thị loading
+  if (pumpLogTableBody) {
+    pumpLogTableBody.innerHTML = `
+      <tr>
+        <td colspan="12" style="text-align: center; padding: 40px; color: #6b7280;">
+          Đang tải dữ liệu...
+        </td>
+      </tr>
+    `;
+  }
 
-  hideFilterSection();
+  // Format ngày thành dd/mm/yyyy
+  const fromDate = formatDateToDDMMYYYY(selectedStartDate);
+  const toDate = formatDateToDDMMYYYY(selectedEndDate);
 
-  const filterCount = filteredData.length;
-  showToast(`Đã áp dụng bộ lọc. Tìm thấy ${filterCount} kết quả`, "success");
+  // Gọi API với query parameters
+  const apiUrl = `/api/log-history?from_date=${encodeURIComponent(
+    fromDate
+  )}&to_date=${encodeURIComponent(toDate)}`;
+
+  fetch(apiUrl)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Không thể tải dữ liệu lịch sử log bơm");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      // Xử lý dữ liệu từ API
+      let filteredData = [];
+      if (data && data.logs && Array.isArray(data.logs)) {
+        filteredData = data.logs.map((log) => ({
+          stt: log.stt,
+          pumpId: log.pump_id,
+          fuel: log.fuel,
+          liter: `${log.liter} Lít`,
+          price: formatNumber(log.price_vnd) + "₫",
+          money: formatNumber(log.money_vnd) + "₫",
+          time: log.time,
+          count: log.count.toString(),
+          status: log.status,
+          totalLiter: `${log.total_liter} Lít`,
+          totalAmount: formatNumber(log.total_amount_vnd) + "₫",
+          pumpSerial: log.pump_serial,
+        }));
+      }
+
+      renderFilteredTable(filteredData);
+      hideFilterSection();
+
+      const filterCount = filteredData.length;
+      showToast(
+        `Đã áp dụng bộ lọc. Tìm thấy ${filterCount} kết quả`,
+        "success"
+      );
+    })
+    .catch((error) => {
+      console.error("Lỗi khi tải dữ liệu lịch sử:", error);
+      showToast("Không thể tải dữ liệu lịch sử log bơm", "error");
+      // Hiển thị dữ liệu rỗng khi lỗi
+      renderFilteredTable([]);
+      hideFilterSection();
+    });
+}
+
+function refreshData() {
+  loadPumpLogData();
+  loadCurrentLogData();
 }
 
 function filterPumpLogs(filterType) {
@@ -626,4 +815,7 @@ window.PumpLogApp = {
   applyFilters,
   resetFilters,
   viewCurrentLogDetails,
+  refreshData,
+  loadPumpLogData,
+  loadCurrentLogData,
 };
