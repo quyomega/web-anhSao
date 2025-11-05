@@ -1,70 +1,20 @@
-const pumpDetailData = {
-  A: {
-    pumpId: "A",
-    status: "Running",
-    pumpType: "E5 RON 92-II",
-    money: "26.200",
-    liter: "1",
-    price: "26.500",
-    datalogVolume: "1023",
-    newestVolume: "901",
-    counterVolume: "900",
-    recordCount: "904 / 904",
-    timestamp: "13/10/25 - 11:37:20",
-  },
-  B: {
-    pumpId: "B",
-    status: "Stopped",
-    pumpType: "RON 95-III",
-    money: "210.000",
-    liter: "10",
-    price: "21.000",
-    datalogVolume: "2150",
-    newestVolume: "2100",
-    counterVolume: "2095",
-    recordCount: "2100 / 2100",
-    timestamp: "17/10/25 - 09:44:15",
-  },
-  C: {
-    pumpId: "C",
-    status: "Running",
-    pumpType: "RON 95-IV",
-    money: "322.500",
-    liter: "15",
-    price: "21.500",
-    datalogVolume: "3200",
-    newestVolume: "3150",
-    counterVolume: "3145",
-    recordCount: "3200 / 3200",
-    timestamp: "15/10/25 - 14:08:30",
-  },
-  D: {
-    pumpId: "D",
-    status: "Maintenance",
-    pumpType: "RON 92",
-    money: "400.000",
-    liter: "20",
-    price: "20.000",
-    datalogVolume: "4100",
-    newestVolume: "4000",
-    counterVolume: "3995",
-    recordCount: "4100 / 4100",
-    timestamp: "14/10/25 - 08:12:45",
-  },
-  E: {
-    pumpId: "E",
-    status: "Running",
-    pumpType: "Dầu hỏa",
-    money: "525.000",
-    liter: "35",
-    price: "15.000",
-    datalogVolume: "5300",
-    newestVolume: "5250",
-    counterVolume: "5245",
-    recordCount: "5300 / 5300",
-    timestamp: "13/10/25 - 07:38:20",
-  },
+// Dữ liệu mẫu cho API
+const mockPumpDetailData = {
+  pump_id: "A",
+  status: "Running",
+  pump_type: "E5 RON 92-II",
+  money_vnd: 26200,
+  liter: 1,
+  price_vnd: 26500,
+  datalog_volume: 1023,
+  newest_volume: 901,
+  counter_volume: 900,
+  current_record: 904,
+  total_records: 904,
+  timestamp: "13/10/25 - 11:37:20",
 };
+
+const mockPumpList = ["A", "B", "C", "D", "E"];
 
 let pumpDropdown;
 let pumpStatus;
@@ -84,13 +34,18 @@ let stepValue;
 
 let currentPumpId = "A";
 let currentStep = 1;
+let currentRecordIndex = null;
+let totalRecords = 0;
 
 document.addEventListener("DOMContentLoaded", function () {
   initializeElements();
   setupEventListeners();
 
+  // Load danh sách pump IDs từ API
+  loadPumpList();
+
   const selectedPumpId = sessionStorage.getItem("selectedPumpId");
-  if (selectedPumpId && pumpDetailData[selectedPumpId]) {
+  if (selectedPumpId) {
     currentPumpId = selectedPumpId;
     if (pumpDropdown) {
       pumpDropdown.value = selectedPumpId;
@@ -98,6 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
     sessionStorage.removeItem("selectedPumpId");
   }
 
+  // Load dữ liệu pump detail
   loadPumpData(currentPumpId);
 });
 
@@ -130,13 +86,13 @@ function setupEventListeners() {
 
   if (prevBtn) {
     prevBtn.addEventListener("click", function () {
-      navigateRecords(-currentStep);
+      navigateRecords(-1);
     });
   }
 
   if (nextBtn) {
     nextBtn.addEventListener("click", function () {
-      navigateRecords(currentStep);
+      navigateRecords(1);
     });
   }
 
@@ -156,55 +112,157 @@ function setupEventListeners() {
   }
 }
 
-function loadPumpData(pumpId) {
-  const data = pumpDetailData[pumpId];
-  if (!data) {
-    showToast(`Không tìm thấy dữ liệu cho bơm ${pumpId}`, "error");
-    return;
-  }
+function formatNumber(num) {
+  return new Intl.NumberFormat("vi-VN").format(num);
+}
 
-  if (pumpStatus) {
-    pumpStatus.textContent = data.status;
-    pumpStatus.className = `status-badge ${data.status.toLowerCase()}`;
-  }
+function loadPumpList() {
+  fetch("/api/pump-list")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Không thể tải danh sách bơm");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      processPumpListData(data);
+    })
+    .catch((error) => {
+      console.error("Lỗi khi tải danh sách bơm:", error);
+      // Sử dụng dữ liệu mẫu
+      processPumpListData({ pump_ids: mockPumpList });
+    });
+}
 
-  if (pumpType) {
-    pumpType.textContent = data.pumpType;
-  }
+function processPumpListData(data) {
+  if (pumpDropdown && data && data.pump_ids && Array.isArray(data.pump_ids)) {
+    // Xóa các option cũ (trừ option đầu tiên nếu có)
+    pumpDropdown.innerHTML = "";
+    
+    // Thêm các pump IDs từ API
+    data.pump_ids.forEach((pumpId) => {
+      const option = document.createElement("option");
+      option.value = pumpId;
+      option.textContent = pumpId;
+      pumpDropdown.appendChild(option);
+    });
 
-  if (moneyValue) {
-    moneyValue.textContent = data.money;
-  }
-  if (literValue) {
-    literValue.textContent = data.liter;
-  }
-  if (priceValue) {
-    priceValue.textContent = data.price;
-  }
-
-  if (datalogVolume) {
-    datalogVolume.textContent = data.datalogVolume;
-  }
-  if (newestVolume) {
-    newestVolume.textContent = data.newestVolume;
-  }
-  if (counterVolume) {
-    counterVolume.textContent = data.counterVolume;
-  }
-
-  if (recordCount) {
-    recordCount.textContent = data.recordCount;
-  }
-  if (timestamp) {
-    timestamp.textContent = data.timestamp;
+    // Set giá trị hiện tại
+    if (currentPumpId && data.pump_ids.includes(currentPumpId)) {
+      pumpDropdown.value = currentPumpId;
+    }
   }
 }
 
-function navigateRecords(direction) {
-  const currentRecord = parseInt(recordCount.textContent.split(" / ")[0]);
-  const totalRecords = parseInt(recordCount.textContent.split(" / ")[1]);
+function loadPumpData(pumpId, recordIndex = null) {
+  // Hiển thị loading state
+  if (pumpStatus) pumpStatus.textContent = "Loading...";
+  if (pumpType) pumpType.textContent = "...";
+  if (moneyValue) moneyValue.textContent = "...";
+  if (literValue) literValue.textContent = "...";
+  if (priceValue) priceValue.textContent = "...";
 
-  let newRecord = currentRecord + direction;
+  // Tạo URL với query parameters
+  let apiUrl = `/api/pump-detail?pump_id=${encodeURIComponent(pumpId)}`;
+  if (recordIndex !== null) {
+    apiUrl += `&record_index=${encodeURIComponent(recordIndex)}`;
+  }
+
+  fetch(apiUrl)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Không thể tải chi tiết bơm");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      processPumpDetailData(data);
+    })
+    .catch((error) => {
+      console.error("Lỗi khi tải chi tiết bơm:", error);
+      console.log("Sử dụng dữ liệu mẫu để test...");
+      // Sử dụng dữ liệu mẫu khi API lỗi
+      processPumpDetailData(mockPumpDetailData);
+      showToast("Đang sử dụng dữ liệu mẫu (API chưa hoạt động)", "info");
+    });
+}
+
+function processPumpDetailData(data) {
+  if (!data) {
+    showToast("Không có dữ liệu", "error");
+    return;
+  }
+
+  // Cập nhật status
+  if (pumpStatus) {
+    const status = data.status || "Unknown";
+    pumpStatus.textContent = status;
+    pumpStatus.className = `status-badge ${status.toLowerCase()}`;
+  }
+
+  // Cập nhật pump type
+  if (pumpType) {
+    pumpType.textContent = data.pump_type || "N/A";
+  }
+
+  // Cập nhật money, liter, price
+  if (moneyValue) {
+    moneyValue.textContent = data.money_vnd 
+      ? formatNumber(data.money_vnd) 
+      : (data.money || "0");
+  }
+  if (literValue) {
+    literValue.textContent = data.liter || "0";
+  }
+  if (priceValue) {
+    priceValue.textContent = data.price_vnd 
+      ? formatNumber(data.price_vnd) 
+      : (data.price || "0");
+  }
+
+  // Cập nhật volume data
+  if (datalogVolume) {
+    datalogVolume.textContent = data.datalog_volume || "0";
+  }
+  if (newestVolume) {
+    newestVolume.textContent = data.newest_volume || "0";
+  }
+  if (counterVolume) {
+    counterVolume.textContent = data.counter_volume || "0";
+  }
+
+  // Cập nhật record count và timestamp
+  currentRecordIndex = data.current_record || data.currentRecord || 1;
+  totalRecords = data.total_records || data.totalRecords || 1;
+
+  if (recordCount) {
+    recordCount.textContent = `${currentRecordIndex} / ${totalRecords}`;
+  }
+  if (timestamp) {
+    timestamp.textContent = data.timestamp || formatCurrentTimestamp();
+  }
+}
+
+function formatCurrentTimestamp() {
+  const now = new Date();
+  const day = String(now.getDate()).padStart(2, "0");
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const year = String(now.getFullYear()).slice(-2);
+  const hours = String(now.getHours()).padStart(2, "0");
+  const minutes = String(now.getMinutes()).padStart(2, "0");
+  const seconds = String(now.getSeconds()).padStart(2, "0");
+  return `${day}/${month}/${year} - ${hours}:${minutes}:${seconds}`;
+}
+
+function navigateRecords(direction) {
+  if (currentRecordIndex === null || totalRecords === 0) {
+    showToast("Đang tải dữ liệu...", "warning");
+    return;
+  }
+
+  // Tính toán record mới dựa trên currentStep
+  const step = direction > 0 ? currentStep : -currentStep;
+  let newRecord = currentRecordIndex + step;
 
   if (newRecord < 1) {
     newRecord = 1;
@@ -212,53 +270,14 @@ function navigateRecords(direction) {
   } else if (newRecord > totalRecords) {
     newRecord = totalRecords;
     showToast("Đã đến bản ghi cuối cùng", "warning");
-  } else {
-    showToast(`Chuyển đến bản ghi ${newRecord}`, "info");
   }
 
-  if (recordCount) {
-    recordCount.textContent = `${newRecord} / ${totalRecords}`;
-  }
-
-  updateTimestamp();
-
-  updateVolumeData(newRecord);
+  // Gọi API để lấy dữ liệu record mới
+  loadPumpData(currentPumpId, newRecord);
 }
 
-function updateTimestamp() {
-  if (timestamp) {
-    const now = new Date();
-    const day = String(now.getDate()).padStart(2, "0");
-    const month = String(now.getMonth() + 1).padStart(2, "0");
-    const year = String(now.getFullYear()).slice(-2);
-    const hours = String(now.getHours()).padStart(2, "0");
-    const minutes = String(now.getMinutes()).padStart(2, "0");
-    const seconds = String(now.getSeconds()).padStart(2, "0");
-
-    timestamp.textContent = `${day}/${month}/${year} - ${hours}:${minutes}:${seconds}`;
-  }
-}
-
-function updateVolumeData(recordNumber) {
-  const data = pumpDetailData[currentPumpId];
-  if (!data) return;
-
-  const baseDatalog = parseInt(data.datalogVolume);
-  const baseNewest = parseInt(data.newestVolume);
-  const baseCounter = parseInt(data.counterVolume);
-
-  const variation = (recordNumber % 10) - 5;
-
-  if (datalogVolume) {
-    datalogVolume.textContent = baseDatalog + variation;
-  }
-  if (newestVolume) {
-    newestVolume.textContent = baseNewest + variation;
-  }
-  if (counterVolume) {
-    counterVolume.textContent = baseCounter + variation;
-  }
-}
+// Hàm updateTimestamp và updateVolumeData đã được tích hợp vào processPumpDetailData
+// Không cần thiết nữa vì dữ liệu đến từ API
 
 function showToast(message, type = "info") {
   const existingToast = document.querySelector(".toast");
