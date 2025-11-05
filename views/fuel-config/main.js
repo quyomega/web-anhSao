@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", function () {
   let editingConfigId = null;
   let overlay = null;
 
-  // Dữ liệu mẫu từ API để test và xem cách hiển thị
   const mockApiData = {
     id: 1,
     line_server_name: "abc",
@@ -28,7 +27,6 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   function processApiData(data) {
-    // Chuyển đổi dữ liệu từ API format sang format hiện tại
     if (data && data.pumps && Array.isArray(data.pumps)) {
       fuelConfigs = data.pumps.map((pump, index) => ({
         id: index + 1,
@@ -42,7 +40,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function loadFuelConfigs() {
-    // Hiển thị loading state
     fuelConfigList.innerHTML = `
       <div class="empty-state">
         <div class="empty-state-title">Đang tải dữ liệu...</div>
@@ -60,7 +57,6 @@ document.addEventListener("DOMContentLoaded", function () {
         processApiData(data);
       })
       .catch((error) => {
-        // Sử dụng dữ liệu mẫu khi API lỗi để bạn có thể xem cách hiển thị
         processApiData(mockApiData);
       });
   }
@@ -159,7 +155,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function addConfig(configData) {
-    // Chuẩn bị dữ liệu theo format API
     const apiData = {
       pump_id: configData.pumpId,
       fuel: configData.fuelType,
@@ -181,7 +176,6 @@ document.addEventListener("DOMContentLoaded", function () {
       .then((data) => {
         if (data.status === "success") {
           showToast("Thêm cấu hình thành công", "success");
-          // Reload lại dữ liệu từ API sau khi thêm thành công
           loadFuelConfigs();
           return data;
         } else {
@@ -196,7 +190,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function updateConfig(configData) {
-    // Chuẩn bị dữ liệu theo format API
     const apiData = {
       pump_id: configData.pumpId,
       fuel: configData.fuelType,
@@ -218,7 +211,6 @@ document.addEventListener("DOMContentLoaded", function () {
       .then((data) => {
         if (data.status === "success") {
           showToast("Cập nhật cấu hình thành công", "success");
-          // Reload lại dữ liệu từ API sau khi cập nhật thành công
           loadFuelConfigs();
           return data;
         } else {

@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", function () {
   let allPumpData = [];
   let filteredPumpData = [];
 
-  // Dữ liệu mẫu từ API để test và xem cách hiển thị
   const mockApiData = {
     items: [
       {
@@ -52,7 +51,6 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   function processApiData(data) {
-    // Chuyển đổi dữ liệu từ API format sang format hiện tại
     if (data && data.items && Array.isArray(data.items)) {
       allPumpData = data.items.map((item, index) => ({
         id: index + 1,
@@ -71,7 +69,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function loadPumpData() {
-    // Hiển thị loading state
     pumpList.innerHTML = `
       <div class="empty-state">
         <div class="empty-state-title">Đang tải dữ liệu...</div>
@@ -89,7 +86,6 @@ document.addEventListener("DOMContentLoaded", function () {
         processApiData(data);
       })
       .catch((error) => {
-        // Sử dụng dữ liệu mẫu khi API lỗi để bạn có thể xem cách hiển thị
         processApiData(mockApiData);
       });
   }

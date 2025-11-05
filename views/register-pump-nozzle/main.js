@@ -110,11 +110,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function updatePumpStatus(status) {
     const formData = getFormData();
-    // Lấy trạng thái hiện tại từ UI (statusElement) để đảm bảo đúng
     const currentStatusText = statusElement.textContent.trim().toLowerCase();
     const currentStatusFromUI =
       currentStatusText === "running" ? "running" : "stop";
-    // Ưu tiên status được truyền vào, nếu không có thì dùng trạng thái từ UI
     const statusToSend = status || currentStatusFromUI;
     const dataToSend = {
       ...formData,
@@ -255,7 +253,6 @@ document.addEventListener("DOMContentLoaded", function () {
         if (data.baud_rate) {
           document.getElementById("baudRate").value = data.baud_rate;
         }
-        // Cập nhật status từ API
         if (data.status) {
           if (data.status === "running") {
             isRunning = true;

@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", function () {
   let editingPriceId = null;
   let overlay = null;
 
-  // Dữ liệu mẫu từ API để test và xem cách hiển thị
   const mockApiData = {
     items: [
       { fuel: "Xăng RON 95", price: 21000 },
@@ -23,7 +22,6 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   function processApiData(data) {
-    // Chuyển đổi dữ liệu từ API format sang format hiện tại
     if (data && data.items && Array.isArray(data.items)) {
       fuelPrices = data.items.map((item, index) => ({
         id: index + 1,
@@ -37,7 +35,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function loadFuelPrices() {
-    // Hiển thị loading state
     fuelPriceList.innerHTML = `
       <div class="empty-state">
         <div class="empty-state-title">Đang tải dữ liệu...</div>
@@ -55,7 +52,6 @@ document.addEventListener("DOMContentLoaded", function () {
         processApiData(data);
       })
       .catch((error) => {
-        // Sử dụng dữ liệu mẫu khi API lỗi để bạn có thể xem cách hiển thị
         processApiData(mockApiData);
       });
   }
@@ -152,7 +148,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function addPrice(priceData) {
-    // Chuẩn bị dữ liệu theo format API
     const apiData = {
       fuel: priceData.fuelName,
       price_vnd: parseInt(priceData.fuelPrice),
@@ -174,7 +169,6 @@ document.addEventListener("DOMContentLoaded", function () {
       .then((data) => {
         if (data.status === "success") {
           showToast("Thêm cấu hình giá thành công", "success");
-          // Reload lại dữ liệu từ API sau khi thêm thành công
           loadFuelPrices();
           return data;
         } else {
@@ -189,7 +183,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function updatePrice(priceData) {
-    // Chuẩn bị dữ liệu theo format API
     const apiData = {
       fuel: priceData.fuelName,
       price_vnd: parseInt(priceData.fuelPrice),
@@ -211,7 +204,6 @@ document.addEventListener("DOMContentLoaded", function () {
       .then((data) => {
         if (data.status === "success") {
           showToast("Cập nhật cấu hình giá thành công", "success");
-          // Reload lại dữ liệu từ API sau khi cập nhật thành công
           loadFuelPrices();
           return data;
         } else {
